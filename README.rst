@@ -6,33 +6,22 @@
 Products.GEMI
 ==============================================================================
 
-Tell me what your product does
+Plone add-on for GEMI specific wishes.
 
 Features
 --------
 
-- Can be bullet points
-
-
-Examples
---------
-
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
-
-
-Documentation
--------------
-
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
-
+- Collections for Products.CMFBibliographyAT content types
+- Overwrite plone translations
+- etc..
 
 Translations
 ------------
 
 This product has been translated into
 
-- Klingon (thanks, K'Plai)
+- English
+- German
 
 
 Installation
@@ -47,6 +36,12 @@ Install Products.GEMI by adding it to your buildout::
     eggs =
         Products.GEMI
 
+    ....
+    
+    zcml =
+        Products.GEMI
+
+
 
 and then running ``bin/buildout``
 
@@ -54,16 +49,16 @@ and then running ``bin/buildout``
 Contribute
 ----------
 
-- Issue Tracker: https://github.com/collective/Products.GEMI/issues
-- Source Code: https://github.com/collective/Products.GEMI
-- Documentation: https://docs.plone.org/foo/bar
+- Issue Tracker: https://github.com/cyriltata/Products.GEMI/issues
+- Source Code: https://github.com/cyriltata/Products.GEMI
+- Documentation: https://github.com/cyriltata/Products.GEMI/README.rst
 
 
 Support
 -------
 
 If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
+We have a mailing list located at: ctata@gwdg.de
 
 
 License
