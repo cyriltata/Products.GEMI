@@ -1,0 +1,69 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="Products.GEMI">
+
+  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
+  <include package="z3c.jbot" file="meta.zcml" />
+  <browser:jbot
+      directory="overrides"
+      layer="Products.GEMI.interfaces.IProductsGemiLayer"
+      />
+
+  <!-- Publish static files -->
+  <browser:resourceDirectory
+      name="Products.GEMI"
+      directory="static"
+      />
+
+  <!-- Configure Views/Pages -->
+
+    <!-- folder todo view -->
+    <browser:page
+        for="Products.ATContentTypes.interface.IATFolder"
+        name="todo"
+        permission="zope2.View"
+        class=".folders.Todo"
+    />
+
+    <!-- collection filter settings -->
+    <browser:page
+        for="plone.app.collection.interfaces.ICollection"
+        name="filter_settings"
+        permission="zope2.View"
+        class=".collections.FilterSettings"
+    />
+
+    <!-- view for collection with filter -->
+    <browser:page
+        for="plone.app.collection.interfaces.ICollection"
+        name="filter_view"
+        permission="zope2.View"
+        class=".collections.FilterView"
+    />
+
+    <!-- Configure menu items -->
+
+    <include package="plone.app.contentmenu"/>
+
+    <!-- display menu item for todo view -->
+    <browser:menuItem
+        for="Products.ATContentTypes.interface.IATFolder"
+        menu="plone_displayviews"
+        title="TODO View"
+        action="@@todo"
+        description="A list of items in todo mode"
+    />
+
+    <!-- display menu item for collection filter view -->
+    <browser:menuItem
+        for="plone.app.collection.interfaces.ICollection"
+        menu="plone_displayviews"
+        title="Filter view"
+        action="@@filter_view"
+        description="A collection list view with filter"
+    />
+
+
+</configure>

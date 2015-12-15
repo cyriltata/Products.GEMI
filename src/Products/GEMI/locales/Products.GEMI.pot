@@ -1,0 +1,124 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: collective.duck 1.0\n"
+"POT-Creation-Date: 2015-12-14 15:28+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.ducks\n"
+
+#: GEMI/profiles/default/types/Collection.xml
+msgid "Collection View with Filter"
+msgstr ""
+
+#: GEMI/profiles/default/registry.xml
+msgid "Collection filter settings for plone objects"
+msgstr ""
+
+#: GEMI/interfaces.py:29
+msgid "Description"
+msgstr ""
+
+#: GEMI/profiles/default/types/Collection.xml
+msgid "Filter Settings"
+msgstr ""
+
+#: Profile title in configure.zcml
+msgid "GEMI plone add-on"
+msgstr ""
+
+#: GEMI/profiles/default/types/Gemifolder.xml
+msgid "Gemifolder"
+msgstr ""
+
+#: Profile description in configure.zcml
+msgid "Plone add-on for GEMI specific things!"
+msgstr ""
+
+#: GEMI/profiles/default/types/Folder.xml
+msgid "TODO View"
+msgstr ""
+
+#: GEMI/interfaces.py:24
+msgid "Title"
+msgstr ""
+
+#. Default: "Configure the settings of the filter to be shown when you select the \"Filter View\" from the Display"
+#: GEMI/browser/templates/collections_filter_settings.pt:15
+msgid "desc_collection_filter_settings"
+msgstr ""
+
+#. Default: "This view is not valid for this type of collection"
+#: GEMI/browser/templates/collections_filter_view.pt:13
+msgid "desc_not_valid_view"
+msgstr ""
+
+#. Default: "The settings to be done on this page does not apply to this type of collection"
+#: GEMI/browser/templates/collections_filter_settings.pt:17
+msgid "desc_not_valid_view_settings"
+msgstr ""
+
+#. Default: "Download PDF"
+#: GEMI/browser/templates/collections_filter_view.pt:76
+msgid "download_pdf"
+msgstr ""
+
+#. Default: "Collection Filter Settings"
+#: GEMI/browser/templates/collections_filter_settings.pt:14
+msgid "heading_collection_filter_settings"
+msgstr ""
+
+#. Default: "Item Title/ID"
+msgid "item_title_or_id"
+msgstr ""
+
+#. Default: "Show"
+#: GEMI/browser/templates/collections_filter_view.pt:51
+msgid "label_show"
+msgstr ""
+
+#. Default: "Last modified"
+#: GEMI/browser/templates/folders_todo.pt:24
+msgid "last_modified"
+msgstr ""
+
+#. Default: "all"
+#: GEMI/browser/templates/collections_filter_view.pt:39
+msgid "text_authors_all"
+msgstr ""
+
+#. Default: "by author:"
+#: GEMI/browser/templates/collections_filter_view.pt:37
+msgid "text_by_author"
+msgstr ""
+
+#. Default: "by year:"
+#: GEMI/browser/templates/collections_filter_view.pt:44
+msgid "text_by_year"
+msgstr ""
+
+#. Default: "Show"
+#: GEMI/browser/templates/collections_filter_view.pt:35
+msgid "text_show"
+msgstr ""
+
+#. Default: "all"
+#: GEMI/browser/templates/collections_filter_view.pt:46
+msgid "text_years_all"
+msgstr ""
+
+#. Default: "Title"
+#: GEMI/browser/templates/folders_todo.pt:23
+msgid "title"
+msgstr ""
+

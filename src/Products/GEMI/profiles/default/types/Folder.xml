@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="Folder"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="Products.GEMI"
+    >
+    <property name="view_methods" purge="False">
+        <!-- Add our @@todo view to the list -->
+        <element value="todo" i18n:translate="">TODO View</element>
+    </property>
+
+</object>

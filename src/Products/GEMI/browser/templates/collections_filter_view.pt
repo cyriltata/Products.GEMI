@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="Products.GEMI">
+
+<body>
+
+ 
+<div metal:fill-slot="content-core">
+
+   <div class="products-gemi-error"
+    tal:condition="python: not view.isValid"
+    i18n:translate="desc_not_valid_view">
+        This view is not valid for this type of collection
+  </div>
+
+  <div class="results-container"
+       tal:condition="python: view.isValid"
+       tal:define="
+            btool context/portal_bibliography;
+            bfvtool context/portal_bibliography_flexible_view;
+            b_start python:request.get('b_start', 0);
+            author request/author | python: ' ';
+            year request/year | python: ' ';
+            query python: view.getQuery();
+
+            batch python:context.results(b_start=b_start, custom_query=query);
+            results python: bfvtool.group_by_years(batch);
+        ">
+
+        <hr />
+        <form tal:condition="python: not context.REQUEST.has_key('noselection')" name="authorsel" id="authorsel" action="" method="get">
+            <span i18n:translate="text_show">Show</span>
+
+            <span i18n:translate="text_by_author">by author:</span>  
+            <select name="author">
+                <option i18n:translate="text_authors_all" value="">all</option>
+                <metal:block tal:repeat="a python:btool.getAllBibAuthors()">
+                   <option tal:attributes="value a; selected python: a==author" tal:content="a">Cyril Tata</option>
+                </metal:block>
+            </select>
+            <span i18n:translate="text_by_year">by year:</span>
+            <select name="year">
+                <option i18n:translate="text_years_all" value="">all</option>
+                <metal:block tal:repeat="y python:btool.getAllBibYears()">
+                   <option tal:attributes="value y; selected python: y==year" tal:content="y">2015</option>
+                </metal:block>
+            </select>
+            <input type="submit" value="Show" i18n:attributes="value label_show" class="context" />
+        </form>
+        <hr />
+
+        <div class="bibfolder-results" tal:condition="results"
+            tal:define="
+                rkeys python: results.keys();
+                dummy python:rkeys.sort();
+                dummy python:rkeys.reverse()
+            ">
+            <metal:block tal:repeat="year rkeys">
+                <h3><a tal:attributes="id year; name year" tal:content="year">1905</a></h3>          
+                 <dl>
+                    <metal:block tal:define="
+                        dummy python: results[year].sort(lambda x, y : cmp (x.Title, y.Title))" 
+                        tal:repeat="ref python: results[year]">
+                        <dt>
+                            <a href="" tal:attributes="href ref/getURL" tal:content="ref/Title"/>
+                        </dt>
+                        <dd>
+                            <i tal:content="ref/getAuthors" /><br />
+                            <span tal:content="ref/Source" /><br />
+                            <span tal:define="pdf_url python: view.getPdfUrl(ref)" 
+                                  tal:condition="pdf_url" 
+                             >
+                                <a href="" tal:attributes="href pdf_url" class="pdf-dl"><img tal:attributes="src python: '/++resource++Products.GEMI/pdf.png'"/> <span i18n:translate="download_pdf">Download PDF</span></a>
+                            </span>
+                        </dd>
+                    </metal:block> 
+                 </dl>
+            </metal:block>
+        </div>
+
+    <div metal:use-macro="context/batch_macros/macros/navigation" />
+
+  </div>
+</div>
+</body>
+
+
+</html>
+

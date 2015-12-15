@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<object name="Collection"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="Products.GEMI">
+
+    <action title="Filter Settings" action_id="filter_settings" category="object" condition_expr=""
+         url_expr="string:${object_url}/@@filter_settings" visible="True" i18n:attributes="title">
+        <permission value="Modify portal content" />
+    </action>
+  
+    <property name="view_methods" purge="False">
+        <element value="filter_view" i18n:translate="">Collection View with Filter</element>
+    </property>
+
+</object>
