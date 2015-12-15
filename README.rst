@@ -57,8 +57,7 @@ Contribute
 Support
 -------
 
-If you are having issues, please let us know.
-We have a mailing list located at: ctata@gwdg.de
+If you are having issues, please let us know at: ctata@gwdg.de
 
 
 License
