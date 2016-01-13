@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-12-14 15:28+0000\n"
+"POT-Creation-Date: 2016-01-13 11:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
+"Domain: Products.GEMI\n"
 
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Collection View with Filter"
@@ -26,6 +26,12 @@ msgstr "Collection filter settings for plone objects"
 msgid "Description"
 msgstr "Description"
 
+msgid "Disclaimer"
+msgstr "Disclaimer"
+
+msgid "Faculty of Biology"
+msgstr "Faculty of Biology"
+
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Filter Settings"
 msgstr "Filter Settings"
@@ -38,9 +44,19 @@ msgstr "GEMI plone add-on"
 msgid "Gemifolder"
 msgstr "Gemifolder"
 
+msgid "Imprint"
+msgstr "Imprint"
+
+msgid "Institute of Psychology"
+msgstr "Institute of Psychology"
+
 #: Profile description in configure.zcml
 msgid "Plone add-on for GEMI specific things!"
 msgstr "Plone add-on for GEMI specific things!"
+
+#: GEMI/browser/collections.py:46
+msgid "Settings saved"
+msgstr "Settings saved"
 
 #: GEMI/profiles/default/types/Folder.xml
 msgid "TODO View"
@@ -49,6 +65,9 @@ msgstr "TODO View"
 #: GEMI/interfaces.py:24
 msgid "Title"
 msgstr "Title"
+
+msgid "WWW-Team"
+msgstr "WWW-Team"
 
 #. Default: "Configure the settings of the filter to be shown when you select the \"Filter View\" from the Display"
 #: GEMI/browser/templates/collections_filter_settings.pt:15
@@ -87,12 +106,27 @@ msgstr ""
 #. Default: "Last modified"
 #: GEMI/browser/templates/folders_todo.pt:24
 msgid "last_modified"
-msgstr ""
+msgstr "Last modified"
+
+#. Default: "Settings saved"
+#: GEMI/browser/templates/collections_filter_settings.pt:21
+msgid "settings_saved"
+msgstr "Settings saved"
+
+#. Default: "Show filter"
+#: GEMI/browser/templates/collections_filter_settings.pt:35
+msgid "show_filter"
+msgstr "Show filter"
+
+#. Default: "Should filter be shown above collection?"
+#: GEMI/browser/templates/collections_filter_settings.pt:36
+msgid "show_filter_help"
+msgstr "Should filter be shown above collection?"
 
 #. Default: "all"
 #: GEMI/browser/templates/collections_filter_view.pt:39
 msgid "text_authors_all"
-msgstr ""
+msgstr "all"
 
 #. Default: "by author:"
 #: GEMI/browser/templates/collections_filter_view.pt:37

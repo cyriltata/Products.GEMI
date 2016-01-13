@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.duck 1.0\n"
-"POT-Creation-Date: 2015-12-14 15:28+0000\n"
+"POT-Creation-Date: 2016-01-13 11:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: collective.ducks\n"
+"Domain: Products.GEMI\n"
 
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Collection View with Filter"
@@ -27,6 +27,12 @@ msgstr ""
 
 #: GEMI/interfaces.py:29
 msgid "Description"
+msgstr ""
+
+msgid "Disclaimer"
+msgstr ""
+
+msgid "Faculty of Biology"
 msgstr ""
 
 #: GEMI/profiles/default/types/Collection.xml
@@ -41,8 +47,18 @@ msgstr ""
 msgid "Gemifolder"
 msgstr ""
 
+msgid "Imprint"
+msgstr ""
+
+msgid "Institute of Psychology"
+msgstr ""
+
 #: Profile description in configure.zcml
 msgid "Plone add-on for GEMI specific things!"
+msgstr ""
+
+#: GEMI/browser/collections.py:46
+msgid "Settings saved"
 msgstr ""
 
 #: GEMI/profiles/default/types/Folder.xml
@@ -51,6 +67,9 @@ msgstr ""
 
 #: GEMI/interfaces.py:24
 msgid "Title"
+msgstr ""
+
+msgid "WWW-Team"
 msgstr ""
 
 #. Default: "Configure the settings of the filter to be shown when you select the \"Filter View\" from the Display"
@@ -90,6 +109,21 @@ msgstr ""
 #. Default: "Last modified"
 #: GEMI/browser/templates/folders_todo.pt:24
 msgid "last_modified"
+msgstr ""
+
+#. Default: "Settings saved"
+#: GEMI/browser/templates/collections_filter_settings.pt:21
+msgid "settings_saved"
+msgstr ""
+
+#. Default: "Show filter"
+#: GEMI/browser/templates/collections_filter_settings.pt:35
+msgid "show_filter"
+msgstr ""
+
+#. Default: "Should filter be shown above collection?"
+#: GEMI/browser/templates/collections_filter_settings.pt:36
+msgid "show_filter_help"
 msgstr ""
 
 #. Default: "all"

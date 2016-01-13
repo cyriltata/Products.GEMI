@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-12-14 15:28+0000\n"
+"POT-Creation-Date: 2016-01-13 11:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,12 @@ msgstr "Einstellungen für Kollektionsfilter"
 msgid "Description"
 msgstr "Beschreibung"
 
+msgid "Disclaimer"
+msgstr "Haftungshinweise"
+
+msgid "Faculty of Biology"
+msgstr "Biologische Fakultät"
+
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Filter Settings"
 msgstr "Filter-Einstellungen"
@@ -38,9 +44,19 @@ msgstr "Plone-Erweiterung des GEMI"
 msgid "Gemifolder"
 msgstr "Profil-Order für GEMI-Anpassungen"
 
+msgid "Imprint"
+msgstr "Impressum"
+
+msgid "Institute of Psychology"
+msgstr "Institut für Psychologie"
+
 #: Profile description in configure.zcml
 msgid "Plone add-on for GEMI specific things!"
 msgstr "Plone-Erweiterung für GEMI-Anpassungen"
+
+#: GEMI/browser/collections.py:46
+msgid "Settings saved"
+msgstr ""
 
 #: GEMI/profiles/default/types/Folder.xml
 msgid "TODO View"
@@ -49,6 +65,9 @@ msgstr "TODO-Ansicht"
 #: GEMI/interfaces.py:24
 msgid "Title"
 msgstr "Titel"
+
+msgid "WWW-Team"
+msgstr "WWW-Team"
 
 #. Default: "Configure the settings of the filter to be shown when you select the \"Filter View\" from the Display"
 #: GEMI/browser/templates/collections_filter_settings.pt:15
@@ -89,6 +108,21 @@ msgstr "anzeigen"
 msgid "last_modified"
 msgstr "zuletzt geändert"
 
+#. Default: "Settings saved"
+#: GEMI/browser/templates/collections_filter_settings.pt:21
+msgid "settings_saved"
+msgstr ""
+
+#. Default: "Show filter"
+#: GEMI/browser/templates/collections_filter_settings.pt:35
+msgid "show_filter"
+msgstr ""
+
+#. Default: "Should filter be shown above collection?"
+#: GEMI/browser/templates/collections_filter_settings.pt:36
+msgid "show_filter_help"
+msgstr ""
+
 #. Default: "all"
 #: GEMI/browser/templates/collections_filter_view.pt:39
 msgid "text_authors_all"
@@ -118,3 +152,4 @@ msgstr "alle"
 #: GEMI/browser/templates/folders_todo.pt:23
 msgid "title"
 msgstr "Titel"
+

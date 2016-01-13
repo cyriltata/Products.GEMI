@@ -9,6 +9,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.GEMI.interfaces import ICollectiveGemiCollection
 from Products.GEMI.interfaces import ICollectiveGemiSettings
 from Products.GEMI import config
+from Products.GEMI import _
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.interface import implements
@@ -22,6 +23,19 @@ class FilterSettings(BrowserView):
     registry_key = "Products.GEMI.settings.collection_filter"
     isValid = False
 
+    _settings = (
+        {'id':'pg_show_collection_filter',
+         'type':'boolean',
+         'mode':'w'
+        },
+    );
+
+    _default_settings = {
+        'pg_show_collection_filter': True,
+    }
+
+    _current_settings = {}
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -29,8 +43,11 @@ class FilterSettings(BrowserView):
     def __call__(self):
         if (self.request["REQUEST_METHOD"] == "POST"):
             self.saveSettings();
+            self.context.plone_utils.addPortalMessage(_(u'Settings saved'), 'info')
+            self.request.response.redirect(self.context.absolute_url()+'/@@filter_settings?ok=1')
 
         self.isValid = isApplicableCollectionView(self, config.ALLOWED_TYPES_COLLECTION_FILTER_VIEW);
+        self.initSettings();
         self.populateSettings();
         return self.template();
 
@@ -40,23 +57,34 @@ class FilterSettings(BrowserView):
 
         items = dict(self.request.form.items());
 
-        registry = getUtility(IRegistry);
-        if (registry[self.registry_key] is None):
-            registry[self.registry_key] = {};
-
-        registry[self.registry_key][self.context.id] = {
-            "show": int(items.get('form.show', 0)) == 1,
-            "hide": int(items.get('form.show', 0)) == 0
-        };
-        print items;
+        settings = {
+            "pg_show_collection_filter": int(items.get('pg_show_collection_filter', 0)) == 1,
+        }
+        prop_src = self.context;
+        for p in prop_src.propertyMap():
+            if p['id'] != 'title' and not p['id'] in settings:
+                settings[p['id']] = prop_src.getProperty(p['id'])
+        self.context.manage_changeProperties(settings);
 
     def populateSettings(self):
-        registry = getUtility(IRegistry);
+        for p in self._settings:
+            self._current_settings[p['id']] = self.context.getProperty(p['id']);
+
+    def initSettings(self, force = False):
+        coll = self.context;
+        if (coll.hasProperty('pg_show_collection_filter') and not force):
+            #print "Collection already has settings initialized";
+            return;
+
+        for p in self._settings:
+            coll.manage_addProperty(type=p['type'], id=p['id'], value=self._default_settings[p['id']])
+
+    def getSetting(self, key):
         try:
-            if (registry[self.registry_key] is not None):
-                print registry[self.registry_key][self.context.id];
+            return self._current_settings[key];
         except KeyError:
             pass;
+        
 
 
 class FilterView(BrowserView):

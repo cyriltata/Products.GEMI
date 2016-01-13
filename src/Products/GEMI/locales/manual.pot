@@ -15,7 +15,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: collective.ducks\n"
+"Domain: Products.GEMI\n"
 
 #: Profile title in configure.zcml
 msgid "GEMI plone add-on"
@@ -27,3 +27,18 @@ msgstr ""
 
 msgid "item_title_or_id"
 msgstr "Item Title/ID"
+
+msgid "Faculty of Biology"
+msgstr ""
+
+msgid "Institute of Psychology"
+msgstr ""
+
+msgid "WWW-Team"
+msgstr ""
+
+msgid "Disclaimer"
+msgstr ""
+
+msgid "Imprint"
+msgstr ""
