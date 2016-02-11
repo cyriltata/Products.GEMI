@@ -68,7 +68,7 @@
                 </tal:byline>
             </dt>
             <dd tal:condition="item/Description">
-                <span tal:attributes="class string:'description'" tal:content="item/Description" />
+                <span tal:attributes="class string:description" tal:content="item/Description" />
             </dd>
         </tal:block>
 

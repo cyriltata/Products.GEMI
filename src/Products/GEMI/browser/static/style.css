@@ -11,3 +11,11 @@
 #collection_filter_settings label {
     font-size: 14px;
 }
+
+.template-todo #content-core dd span.description {
+    font-weight: normal;
+    font-size: 12px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    font-style: italic;
+}
