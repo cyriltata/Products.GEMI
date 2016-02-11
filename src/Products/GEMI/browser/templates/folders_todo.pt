@@ -6,52 +6,75 @@
       i18n:domain="Products.GEMI">
 <body>
 
-  <metal:content-core fill-slot="content-core">
+    <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
 
-      <p tal:condition="not: context/@@folderListing">
-        No Todo Items added yet, add some!
-      </p>
+    <p tal:condition="not: context/@@folderListing" i18n:translate="no_items_in_folder">
+        No items in this folder
+    </p>
 
-      <table class="listing" summary="Todo list" id="todo-summary"
-          tal:condition="context/@@folderListing"
-          tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
+    <dl tal:define="batch view/contents" tal:condition="batch">
+        <tal:block tal:repeat="item batch">
 
-        <thead>
-          <tr>
-            <th class="nosort">Status</th>
-            <th i18n:translate="title">Title</th>
-            <th i18n:translate="last_modified">Last modified</th>
-          </tr>
-        </thead>
+            <dt tal:define="
+                item_url item/getURL;
+                item_id item/getId;
+                item_title item/Title;
+                item_type item/portal_type;
+                item_modified item/ModificationDate;
+                item_created item/CreationDate;
+                item_type_class python:'contenttype-' + view.normalizeString(item_type);
+                item_wf_state item/review_state;
+                item_wf_state_class python:'state-' + view.normalizeString(item_wf_state);
+                item_creator item/Creator;
+                item_has_image python:item.getIcon">
 
-        <tbody>
-          <tr tal:repeat="item context/@@folderListing"
-              tal:attributes="id  item/id">
-            <td tal:attributes="class  string:todo-visual-status ${item/review_state}">
-              <a href="#"
-                 tal:attributes="href string:${item/getURL}/content_status_modify?workflow_action=complete"
-                 tal:condition="python: item.review_state() == 'private'">
-                <img tal:attributes="src string:${context/@@plone_portal_state/portal_url }/++resource++Products.GEMI/private.png" />
-              </a>
-              <a href="#"
-                 tal:attributes="href string:${item/getURL}/content_status_modify?workflow_action=reopen"
-                 tal:condition="python: item.review_state() == 'published'">
-                <img tal:attributes="src string:${context/@@plone_portal_state/portal_url}/++resource++Products.GEMI/completed.png" />
-              </a>
-            </td>
-            <td class="todo-title">
-              <a tal:attributes="href item/getURL" tal:content="item/Title">
-                Get milk!
-              </a>
-            </td>
-            <td class="todo-modified"
-               tal:content="python: toLocalizedTime(item.ModificationDate(), 
-                            long_format=1)">2012/08/17 13:37</td>
-          </tr>
-        </tbody>
+                <span class="summary">
+                    <a tal:content="item_title" tal:attributes="href item_url; class string:$item_type_class $item_wf_state_class" />
+                </span>
 
-      </table>
+                 <tal:byline condition="view/show_about">
+                    <span class="documentByLine">
+                        &mdash;
+                        <tal:name tal:condition="item_creator"
+                           tal:define="author python:view.pas_member.info(item_creator);
+                           creator_short_form author/username;
+                           creator_long_form string:?author=${author/username};
+                           creator_is_openid python:'/' in creator_short_form;
+                           creator_id python:(creator_short_form, creator_long_form)[creator_is_openid];">
+                           <span i18n:translate="label_by_author">
+                           by
+                           <a tal:attributes="href string:${view/navigation_root_url}/author/${item_creator}"
+                              tal:content="author/name_or_id"
+                              tal:omit-tag="not:author"
+                              i18n:name="author">
+                           Bob Dobalina
+                           </a>
+                           </span>
+                        </tal:name>
+                        <tal:modified condition="python: item_type != 'Event'">
+                           &mdash;
+                           <tal:mod i18n:translate="box_last_modified">last modified</tal:mod>
+                           <span tal:replace="python:view.toLocalizedTime(item_modified,long_format=1)">
+                           August 16, 2001 at 23:35:59
+                           </span>
+                        </tal:modified>
+                        <metal:description define-slot="description_slot">
+                           <tal:comment replace="nothing">
+                              Place custom listing info for custom types here
+                           </tal:comment>
+                        </metal:description>
+                    </span>
+                </tal:byline>
+            </dt>
+            <dd tal:condition="item/Description">
+                <span tal:attributes="class string:'description'" tal:content="item/Description" />
+            </dd>
+        </tal:block>
+
+        <!-- Navigation -->
+        <div metal:use-macro="here/batch_macros/macros/navigation" />
+    </dl>
 
       </metal:content-core>
     </metal:content-core>

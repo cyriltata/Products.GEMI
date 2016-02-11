@@ -24,7 +24,7 @@
         for="Products.ATContentTypes.interface.IATFolder"
         name="todo"
         permission="zope2.View"
-        class=".folders.Todo"
+        class=".folders.TodoView"
     />
 
     <!-- collection filter settings -->
