@@ -13,6 +13,7 @@ Features
 
 - Collections for Products.CMFBibliographyAT content types
 - Overwrite plone translations
+- Folder view with items excluded from navigation not shown
 - etc..
 
 Translations
