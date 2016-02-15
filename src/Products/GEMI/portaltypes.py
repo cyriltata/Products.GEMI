@@ -22,7 +22,8 @@ def types():
     site = getSite()
     context = aq_inner(site)
     site_properties = getToolByName(context, "portal_properties").site_properties
-    not_searched = site_properties.getProperty('types_not_searched', [])
+    #not_searched = site_properties.getProperty('types_not_searched', [])
+    not_searched = []
 
     portal_types = getToolByName(context, "portal_types")
     types = portal_types.listContentTypes()
