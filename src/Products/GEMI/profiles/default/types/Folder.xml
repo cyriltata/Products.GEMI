@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
 <object name="Folder"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="Products.GEMI"
-    >
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="Products.GEMI"
+>
     <property name="view_methods" purge="False">
-        <!-- Add our @@todo view to the list -->
-        <element value="todo" i18n:translate="">TODO View</element>
+        <element value="navigation-like" i18n:translate="">Navigation-like View</element>
+        <element value="listbycontenttype" i18n:translate="">Content Type View</element>
     </property>
+    
+    <action title="Content-Type View Settings" action_id="listbycontenttype-settings" category="object" condition_expr=""
+            url_expr="string:${object_url}/listbycontenttype-settings" visible="True" i18n:attributes="title">
+        <permission value="Modify portal content" />
+    </action>
 
 </object>

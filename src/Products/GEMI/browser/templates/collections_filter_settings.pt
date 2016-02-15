@@ -11,16 +11,19 @@
             global props python:container.portal_properties;
         ">
 
-    <h1 i18n:translate="heading_collection_filter_settings" class="documentFirstHeading"> Collection Filter Settings </h1>  
+    <h1 i18n:translate="heading_collection_filter_settings" class="documentFirstHeading"> Collection Filter Settings </h1>
     <p i18n:translate="desc_collection_filter_settings" class="documentDescription">Configure the settings of the filter to be shown when you select the "Filter View" from the Display</p>
 
-    <div class="products-gemi-error" tal:condition="python: not view.isValid" i18n:translate="desc_not_valid_view_settings">
-        The settings to be done on this page does not apply to this type of collection
-    </div>
+    <dl tal:condition="python: not view.isValid" class="portalMessage error">
+        <dt i18n:translate="error" >Error</dt>
+        <dd i18n:translate="desc_not_valid_view"> This view is not valid for this type of collection</dd>
+    </dl> 
 
-    <div class="alert alert-success" tal:condition="python: context.REQUEST.has_key('ok')" i18n:translate="settings_saved">
-        Settings saved
-    </div>
+    <dl tal:condition="view/statusMessage"
+        tal:attributes="class view/statusMessage/klass">
+        <dt tal:condition="view/statusMessage/title" tal:content="view/statusMessage/title" />
+        <dd tal:condition="view/statusMessage/message" tal:content="view/statusMessage/message" />
+    </dl>
 
     <form action=""
           name="collection_filter_settings"
@@ -32,15 +35,15 @@
         <fieldset>
 
             <div class="checkbox">
-                <label><input name="pg_show_collection_filter" type="checkbox" value="1" tal:attributes="checked python: view.getSetting('pg_show_collection_filter')"> <span i18n:translate="show_filter">Show filter</span></label>
-                <span i18n:translate="show_filter_help" class="help-block">Should filter be shown above collection?</span>
+                <label><input name="show_collection_filter" type="checkbox" value="1" tal:attributes="checked python: view.getSetting('show_collection_filter')"> <span i18n:translate="show_filter">Show filter</span></label>
+                <span i18n:translate="show_filter_help" class="help-block">Show filter in 'Filter view' of collection</span>
             </div>
         </fieldset>
         
         <hr />
         <div class="formControls">
                 <input class="context" type="submit" name="form.submit.button" value="Save" i18n:attributes="value label_save"  i18n:domain="plone" />
-                <input class="standalone" type="submit" name="form.submit.button" value="Cancel" i18n:attributes="value label_cancel" i18n:domain="plone"/>
+                <input class="standalone" type="submit" name="form.cancel.button" value="Cancel" i18n:attributes="value label_cancel" i18n:domain="plone"/>
         </div>
         <input type="hidden" name="form.submitted" value="1" />
 

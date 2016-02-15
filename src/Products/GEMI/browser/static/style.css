@@ -19,3 +19,9 @@
     padding-bottom: 10px;
     font-style: italic;
 }
+
+.folder-contenttype-view-settings td label,
+.kssattr-formname-listbycontenttype-settings span.option,
+.kssattr-formname-gemi-settings span.option {
+    display: block !important;
+}

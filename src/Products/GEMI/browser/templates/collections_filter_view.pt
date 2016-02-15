@@ -10,11 +10,10 @@
  
 <div metal:fill-slot="content-core">
 
-   <div class="products-gemi-error"
-    tal:condition="python: not view.isValid"
-    i18n:translate="desc_not_valid_view">
-        This view is not valid for this type of collection
-  </div>
+  <dl tal:condition="python: not view.isValid" class="portalMessage error">
+        <dt i18n:translate="error" >Error</dt>
+        <dd i18n:translate="desc_not_valid_view"> This view is not valid for this type of collection</dd>
+  </dl>
 
   <div class="results-container"
        tal:condition="python: view.isValid"
@@ -30,8 +29,8 @@
             results python: bfvtool.group_by_years(batch);
         ">
 
-        <hr />
-        <form tal:condition="python: not context.REQUEST.has_key('noselection')" name="authorsel" id="authorsel" action="" method="get">
+
+        <form tal:condition="python: not context.REQUEST.has_key('noselection') and view.showFilter" name="authorsel" id="authorsel" action="" method="get">
             <span i18n:translate="text_show">Show</span>
 
             <span i18n:translate="text_by_author">by author:</span>  
@@ -49,8 +48,9 @@
                 </metal:block>
             </select>
             <input type="submit" value="Show" i18n:attributes="value label_show" class="context" />
+            <hr />
         </form>
-        <hr />
+       
 
         <div class="bibfolder-results" tal:condition="results"
             tal:define="

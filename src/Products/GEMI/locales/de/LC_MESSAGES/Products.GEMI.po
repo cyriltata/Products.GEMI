@@ -50,6 +50,10 @@ msgstr "Impressum"
 msgid "Institute of Psychology"
 msgstr "Institut für Psychologie"
 
+#: GEMI/profiles/default/types/Folder.xml
+msgid "Navigation-like View"
+msgstr "wie Navigation"
+
 #: Profile description in configure.zcml
 msgid "Plone add-on for GEMI specific things!"
 msgstr "Plone-Erweiterung für GEMI-Anpassungen"
@@ -57,10 +61,6 @@ msgstr "Plone-Erweiterung für GEMI-Anpassungen"
 #: GEMI/browser/collections.py:46
 msgid "Settings saved"
 msgstr ""
-
-#: GEMI/profiles/default/types/Folder.xml
-msgid "TODO View"
-msgstr "TODO-Ansicht"
 
 #: GEMI/interfaces.py:24
 msgid "Title"

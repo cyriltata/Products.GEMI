@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="Products.GEMI">
+<body>
+
+    <metal:main fill-slot="main">
+    <div class="folder-contenttype-view-settings">
+
+    <h1 tal:content="view/label" />
+
+    <p class="discreet" tal:condition="view/description" tal:content="view/description"></p>
+
+    <dl tal:condition="view/statusMessage"
+        tal:attributes="class view/statusMessage/klass">
+        <dt tal:condition="view/statusMessage/title" tal:content="view/statusMessage/title" />
+        <dd tal:condition="view/statusMessage/message" tal:content="view/statusMessage/message" />
+    </dl>
+
+    <form action=""
+          name="contenttype-view-settings"
+          method="post"
+          tal:attributes="action string:${here/absolute_url}/listbycontenttype-settings">
+
+        <div class="form-field">
+            <label>
+                <input name="form.show_nav_exluded_items"
+                       tal:attributes="
+                        value string:on;
+                        type string:checkbox;
+                        checked python: view.getSetting('show_nav_exluded_items')" />
+                <span i18n:translate="">Show items exluded from navigation</span>
+            </label>
+            <p translate="help_show_nav_exluded_items">If selected, contents normally excluded from navigation will not be listed in this view</p>
+        </div>
+
+        <div class="form-field">
+            <label i18n:translate="">Content types shown</label>
+            <p i18n:translate="">Select content types that you will want to be shown when view is selected</p>
+            <table class="plain">
+                <tr>
+                    <td tal:repeat="types view/groupedTypes">
+                        <label tal:repeat="type types">
+                            <input name="form.allowed_content_types"
+                                    tal:attributes="
+                                        value type/id;
+                                        type string:checkbox;
+                                        checked python: view.typeSelected(type['id'])" />
+                             <span i18n:translate="" tal:content="type/title" />
+                        </label>
+                        <br />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <hr />
+        <div class="formControls">
+                <input type="submit" name="form.submit.button" value="Save" i18n:attributes="value label_save" i18n:domain="plone" />
+                <input type="submit" name="form.cancel.button" value="Cancel" i18n:attributes="value label_cancel" i18n:domain="plone"/>
+        </div>
+        <input type="hidden" name="form.submitted" value="1" />
+
+    </form>
+    </div>
+    </metal:main>
+
+
+</body>
+</html>
+

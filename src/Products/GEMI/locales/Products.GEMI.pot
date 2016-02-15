@@ -62,7 +62,7 @@ msgid "Settings saved"
 msgstr ""
 
 #: GEMI/profiles/default/types/Folder.xml
-msgid "TODO View"
+msgid "Navigation-like View"
 msgstr ""
 
 #: GEMI/interfaces.py:24

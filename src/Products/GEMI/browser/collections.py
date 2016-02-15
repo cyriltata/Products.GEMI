@@ -6,35 +6,32 @@ from AccessControl import ClassSecurityInfo
 from Products.CMFCore.permissions import View
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.GEMI.interfaces import ICollectiveGemiCollection
-from Products.GEMI.interfaces import ICollectiveGemiSettings
-from Products.GEMI import config
-from Products.GEMI import _
+
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
-from zope.interface import implements
 
-class FilterSettings(BrowserView):
+from Products.GEMI.interfaces import IProductsGEMISettings
+from Products.GEMI.interfaces import IStatusMessage
+from Products.GEMI import config
+from Products.GEMI import _
+
+class FilterViewSettings(BrowserView):
     """A BrowserView to display the Todo listing on a Folder."""
-    
-    implements(ICollectiveGemiSettings, ICollectiveGemiCollection)
 
     template = ViewPageTemplateFile("templates/collections_filter_settings.pt")
-    registry_key = "Products.GEMI.settings.collection_filter"
     isValid = False
-
-    _settings = (
-        {'id':'pg_show_collection_filter',
-         'type':'boolean',
-         'mode':'w'
+    
+    settingsFields = [
+        {
+            'id': 'show_collection_filter',
+            'type': 'boolean',
+            'value': True
         },
-    );
+    ]
 
-    _default_settings = {
-        'pg_show_collection_filter': True,
-    }
+    settingsValues = {}
 
-    _current_settings = {}
+    statusMessage = None
 
     def __init__(self, context, request):
         self.context = context
@@ -42,54 +39,70 @@ class FilterSettings(BrowserView):
 
     def __call__(self):
         if (self.request["REQUEST_METHOD"] == "POST"):
-            self.saveSettings();
-            self.context.plone_utils.addPortalMessage(_(u'Settings saved'), 'info')
-            self.request.response.redirect(self.context.absolute_url()+'/@@filter_settings?ok=1')
+            return self.saveSettings();
 
         self.isValid = isApplicableCollectionView(self, config.ALLOWED_TYPES_COLLECTION_FILTER_VIEW);
         self.initSettings();
-        self.populateSettings();
         return self.template();
 
     def saveSettings(self):
-        if (self.request.form['form.submit.button'] != 'Save'):
-            return;
-
+        object = self.context
         items = dict(self.request.form.items());
+        item_keys = items.keys();
+        data = {}
+        settings = {}
 
-        settings = {
-            "pg_show_collection_filter": int(items.get('pg_show_collection_filter', 0)) == 1,
-        }
-        prop_src = self.context;
-        for p in prop_src.propertyMap():
-            if p['id'] != 'title' and not p['id'] in settings:
-                settings[p['id']] = prop_src.getProperty(p['id'])
-        self.context.manage_changeProperties(settings);
-
-    def populateSettings(self):
-        for p in self._settings:
-            self._current_settings[p['id']] = self.context.getProperty(p['id']);
-
-    def initSettings(self, force = False):
-        coll = self.context;
-        if (coll.hasProperty('pg_show_collection_filter') and not force):
-            #print "Collection already has settings initialized";
+        if ('form.submitted' not in item_keys or 'form.cancel.button' in item_keys):
+            self._redirect();
             return;
+        
+        # Gather all submitted items in the 'data' dict
+        data['show_collection_filter'] = 'show_collection_filter' in item_keys
 
-        for p in self._settings:
-            coll.manage_addProperty(type=p['type'], id=p['id'], value=self._default_settings[p['id']])
+        # Get all property items of object and save them too or they get overwritten
+        for p in object.propertyMap():
+            settings[p['id']] = object.getProperty(p['id'])
+            
+        # Save various items
+        for f in self.settingsFields:
+            if (object.hasProperty(f['id'])):
+                settings[f['id']] = data[f['id']]
+            else:
+                object.manage_addProperty(type=f['type'], id=f['id'], value=data[f['id']])
+
+        object.manage_changeProperties(settings)
+
+        #self.context.plone_utils.addPortalMessage(_(u'Settings saved'), 'info')
+        self._redirect('/@@filter_settings?ok=1')
+
+    def initSettings(self):
+        object = self.context
+        for f in self.settingsFields:
+            if (not object.hasProperty(f['id'])):
+                continue
+            self.settingsValues[f['id']] = object.getProperty(f['id']);
+ 
+        try:
+            if self.request.form['ok']:
+                self.statusMessage = IStatusMessage(_(u'Your settings have been saved!'), _(u'Saved'), 'info')
+        except KeyError:
+            pass
 
     def getSetting(self, key):
         try:
-            return self._current_settings[key];
+            return self.settingsValues[key];
         except KeyError:
             pass;
+
+    def _redirect(self, view = None):
+        if (view is None):
+            view = ''
+        contextURL = "%s%s" % (self.context.absolute_url(), view)
+        self.request.response.redirect(contextURL)
         
 
 
 class FilterView(BrowserView):
-    
-    implements(ICollectiveGemiCollection)
 
     security = ClassSecurityInfo();
     template = ViewPageTemplateFile("templates/collections_filter_view.pt");
@@ -131,6 +144,17 @@ class FilterView(BrowserView):
             url = None
 
         return url;
+
+    @property
+    def showFilter(self):
+        # To get settings, first we check if settings are present in current context
+        # if not we get settings from the control panel
+        if self.context.hasProperty('show_collection_filter'):
+            return self.context.getProperty('show_collection_filter')
+        else:
+            registry = getUtility(IRegistry);
+            settings = registry.forInterface(IProductsGEMISettings)
+            return settings.show_collection_filter
 
 
 def isApplicableCollectionView(view, types):

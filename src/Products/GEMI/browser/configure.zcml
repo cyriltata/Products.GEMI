@@ -6,36 +6,56 @@
 
   <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
   <include package="z3c.jbot" file="meta.zcml" />
+
   <browser:jbot
       directory="overrides"
       layer="Products.GEMI.interfaces.IProductsGemiLayer"
       />
 
-  <!-- Publish static files -->
-  <browser:resourceDirectory
+    <include package="plone.app.registry" />
+
+    <!-- Control panel -->
+    <browser:page
+        name="gemi-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.ProductsGEMISettingsControlPanel"
+        permission="cmf.ManagePortal"
+        />
+
+    <!-- Publish static files -->
+    <browser:resourceDirectory
       name="Products.GEMI"
       directory="static"
       />
 
-  <!-- Configure Views/Pages -->
+    <!-- Configure Views/Pages -->
+    <!-- ==================== -->
 
-    <!-- folder todo view -->
+    <!-- folder navigation-like view -->
     <browser:page
         for="Products.ATContentTypes.interface.IATFolder"
-        name="todo"
+        name="navigation-like"
         permission="zope2.View"
-        class=".folders.TodoView"
+        class=".folders.NavigationLikeView"
     />
 
-    <!-- collection filter settings -->
+    <!--Content-type folder view -->
     <browser:page
-        for="plone.app.collection.interfaces.ICollection"
-        name="filter_settings"
+        for="Products.ATContentTypes.interface.IATFolder"
+        name="listbycontenttype"
         permission="zope2.View"
-        class=".collections.FilterSettings"
+        class=".folders.ContentTypeView"
     />
 
-    <!-- view for collection with filter -->
+    <!-- Content-type folder view settings -->
+    <browser:page
+        for="Products.ATContentTypes.interface.IATFolder"
+        name="listbycontenttype-settings"
+        class=".folders.ContentTypeSettingsView"
+        permission="cmf.ModifyPortalContent"
+    />
+
+    <!-- Filter collection view -->
     <browser:page
         for="plone.app.collection.interfaces.ICollection"
         name="filter_view"
@@ -43,17 +63,35 @@
         class=".collections.FilterView"
     />
 
+    <!-- Filter collection view settings -->
+    <browser:page
+        for="plone.app.collection.interfaces.ICollection"
+        name="filter_settings"
+        permission="cmf.ModifyPortalContent"
+        class=".collections.FilterViewSettings"
+    />
+
     <!-- Configure menu items -->
+    <!-- ==================== -->
 
     <include package="plone.app.contentmenu"/>
 
-    <!-- display menu item for todo view -->
+    <!-- display menu item for folder navigation-like view -->
     <browser:menuItem
         for="Products.ATContentTypes.interface.IATFolder"
         menu="plone_displayviews"
-        title="TODO View"
-        action="@@todo"
-        description="A list of items in todo mode"
+        title="Navigation-like View"
+        action="@@navigation-like"
+        description="A list of items like in a navigation"
+    />
+
+    <!-- display menu item for folder content-type view -->
+    <browser:menuItem
+        for="Products.ATContentTypes.interface.IATFolder"
+        menu="plone_displayviews"
+        title="Content Type View"
+        action="@@listbycontenttype"
+        description="A list of items showing only configured content types"
     />
 
     <!-- display menu item for collection filter view -->
