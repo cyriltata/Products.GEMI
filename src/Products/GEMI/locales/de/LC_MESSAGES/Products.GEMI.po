@@ -14,6 +14,9 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
+msgid "Collection Filter View Settings"
+msgstr "Collection Filter View Settings"
+
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Collection View with Filter"
 msgstr "Kollektion - gefilterte Ansicht"
@@ -22,6 +25,12 @@ msgstr "Kollektion - gefilterte Ansicht"
 msgid "Collection filter settings for plone objects"
 msgstr "Einstellungen für Kollektionsfilter"
 
+msgid "Content Type View"
+msgstr "Inhaltstypen-Ansicht"
+
+msgid "Content-Type View Settings"
+msgstr ""
+
 #: GEMI/interfaces.py:29
 msgid "Description"
 msgstr "Beschreibung"
@@ -29,12 +38,18 @@ msgstr "Beschreibung"
 msgid "Disclaimer"
 msgstr "Haftungshinweise"
 
+msgid "Enabled content types"
+msgstr "Enabled content types"
+
 msgid "Faculty of Biology"
 msgstr "Biologische Fakultät"
 
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Filter Settings"
 msgstr "Filter-Einstellungen"
+
+msgid "Folder Content-type View Settings"
+msgstr "Folder Content-type View Settings"
 
 #: Profile title in configure.zcml
 msgid "GEMI plone add-on"
@@ -58,9 +73,18 @@ msgstr "wie Navigation"
 msgid "Plone add-on for GEMI specific things!"
 msgstr "Plone-Erweiterung für GEMI-Anpassungen"
 
+msgid "Saved"
+msgstr "Saved"
+
+msgid "Settings for Content-type folder view"
+msgstr "Settings for Content-type folder view"
+
 #: GEMI/browser/collections.py:46
 msgid "Settings saved"
 msgstr ""
+
+msgid "Show items exluded from navigation"
+msgstr "Show items exluded from navigation"
 
 #: GEMI/interfaces.py:24
 msgid "Title"
@@ -68,6 +92,9 @@ msgstr "Titel"
 
 msgid "WWW-Team"
 msgstr "WWW-Team"
+
+msgid "Your settings have been saved!"
+msgstr "Your settings have been saved!"
 
 #. Default: "Configure the settings of the filter to be shown when you select the \"Filter View\" from the Display"
 #: GEMI/browser/templates/collections_filter_settings.pt:15
@@ -94,6 +121,18 @@ msgstr "PDF herunterladen"
 msgid "heading_collection_filter_settings"
 msgstr "Einstellungen für Kollektions-Filter"
 
+msgid "help_contenttype_view_settings"
+msgstr "Configure what content types should be shown when the 'Content-type view' is selected for this folder"
+
+msgid "help_select_content_types"
+msgstr "Select content types that you will want to be shown when view is selected"
+
+msgid "help_select_content_types_view"
+msgstr "Select content types that you will want to be shown when view is selected"
+
+msgid "help_show_nav_exluded_items"
+msgstr "If selected, contents normally excluded from navigation will not be listed in this view"
+
 #. Default: "Item Title/ID"
 msgid "item_title_or_id"
 msgstr "Element-Titel/ID"
@@ -118,8 +157,10 @@ msgstr ""
 msgid "show_filter"
 msgstr ""
 
+msgid "show_filter_desc_help"
+msgstr "If selected the filter to search for collections will be shown above listing"
+
 #. Default: "Should filter be shown above collection?"
-#: GEMI/browser/templates/collections_filter_settings.pt:36
 msgid "show_filter_help"
 msgstr ""
 

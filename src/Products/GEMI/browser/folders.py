@@ -3,9 +3,12 @@
 
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.component import getMultiAdapter
+
 from plone.registry.interfaces import IRegistry
+
 from zope.component import getUtility
+from zope.component import getMultiAdapter
+
 from Products.GEMI.interfaces import IStatusMessage
 from Products.GEMI.interfaces import IProductsGEMISettings
 from Products.GEMI.interfaces import IObject
@@ -41,7 +44,7 @@ class NavigationLikeView(BrowserView):
         """ Render the content item listing. """
 
         # How many items is one one page
-        limit = 100
+        limit = 50
 
         # What kind of query we perform?
         # Here we limit results to ProductCard content type
@@ -148,7 +151,7 @@ class ContentTypeView(NavigationLikeView):
         """ Render the content item listing. """
 
         # How many items is one one page
-        limit = 100
+        limit = 50
 
         # What kind of query we perform?
         # Here we limit results to ProductCard content type
@@ -286,9 +289,6 @@ class ContentTypeSettingsView(BrowserView):
         except KeyError:
             return None
 
-    def getTypes(self):
-        return portaltypes()
-
     def typeSelected(self, type):
         try:
             return type in self.settingsValues['allowed_content_types'];
@@ -297,7 +297,7 @@ class ContentTypeSettingsView(BrowserView):
 
     @property
     def groupedTypes(self):
-        types = self.getTypes()
+        types = portaltypes()
         per_col = math.ceil(len(types) / 3) + 1
         groups = []
         group = []
@@ -317,4 +317,5 @@ class ContentTypeSettingsView(BrowserView):
             view = ''
         contextURL = "%s%s" % (self.context.absolute_url(), view)
         self.request.response.redirect(contextURL)
+
 

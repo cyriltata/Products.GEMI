@@ -47,8 +47,10 @@ setup(
         'setuptools',
         'z3c.jbot',
         'plone.app.dexterity',
+        'plone.app.dexterity [grok]',
         'plone.app.registry',
         'plone.app.contentlisting',
+        'plone.app.vocabularies',
         'Products.CMFBibliographyAT',
         'Products.BibfolderFlexibleView'
     ],

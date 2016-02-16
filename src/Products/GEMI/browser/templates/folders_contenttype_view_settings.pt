@@ -38,7 +38,7 @@
 
         <div class="form-field">
             <label i18n:translate="">Content types shown</label>
-            <p i18n:translate="">Select content types that you will want to be shown when view is selected</p>
+            <p i18n:translate="help_select_content_types">Select content types that you will want to be shown when view is selected</p>
             <table class="plain">
                 <tr>
                     <td tal:repeat="types view/groupedTypes">

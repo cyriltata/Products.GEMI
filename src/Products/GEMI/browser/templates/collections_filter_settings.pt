@@ -36,7 +36,7 @@
 
             <div class="checkbox">
                 <label><input name="show_collection_filter" type="checkbox" value="1" tal:attributes="checked python: view.getSetting('show_collection_filter')"> <span i18n:translate="show_filter">Show filter</span></label>
-                <span i18n:translate="show_filter_help" class="help-block">Show filter in 'Filter view' of collection</span>
+                <span i18n:translate="show_filter_desc_help" class="help-block">Show filter in 'Filter view' of collection</span>
             </div>
         </fieldset>
         

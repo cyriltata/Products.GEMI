@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<object name="Folder"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="Products.GEMI"
+>
+    <property name="view_methods" purge="False">
+        <element value="navigation-like" remove="True" />
+        <element value="listbycontenttype" remove="True" />
+    </property>
+    
+    <action title="Content-Type View Settings" action_id="listbycontenttype-settings" category="object" remove="True">
+        <permission value="Modify portal content" />
+    </action>
+
+</object>

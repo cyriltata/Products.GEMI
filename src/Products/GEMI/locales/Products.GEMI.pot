@@ -156,3 +156,53 @@ msgstr ""
 msgid "title"
 msgstr ""
 
+msgid "Content Type View"
+msgstr ""
+
+msgid "Content-Type View Settings"
+msgstr ""
+
+msgid "help_show_nav_exluded_items"
+msgstr "If selected, contents normally excluded from navigation will not be listed in this view"
+
+msgid "help_select_content_types"
+msgstr "Select content types that you will want to be shown when view is selected"
+
+msgid "Settings for Content-type folder view"
+msgstr "Settings for Content-type folder view"
+
+msgid "help_contenttype_view_settings"
+msgstr "Configure what content types should be shown when the 'Content-type view' is selected for this folder"
+
+msgid "Saved"
+msgstr "Saved"
+
+msgid "Your settings have been saved!"
+msgstr "Your settings have been saved!"
+
+msgid "show_filter_help"
+msgstr "Show filter in 'Filter view' of collection"
+
+msgid "show_filter_desc_help"
+msgstr "If selected the filter to search for collections will be shown above listing"
+
+msgid "Show items exluded from navigation"
+msgstr "Show items exluded from navigation"
+
+msgid "help_show_nav_exluded_items"
+msgstr "If selected, contents normally excluded from navigation will not be listed in this view"
+
+msgid "Enabled content types"
+msgstr "Enabled content types"
+
+msgid "help_select_content_types_view"
+msgstr "Select content types that you will want to be shown when view is selected"
+
+msgid "Folder Content-type View Settings"
+msgstr "Folder Content-type View Settings"
+
+msgid "Collection Filter View Settings"
+msgstr "Collection Filter View Settings"
+
+
+

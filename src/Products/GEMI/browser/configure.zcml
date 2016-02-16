@@ -13,6 +13,7 @@
       />
 
     <include package="plone.app.registry" />
+    <include package="plone.app.vocabularies" />
 
     <!-- Control panel -->
     <browser:page
@@ -20,6 +21,7 @@
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         class=".controlpanel.ProductsGEMISettingsControlPanel"
         permission="cmf.ManagePortal"
+        layer="..interfaces.IProductsGemiLayer"
         />
 
     <!-- Publish static files -->
@@ -37,6 +39,7 @@
         name="navigation-like"
         permission="zope2.View"
         class=".folders.NavigationLikeView"
+        layer="..interfaces.IProductsGemiLayer"
     />
 
     <!--Content-type folder view -->
@@ -45,6 +48,7 @@
         name="listbycontenttype"
         permission="zope2.View"
         class=".folders.ContentTypeView"
+        layer="..interfaces.IProductsGemiLayer"
     />
 
     <!-- Content-type folder view settings -->
@@ -53,6 +57,7 @@
         name="listbycontenttype-settings"
         class=".folders.ContentTypeSettingsView"
         permission="cmf.ModifyPortalContent"
+        layer="..interfaces.IProductsGemiLayer"
     />
 
     <!-- Filter collection view -->
@@ -61,6 +66,7 @@
         name="filter_view"
         permission="zope2.View"
         class=".collections.FilterView"
+        layer="..interfaces.IProductsGemiLayer"
     />
 
     <!-- Filter collection view settings -->
@@ -69,6 +75,7 @@
         name="filter_settings"
         permission="cmf.ModifyPortalContent"
         class=".collections.FilterViewSettings"
+        layer="..interfaces.IProductsGemiLayer"
     />
 
     <!-- Configure menu items -->
@@ -83,6 +90,7 @@
         title="Navigation-like View"
         action="@@navigation-like"
         description="A list of items like in a navigation"
+        layer="..interfaces.IProductsGemiLayer"
     />
 
     <!-- display menu item for folder content-type view -->
@@ -92,6 +100,7 @@
         title="Content Type View"
         action="@@listbycontenttype"
         description="A list of items showing only configured content types"
+        layer="..interfaces.IProductsGemiLayer"
     />
 
     <!-- display menu item for collection filter view -->
@@ -101,6 +110,7 @@
         title="Filter view"
         action="@@filter_view"
         description="A collection list view with filter"
+        layer="..interfaces.IProductsGemiLayer"
     />
 
 

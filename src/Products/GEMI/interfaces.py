@@ -48,7 +48,7 @@ class IProductsGEMISettings(form.Schema):
     form.widget(allowed_content_types=CheckBoxFieldWidget)
     allowed_content_types = schema.List(
         title=_(u"Enabled content types"),
-        description=_(u"Select content types that you will want to be shown when view is selected"),
+        description=_(u"help_select_content_types_view", default=u"Select content types that you will want to be shown when view is selected"),
         required=False,
         default=['Folder'],
         value_type=schema.Choice(source="plone.app.vocabularies.ReallyUserFriendlyTypes"),

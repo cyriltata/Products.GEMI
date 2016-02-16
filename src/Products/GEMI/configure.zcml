@@ -11,10 +11,9 @@
 
   <include package=".browser" />
 
-
   <genericsetup:registerProfile
       name="default"
-      title="Products.GEMI"
+      title="Install Products.GEMI"
       directory="profiles/default"
       description="Installs the Products.GEMI add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -26,5 +25,13 @@
       description="Post install import step from Products.GEMI"
       handler=".setuphandlers.post_install">
   </genericsetup:importStep>
+
+  <genericsetup:registerProfile
+     name="uninstall"
+     title="Uninstall Products.GEMI"
+     directory="profiles/uninstall"
+     description="Uninstall Products.GEMI extension."
+     provides="Products.GenericSetup.interfaces.EXTENSION"
+     />
 
 </configure>
