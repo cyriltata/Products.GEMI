@@ -119,7 +119,10 @@ class FilterView(BrowserView):
     security.declareProtected(View, 'getQuery')
     def getQuery(self):
         items = dict(self.request.form.items());
-        query = {'sort_on': 'publication_year'};
+        query = {
+            'sort_on': 'publication_year',
+            'sort_order': 'reverse'
+        };
 
         author = items.get('author', None);
         if (author is not None and author.strip() != ''):

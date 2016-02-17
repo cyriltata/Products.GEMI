@@ -50,7 +50,6 @@
             <input type="submit" value="Show" i18n:attributes="value label_show" class="context" />
             <hr />
         </form>
-       
 
         <div class="bibfolder-results" tal:condition="results"
             tal:define="
