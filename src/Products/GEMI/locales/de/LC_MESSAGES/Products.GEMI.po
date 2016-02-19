@@ -15,7 +15,7 @@ msgstr ""
 "Domain: DOMAIN\n"
 
 msgid "Collection Filter View Settings"
-msgstr "Collection Filter View Settings"
+msgstr "Einstellungen Kollektion - gefilterte Ansicht "
 
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Collection View with Filter"
@@ -28,6 +28,7 @@ msgstr "Einstellungen für Kollektionsfilter"
 msgid "Content Type View"
 msgstr "Inhaltstypen-Ansicht"
 
+#: GEMI/profiles/default/types/Folder.xml
 msgid "Content-Type View Settings"
 msgstr "Einstellungen Inhaltstypen-Ansicht"
 
@@ -194,3 +195,7 @@ msgstr "alle"
 msgid "title"
 msgstr "Titel"
 
+#. Default: "Products.GEMI Settings"
+#: GEMI/profiles/default/controlpanel.xml
+msgid "Products.GEMI Settings"
+msgstr "Einstellungen Products.GEMI"

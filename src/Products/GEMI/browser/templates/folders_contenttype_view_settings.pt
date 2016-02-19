@@ -33,7 +33,7 @@
                         checked python: view.getSetting('show_nav_exluded_items')" />
                 <span i18n:translate="">Show items exluded from navigation</span>
             </label>
-            <p translate="help_show_nav_exluded_items">If selected, contents normally excluded from navigation will not be listed in this view</p>
+            <p i18n:translate="help_show_nav_exluded_items">If selected, contents normally excluded from navigation will not be listed in this view</p>
         </div>
 
         <div class="form-field">
@@ -56,7 +56,7 @@
             </table>
         </div>
 
-        <hr />
+        <br />
         <div class="formControls">
                 <input type="submit" name="form.submit.button" value="Save" i18n:attributes="value label_save" i18n:domain="plone" />
                 <input type="submit" name="form.cancel.button" value="Cancel" i18n:attributes="value label_cancel" i18n:domain="plone"/>
