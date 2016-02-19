@@ -17,3 +17,7 @@ msgstr ""
 #. Default: "Fill this form to contact site owners"
 msgid "description_contact_site_owner"
 msgstr "Bitte füllen Sie dieses Formular aus, um die TECHNISCH Verantwortlichen für diese Website zu kontaktieren. Für alle anderen Fragen wenden Sie sich bitte an die jeweiligen Abteilungen und Arbeitsgruppen."
+
+#: GEMI/profiles/default/types/Folder.xml
+msgid "View Settings"
+msgstr "Einstellungen Ansicht"
