@@ -26,10 +26,14 @@ msgid "Collection filter settings for plone objects"
 msgstr "Collection filter settings for plone objects"
 
 msgid "Content Type View"
-msgstr ""
+msgstr "Content Type View"
 
 msgid "Content-Type View Settings"
-msgstr ""
+msgstr "Content-Type View Settings"
+
+#: GEMI/profiles/default/types/Folder.xml
+msgid "View Settings"
+msgstr "Einstellungen Ansicht"
 
 #: GEMI/interfaces.py:29
 msgid "Description"

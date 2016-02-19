@@ -49,6 +49,9 @@ msgstr ""
 msgid "Content-Type View Settings"
 msgstr ""
 
+msgid "View Settings"
+msgstr ""
+
 msgid "help_show_nav_exluded_items"
 msgstr "If selected, contents normally excluded from navigation will not be listed in this view"
 

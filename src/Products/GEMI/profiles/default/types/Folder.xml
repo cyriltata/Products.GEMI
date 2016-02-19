@@ -8,8 +8,14 @@
         <element value="listbycontenttype" i18n:translate="">Content Type View</element>
     </property>
     
-    <action title="Content-Type View Settings" action_id="listbycontenttype-settings" category="object" condition_expr=""
-            url_expr="string:${object_url}/listbycontenttype-settings" visible="True" i18n:attributes="title">
+    <action title="View Settings"
+            action_id="listbycontenttype-settings"
+            category="object" 
+            condition_expr=""
+            url_expr="string:${object_url}/listbycontenttype-settings" 
+            visible="True" 
+            i18n:attributes="title">
+
         <permission value="Modify portal content" />
     </action>
 

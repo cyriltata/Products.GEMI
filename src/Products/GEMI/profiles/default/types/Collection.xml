@@ -3,8 +3,15 @@
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
         i18n:domain="Products.GEMI">
 
-    <action title="Filter Settings" action_id="filter_settings" category="object" condition_expr=""
-         url_expr="string:${object_url}/@@filter_settings" visible="True" i18n:attributes="title">
+    <action 
+        title="Filter Settings"
+        ction_id="filter_settings" 
+        category="object" 
+        condition_expr=""
+        url_expr="string:${object_url}/@@filter_settings" 
+        visible="True" 
+        i18n:attributes="title">
+
         <permission value="Modify portal content" />
     </action>
   
