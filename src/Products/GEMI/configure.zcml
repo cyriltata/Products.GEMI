@@ -13,7 +13,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="Install Products.GEMI"
+      title="Products.GEMI (Georg-Elias-Müller-Institut für Psychologie) Extension"
       directory="profiles/default"
       description="Installs the Products.GEMI add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"

@@ -15,7 +15,14 @@
     <include package="plone.app.registry" />
     <include package="plone.app.vocabularies" />
 
+    <!-- Publish static files -->
+    <browser:resourceDirectory
+      name="Products.GEMI"
+      directory="static"
+      />
+
     <!-- Control panel -->
+    <!-- ============= -->
     <browser:page
         name="gemi-settings"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
@@ -23,12 +30,6 @@
         permission="cmf.ManagePortal"
         layer="..interfaces.IProductsGemiLayer"
         />
-
-    <!-- Publish static files -->
-    <browser:resourceDirectory
-      name="Products.GEMI"
-      directory="static"
-      />
 
     <!-- Configure Views/Pages -->
     <!-- ==================== -->
@@ -78,6 +79,15 @@
         layer="..interfaces.IProductsGemiLayer"
     />
 
+    <!-- Document view that parses extension slugs in contenttext -->
+    <browser:page
+        for="Products.ATContentTypes.interface.IATDocument"
+        name="view_with_slugs"
+        permission="cmf.ModifyPortalContent"
+        class=".document.SlugView"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
     <!-- Configure menu items -->
     <!-- ==================== -->
 
@@ -110,6 +120,16 @@
         title="Filter view"
         action="@@filter_view"
         description="A collection list view with filter"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
+    <!-- display menu item for document slug view -->
+    <browser:menuItem
+        for="Products.ATContentTypes.interface.IATDocument"
+        menu="plone_displayviews"
+        title="Slug view"
+        action="@@view_with_slugs"
+        description="A view that parses all slugs of the form {{{...}}} in content text"
         layer="..interfaces.IProductsGemiLayer"
     />
 
