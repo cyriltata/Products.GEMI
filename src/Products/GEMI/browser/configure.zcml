@@ -12,8 +12,8 @@
       layer="Products.GEMI.interfaces.IProductsGemiLayer"
       />
 
-    <include package="plone.app.registry" />
-    <include package="plone.app.vocabularies" />
+    <!-- TinyMCE plugin -->
+    <include package=".plugin" /> 
 
     <!-- Publish static files -->
     <browser:resourceDirectory
@@ -90,8 +90,6 @@
 
     <!-- Configure menu items -->
     <!-- ==================== -->
-
-    <include package="plone.app.contentmenu"/>
 
     <!-- display menu item for folder navigation-like view -->
     <browser:menuItem

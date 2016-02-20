@@ -1,5 +1,6 @@
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.GEMI.config import EMBEDED_CONTENT_TEMPLATE
 from Acquisition import aq_inner
 from zope.component import getMultiAdapter
 import logging
@@ -40,7 +41,7 @@ class SlugView(BrowserView):
                 object = self.context.restrictedTraverse(path)
                 view = self.getView(object, self.request, object.getLayout())
                 view_html = view.__call__();
-                content = content.replace(slug, self.getContentCore(view_html))
+                content = content.replace(slug, self.getContentCore(object, view_html))
             except Exception as e:
                 self.logger.warn(e)
                 content = content.replace(slug, "")
@@ -74,7 +75,7 @@ class SlugView(BrowserView):
 
         return view
     
-    def getContentCore(self, html):
+    def getContentCore(self, context, html):
         """
         Parse the html and get the contents of the div item ".content-core"
         """
@@ -82,9 +83,12 @@ class SlugView(BrowserView):
         sel = CSSSelector('div#content-core')
         results = sel(tree)
         try:
-            return lxml.html.tostring(results[0]);
+            cc = lxml.html.tostring(results[0]);
+            cc = EMBEDED_CONTENT_TEMPLATE % (context.id, context.absolute_url(), cc)
         except Exception as e:
             self.logger.warn(e)
-            return ''
+            cc = EMBEDED_CONTENT_TEMPLATE % (context.id, context.absolute_url(), '')
+        
+        return cc
 
 

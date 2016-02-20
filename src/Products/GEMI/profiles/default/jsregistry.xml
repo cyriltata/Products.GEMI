@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<object name="portal_javascripts" meta_type="JavaScripts Registry">
+    <javascript 
+        enabled="True"
+        expression="" 
+        id="++resource++Products.GEMI/script.js"
+        cacheable="True"
+        compression="safe"
+        authenticated="False" />
+</object>
