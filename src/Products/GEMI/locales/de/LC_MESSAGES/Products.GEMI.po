@@ -82,7 +82,7 @@ msgid "Saved"
 msgstr "Gespeichert"
 
 msgid "Settings for Content-type folder view"
-msgstr "Einstellungen für den Inhaltstyp 'Ordneransicht'"
+msgstr "Einstellungen für die 'Inhaltstypen-Ansicht'"
 
 #: GEMI/browser/collections.py:46
 msgid "Settings saved"
