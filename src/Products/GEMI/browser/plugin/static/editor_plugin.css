@@ -2,7 +2,7 @@
     padding: 3px;
     padding-left: 23px;
     background: url('/++resource++Products.GEMI.plugin/embedcontent.gif') no-repeat left center #efefef;
-    display: inline-block;
+    display: block;
     clear: both;
     cursor: pointer;
     font-weight: bold;
