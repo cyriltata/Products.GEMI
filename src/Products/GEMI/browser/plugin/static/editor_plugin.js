@@ -16,11 +16,11 @@
                 loadCssInterval = setInterval(function(){
                     if (tinymce.get(ed.id).dom) {
                         tinymce.get(ed.id).dom.loadCSS(url + '/editor_plugin.css');
-                        clearInterval(loadCssInterval)
+                        clearInterval(loadCssInterval);
                     }
                 }, 1000);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
 
             // Register the command so that it can be invoked by using tinyMCE.activeEditor.execCommand('mceExample');
@@ -46,7 +46,7 @@
                 if ($target.is('.plone-emebeded-content')) {
                     var regex = '{{{external_content=(.*?)}}}';
                     var re = new RegExp(regex, "g");
-                    var matches = re.exec($target.text())
+                    var matches = re.exec($target.text());
                     if (matches && typeof matches[1] !== 'undefined') {
                         current_context = matches[1];
                         tinymce.activeEditor.controlManager.setActive('embedcontent', true);
@@ -55,7 +55,7 @@
                 }
 
                 tinymce.activeEditor.controlManager.setActive('embedcontent', false);
-                current_context = null
+                current_context = null;
             });
 
             // Register example button
