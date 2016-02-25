@@ -31,10 +31,6 @@ msgstr "Content Type View"
 msgid "Content-Type View Settings"
 msgstr "Content-Type View Settings"
 
-#: GEMI/profiles/default/types/Folder.xml
-msgid "View Settings"
-msgstr "Einstellungen Ansicht"
-
 #: GEMI/interfaces.py:29
 msgid "Description"
 msgstr "Description"

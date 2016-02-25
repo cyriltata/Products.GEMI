@@ -94,3 +94,12 @@ msgstr "Folder Content-type View Settings"
 msgid "Collection Filter View Settings"
 msgstr "Collection Filter View Settings"
 
+msgid "Folder"
+msgstr "Folder"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Products.GEMI Settings"
+msgstr "Products.GEMI Settings"
+

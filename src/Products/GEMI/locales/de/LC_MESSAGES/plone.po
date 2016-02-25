@@ -21,3 +21,9 @@ msgstr "Bitte füllen Sie dieses Formular aus, um die TECHNISCH Verantwortlichen
 #: GEMI/profiles/default/types/Folder.xml
 msgid "View Settings"
 msgstr "Einstellungen Ansicht"
+
+msgid "Folder"
+msgstr "Ordner"
+
+msgid "Page"
+msgstr "Seite"
