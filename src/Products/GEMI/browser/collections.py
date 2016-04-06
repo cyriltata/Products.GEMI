@@ -6,32 +6,21 @@ from AccessControl import ClassSecurityInfo
 from Products.CMFCore.permissions import View
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
+from Products.GEMI.config import *
+from Products.CMFCore.utils import getToolByName
 
-from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
-from Products.GEMI.interfaces import IProductsGEMISettings
-from Products.GEMI.interfaces import IStatusMessage
+from Products.GEMI.interfaces import IProductsGEMIUtility
 from Products.GEMI import config
 from Products.GEMI import _
 
-class FilterViewSettings(BrowserView):
+class ViewSettings(BrowserView):
     """A BrowserView to display the Todo listing on a Folder."""
 
-    template = ViewPageTemplateFile("templates/collections_filter_settings.pt")
+    template = ViewPageTemplateFile("templates/collection_view_settings.pt")
     isValid = False
-    
-    settingsFields = [
-        {
-            'id': 'show_collection_filter',
-            'type': 'boolean',
-            'value': True
-        },
-    ]
-
-    settingsValues = {}
-
-    statusMessage = None
 
     def __init__(self, context, request):
         self.context = context
@@ -46,92 +35,75 @@ class FilterViewSettings(BrowserView):
         return self.template();
 
     def saveSettings(self):
-        object = self.context
         items = dict(self.request.form.items());
         item_keys = items.keys();
-        data = {}
-        settings = {}
 
         if ('form.submitted' not in item_keys or 'form.cancel.button' in item_keys):
             self._redirect();
             return;
         
-        # Gather all submitted items in the 'data' dict
-        data['show_collection_filter'] = 'show_collection_filter' in item_keys
+        # Save filter settings
+        authors = filter(None, items.get('filter_authors', '').splitlines());
+        authors.sort();
+        years = filter(None, items.get('filter_years', '').splitlines());
+        years.sort();
+        filter_settings = {
+            BFV_FILTER_SHOW : {'type':'int', 'value': int(items.get('filter_show', False) == 'True')},
+            BFV_FILTER_BY_YEAR : {'type':'int', 'value': int(items.get('filter_by_year', False) == 'True')},
+            BFV_FILTER_AUTHORS : {'type':'lines', 'value': authors},
+            BFV_FILTER_YEARS : {'type':'lines', 'value': years},
+        };
+        util = getUtility(IProductsGEMIUtility)
+        util.saveBibFolderFilterSettings(self.context, filter_settings);
 
-        # Get all property items of object and save them too or they get overwritten
-        for p in object.propertyMap():
-            settings[p['id']] = object.getProperty(p['id'])
-            
-        # Save various items
-        for f in self.settingsFields:
-            if (object.hasProperty(f['id'])):
-                settings[f['id']] = data[f['id']]
-            else:
-                object.manage_addProperty(type=f['type'], id=f['id'], value=data[f['id']])
-
-        object.manage_changeProperties(settings)
-
-        #self.context.plone_utils.addPortalMessage(_(u'Settings saved'), 'info')
+        messages = IStatusMessage(self.request)
+        messages.add(_(u'Your settings have been saved!'), type=u"info")
         self._redirect('/@@filter_settings?ok=1')
 
     def initSettings(self):
-        object = self.context
-        for f in self.settingsFields:
-            if (not object.hasProperty(f['id'])):
-                continue
-            self.settingsValues[f['id']] = object.getProperty(f['id']);
- 
-        try:
-            if self.request.form['ok']:
-                self.statusMessage = IStatusMessage(_(u'Your settings have been saved!'), _(u'Saved'), 'info')
-        except KeyError:
-            pass
-
-    def getSetting(self, key):
-        try:
-            return self.settingsValues[key];
-        except KeyError:
-            pass;
+        self.gutil = getUtility(IProductsGEMIUtility)
+        self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
 
     def _redirect(self, view = None):
         if (view is None):
             view = ''
         contextURL = "%s%s" % (self.context.absolute_url(), view)
         self.request.response.redirect(contextURL)
-        
 
 
-class FilterView(BrowserView):
+class View(BrowserView):
 
     security = ClassSecurityInfo();
-    template = ViewPageTemplateFile("templates/collections_filter_view.pt");
+    template = ViewPageTemplateFile("templates/collection_view.pt");
     isValid = False
+    gutil = None;
+    filterSettings = {};
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
     def __call__(self):
+        self.gutil = getUtility(IProductsGEMIUtility)
+        self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
         self.isValid = isApplicableCollectionView(self, config.ALLOWED_TYPES_COLLECTION_FILTER_VIEW);
         return self.template();
 
     security.declareProtected(View, 'getQuery')
     def getQuery(self):
-        items = dict(self.request.form.items());
         query = {
             'sort_on': 'publication_year',
-            'sort_order': 'reverse'
+            'sort_order': 'reverse',
+            'Language': 'all',
         };
 
-        author = items.get('author', None);
-        if (author is not None and author.strip() != ''):
-            lastname, fl = author.split(',');
-            query['SearchableText'] = lastname;
-
-        year = items.get('year', None);
-        if (year is not None and year.strip() != ''):
-            query['publication_year'] = items.get('year');
+        author = self.request.get('filter.author', '').strip()
+        author = author.split(',');
+        if author:
+            query['SearchableText'] = author[0] if author else '';
+        year = self.request.get('filter.year', '').strip()
+        if year:
+            query['publication_year'] = year;
 
         return query
     
@@ -150,14 +122,29 @@ class FilterView(BrowserView):
 
     @property
     def showFilter(self):
-        # To get settings, first we check if settings are present in current context
-        # if not we get settings from the control panel
-        if self.context.hasProperty('show_collection_filter'):
-            return self.context.getProperty('show_collection_filter')
-        else:
-            registry = getUtility(IRegistry);
-            settings = registry.forInterface(IProductsGEMISettings)
-            return settings.show_collection_filter
+        return self.context.getProperty(BFV_FILTER_SHOW);
+    
+    @property
+    def authorList(self):
+        a = self.context.getProperty(BFV_FILTER_AUTHORS);
+        if a is None:
+            a = []
+        authors = list(a)
+        if not authors:
+            bibtool = getToolByName(self, 'portal_bibliography')
+            authors = bibtool.getAllBibAuthors();
+        return authors
+
+    @property
+    def yearsList(self):
+        y = self.context.getProperty(BFV_FILTER_YEARS);
+        if y is None:
+            y = []
+        years = list(y)
+        if not years:
+            bibtool = getToolByName(self, 'portal_bibliography')
+            years = bibtool.getAllBibYears();
+        return years
 
 
 def isApplicableCollectionView(view, types):

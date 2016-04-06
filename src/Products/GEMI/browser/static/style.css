@@ -1,3 +1,87 @@
+/* bibfolder styles*/
+.bibfolder-view-wrapper .bibfolder-items .bibfolder-item {
+    margin-bottom: 10px;
+}
+
+.bibfolder-view-wrapper .bibfolder-items .bibfolder-item .files {
+    display: inline-block;
+    margin-left: 4px;
+}
+.bibfolder-view-wrapper .year-group .year {
+    font-size: 18px;
+    color: #427597;
+}
+
+.bibfolder-view-wrapper .bibfolder-items {
+    margin-bottom: 35px;
+    margin-top: 5px;
+}
+
+.bibfolder-view-wrapper section h4.section-title {
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 5px;
+    margin: 8px 0;
+}
+.bibfolder-view-wrapper .bibfolder-filter {
+    margin-top: 8px;
+    margin-bottom: 10px;
+    display: block;
+    text-align: center;
+}
+.bibfolder-view-wrapper .bibfolder-filter form {
+    border: 1px solid #888;
+    padding: 10px 20px;
+    display: inline-block;
+}
+.bibfolder-view-wrapper .bibfolder-filter .form-control {
+    height: 25px;
+    padding: 0px 5px;
+}
+.bibfolder-view-wrapper .bibfolder-filter span {
+    display: inline-block;
+    line-height: 25px;
+    vertical-align: top;
+}
+.bibfolder-view-wrapper .bibfolder-filter input.btn{
+    padding: 4px 12px;
+    font-size: 12px;
+}
+
+
+/* bibfolder settings styles*/
+.bibfolder-view-settings table.filter,
+.bibfolder-view-settings table.categories {
+   width: 100%;
+}
+
+.bibfolder-view-settings table.categories td {
+   border-bottom: 1px solid #efefef;
+   padding: 15px 0px;
+}
+
+.bibfolder-view-settings table.categories td.name {
+    width: 50%;
+}
+.bibfolder-view-settings table.categories td.name input {
+    width: 99%;
+}
+.bibfolder-view-settings table.categories td.types {
+    width: 40%;
+}
+
+.bibfolder-view-settings table.categories td.types select {
+    width: 90%;
+    float: right;
+}
+
+.bibfolder-view-settings table.filter td {
+    border: none !important;
+}
+.bibfolder-view-settings table.filter td textarea {
+    width: 90%;
+}
+
+/* generic styles*/
 .products-gemi-error{
     color: #a94442;
     background-color: #f2dede;

@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="Products.GEMI">
+
+<body>
+  <div metal:fill-slot="main"
+       tal:define="
+            global props python:container.portal_properties;
+        ">
+
+    <h1 i18n:translate="heading_collection_filter_settings" class="documentFirstHeading"> Collection Filter Settings </h1>
+
+    <dl tal:condition="python: not view.isValid" class="portalMessage error">
+        <dt i18n:translate="error" >Error</dt>
+        <dd i18n:translate="desc_not_valid_view"> This view is not valid for this type of collection</dd>
+    </dl>
+
+    
+    <form action=""
+          name="collection_filter_settings"
+          method="post"
+          tal:condition="python: view.isValid"
+          tal:attributes="action string:${here/absolute_url}/@@filter_settings">
+
+
+        <strong i18n:translate="">Filter Settings</strong>
+        <div class="checkbox">
+            <label><input name="filter_show" type="checkbox" value="True" tal:attributes="checked view/filterSettings/filter_show"> <span i18n:translate="show_filter">Show filter</span></label>
+            <span i18n:translate="show_filter_desc_help" class="help-block">Show filter in 'Filter view' of collection</span>
+        </div>
+        <div class="checkbox" style="display:none">
+            <label><input name="filter_by_year" type="checkbox" value="True" tal:attributes="checked string:checked"> <span i18n:translate="group_by_year">Group entries by year</span></label>
+            <span i18n:translate="group_by_year_help" class="help-block">If selected entries will be grouped by year under each category</span>
+        </div>
+        <table class="filter">
+            <tr>
+                <td>
+                    <span i18n:translate="">List of authors to be shown in filter (each in newline)</span> <br />
+                    <textarea rows="10" name="filter_authors" tal:content="python:'\n'.join(list(view.filterSettings['filter_authors']))"></textarea>
+                    <div><i>
+                        Ex: <br />
+                        Tata, C <br />
+                        Arslan, A
+                    </i></div>
+                </td>
+                <td>
+                    <span i18n:translate="">List of years to be shown in filter (each in newline)</span> <br />
+                    <textarea rows="10" name="filter_years" tal:content="python:'\n'.join(list(view.filterSettings['filter_years']))"></textarea>
+                     <div><i>
+                        Ex: <br />
+                        2010 <br />
+                        2015
+                    </i></div>
+                </td>
+            </tr>
+        </table>
+
+        <hr />
+        <div class="formControls">
+                <input type="submit" name="form.save.button" value="Save Settings" i18n:attributes="value label_save" i18n:domain="plone" />
+                <input type="submit" name="form.cancel.button" value="Cancel" i18n:attributes="value label_cancel" i18n:domain="plone"/>
+        </div>
+        <input type="hidden" name="form.submitted" value="1" />
+
+    </form>
+
+  </div>
+</body>
+
+</html>
+

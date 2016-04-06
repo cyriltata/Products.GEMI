@@ -52,8 +52,6 @@ setup(
         'plone.app.contentlisting',
         'plone.app.vocabularies',
         'Products.CMFBibliographyAT',
-        'Products.BibfolderFlexibleView',
-        'Products.TinyMCE'
     ],
     extras_require={
         'test': [

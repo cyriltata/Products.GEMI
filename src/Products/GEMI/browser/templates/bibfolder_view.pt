@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="Products.GEMI">
+<body>
+
+    <metal:content-core fill-slot="content-core">
+    <metal:content-core define-macro="content-core">
+        <div class="bibfolder-view-wrapper">
+
+            <!-- Filter -->
+            <metal:block tal:condition="view/filterSettings/filter_show">
+                <div class="bibfolder-filter" tal:define="
+                    b_start python:request.get('b_start', 0);
+                    author request/filter.author | python: ' ';
+                    year request/filter.year | python: ' ';
+                ">
+                <form name="bibfolderfilter" id="bibfolderfilterform" action="" method="get"  class="form-inline">
+                        <span i18n:translate="text_show">Show</span>
+
+                        <span i18n:translate="text_by_author">by author:</span>  
+                        <select name="filter.author" class="form-control">
+                            <option i18n:translate="text_authors_all" value="">all</option>
+                            <metal:block tal:repeat="a view/authorList">
+                               <option tal:attributes="value a; selected python: a==author" tal:content="a">Cyril Tata</option>
+                            </metal:block>
+                        </select>
+                        <span i18n:translate="text_by_year">by year:</span>
+                        <select name="filter.year" class="form-control">
+                            <option i18n:translate="text_years_all" value="">all</option>
+                            <metal:block tal:repeat="y view/yearsList">
+                               <option tal:attributes="value y; selected python: y==year" tal:content="y">2015</option>
+                            </metal:block>
+                        </select>
+                        <input type="submit" value="Show" i18n:attributes="value label_show" class="btn" />
+                </form>
+            </div>
+            </metal:block>
+
+            <!-- Listing -->
+            <section tal:repeat="query view/queries">
+                
+                <!-- grouping by years -->
+                <div tal:condition="view/filterSettings/filter_by_year" tal:define="
+                    results python: view.runQuery(query);">
+                    <metal:block tal:condition="results" tal:define="rkeys results/keys; dummy python:rkeys.sort(); dummy python:rkeys.reverse()">
+                        <h4 class="section-title"
+                            tal:condition="python: query['display_label'] is not 'all'"
+                            tal:content="query/display_label"
+                        ></h4>
+                        <metal:block tal:repeat="year rkeys">
+                            <div class="year-group">
+                                <div class="year" tal:attributes="id year; name year" tal:content="year">1905</div>
+                                <ul tal:define="items python: results[year]" class="bibfolder-items">
+                                    <metal:block
+                                        tal:repeat="result items"
+                                        tal:define="formatter nocall:context/@@bibfolderlistitemformatter">
+                                        <tal:item tal:replace="structure python:formatter(result)" />
+                                    </metal:block>
+                                </ul>
+                            </div>
+                        </metal:block>
+                    </metal:block>
+                </div>
+
+                <!-- not grouping by years -->
+                <div tal:condition="not:view/filterSettings/filter_by_year" tal:define="results python: view.runQuery(query)">
+                    <metal:block tal:condition="results">
+                        <h4 class="section-title"
+                            tal:condition="python: query['display_label'] is not 'all'"
+                            tal:content="query/display_label"
+                        ></h4>
+
+                        <ul class="bibfolder-items">
+                            <metal:block
+                                tal:repeat="result results"
+                                tal:define="formatter nocall:context/@@bibfolderlistitemformatter">
+                                <tal:item tal:replace="structure python:formatter(result)" />
+                            </metal:block>
+                        </ul>
+                    </metal:block>
+                </div>
+
+            </section>
+
+        </div>
+
+    </metal:content-core>
+    </metal:content-core>
+
+</body>
+</html>
+

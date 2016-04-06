@@ -4,8 +4,8 @@
         i18n:domain="Products.GEMI">
 
     <action 
-        title="Filter Settings"
-        ction_id="filter_settings" 
+        title="GEMI View Settings"
+        action_id="filter_settings" 
         category="object" 
         condition_expr=""
         url_expr="string:${object_url}/@@filter_settings" 

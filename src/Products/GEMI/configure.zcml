@@ -9,11 +9,11 @@
 
   <i18n:registerTranslations directory="locales" />
 
-  <include package="Products.TinyMCE" />
   <include package="plone.app.registry" />
   <include package="plone.app.vocabularies" />
   <include package="plone.app.contentmenu"/>
   <include package=".browser" />
+  <include package=".utility" />
 
   <genericsetup:registerProfile
       name="default"

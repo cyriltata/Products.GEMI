@@ -12,9 +12,6 @@
       layer="Products.GEMI.interfaces.IProductsGemiLayer"
       />
 
-    <!-- TinyMCE plugin -->
-    <include package=".plugin" /> 
-
     <!-- Publish static files -->
     <browser:resourceDirectory
       name="Products.GEMI"
@@ -66,7 +63,7 @@
         for="plone.app.collection.interfaces.ICollection"
         name="filter_view"
         permission="zope2.View"
-        class=".collections.FilterView"
+        class=".collections.View"
         layer="..interfaces.IProductsGemiLayer"
     />
 
@@ -75,7 +72,7 @@
         for="plone.app.collection.interfaces.ICollection"
         name="filter_settings"
         permission="cmf.ModifyPortalContent"
-        class=".collections.FilterViewSettings"
+        class=".collections.ViewSettings"
         layer="..interfaces.IProductsGemiLayer"
     />
 
@@ -87,6 +84,32 @@
         class=".document.SlugView"
         layer="..interfaces.IProductsGemiLayer"
     />
+
+    <!-- Bibfolder view settings (GEMI) -->
+    <browser:page
+        for="Products.CMFBibliographyAT.interface.IBibliographyFolder"
+        name="bibfolder-view-settings-gemi"
+        class=".bibfolder.ViewSettings"
+        permission="cmf.ModifyPortalContent"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
+    <!-- Bibfolder view (GEMI) -->
+    <browser:page
+        for="Products.CMFBibliographyAT.interface.IBibliographyFolder"
+        name="bibfolder-view-gemi"
+        class=".bibfolder.View"
+        permission="cmf.ModifyPortalContent"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
+    <!-- List item formatter for bibfolder view -->
+    <browser:page
+        for="*"
+        name="bibfolderlistitemformatter"
+        permission="zope2.View"
+        class=".bibfolder.ViewListFormatter"
+        />
 
     <!-- Configure menu items -->
     <!-- ==================== -->
@@ -115,19 +138,19 @@
     <browser:menuItem
         for="plone.app.collection.interfaces.ICollection"
         menu="plone_displayviews"
-        title="Filter view"
+        title="GEMI view"
         action="@@filter_view"
         description="A collection list view with filter"
         layer="..interfaces.IProductsGemiLayer"
     />
 
-    <!-- display menu item for document slug view -->
-    <browser:menuItem
-        for="Products.ATContentTypes.interface.IATDocument"
+    <!-- display menu item for Bibfolder view -->
+     <browser:menuItem
+        for="Products.CMFBibliographyAT.interface.IBibliographyFolder"
         menu="plone_displayviews"
-        title="Slug view"
-        action="@@view_with_slugs"
-        description="A view that parses all slugs of the form {{{...}}} in content text"
+        title="GEMI view"
+        action="@@bibfolder-view-gemi"
+        description="A gemi specific bibfolder view"
         layer="..interfaces.IProductsGemiLayer"
     />
 

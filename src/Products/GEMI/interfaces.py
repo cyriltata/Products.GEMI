@@ -76,7 +76,7 @@ class IStatusMessage:
     def __init__(self, message=None, title=None, type=None):
         self.message = message
         self.title = title
-        self.type = type
+        self.type = type #can be 'info', 'error'
         self.klass = "portalMessage %s" % self.type
 
     def setMessage(self, message):
@@ -91,4 +91,9 @@ class IStatusMessage:
 
 class IObject(object):
     pass
+
+class IProductsGEMIUtility(Interface):
+    """
+    Marker interface for GEMI utility object
+    """
 

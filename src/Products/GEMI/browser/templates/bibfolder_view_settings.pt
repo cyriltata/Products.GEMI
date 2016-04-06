@@ -1,0 +1,122 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="Products.GEMI">
+<body>
+
+    <metal:main fill-slot="main">
+    <div
+        class="bibfolder-view-settings"
+        tal:define="
+            gutil view/gutil;
+            bibtool context/portal_bibliography;
+            add python:request.get('add', False) == 'True'">
+
+    <h1 i18n:translate="">
+        Bibliography folder view settings (GEMI)
+    </h1>
+
+    <p class="discreet" i18n:translate="">
+        Create categories for which the contents of this folder will be grouped. If no categories are selected, the contents will be listed as-is.
+        Each category must have a set of content types associated to it before it can be displayed.
+    </p>
+
+    <dl tal:condition="view/statusMessage"
+        tal:attributes="class view/statusMessage/klass">
+        <dt tal:condition="view/statusMessage/title" tal:content="view/statusMessage/title" />
+        <dd tal:condition="view/statusMessage/message" tal:content="view/statusMessage/message" />
+    </dl>
+
+    <form action=""
+          name="contenttype-view-settings"
+          method="post"
+          tal:attributes="action string:${here/absolute_url}/bibfolder-view-settings-gemi">
+
+        <strong i18n:translate="">Content-Type Categories</strong>
+        <table class="categories">
+            <tr class="repeat-row" tal:repeat="c python: gutil.getBibFolderCategories(context, add)">
+                <td>
+                    <input type="checkbox" value="true"
+                        type="checkbox"
+                        name="category_checks:list"
+                        value="category_0"
+                        tal:attributes="value c/id" />
+                </td>
+                <td class="name">
+                    <span i18n:translate="">Category Name:</span><br />
+                    <input
+                        type='text'
+                        name='category_0:string'
+                        value=''
+                        tal:attributes="name python: c['id'] + ':string'; value c/category" />
+                </td>
+                <td class="types">
+                    <select name="category_0_reftypes:list" 
+                        size="6"
+                        multiple="multiple"
+                        tal:attributes="name python: c['id'] + '_reftypes:list'" >
+                            <option tal:repeat="rt bibtool/getReferenceTypes" 
+                                tal:content="rt" 
+                                tal:attributes="selected python: rt in c['reftypes']">
+                                Bla
+                            </option>
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+        <div class="formControls">
+            <input type="submit" name="form.add.button" value="Add Row" i18n:attributes="value label_add" i18n:domain="plone" />
+            <input type="submit" name="form.delete.button" value="Delete Selected Rows" i18n:attributes="value label_delete" i18n:domain="plone" />
+        </div>
+
+        <hr />
+        <strong i18n:translate="">Filter Settings</strong>
+        <div class="checkbox">
+            <label><input name="filter_show" type="checkbox" value="True" tal:attributes="checked view/filterSettings/filter_show"> <span i18n:translate="show_filter">Show filter</span></label>
+            <span i18n:translate="show_filter_desc_help" class="help-block">Show filter in 'Filter view' of collection</span>
+        </div>
+        <div class="checkbox">
+            <label><input name="filter_by_year" type="checkbox" value="True" tal:attributes="checked view/filterSettings/filter_by_year"> <span i18n:translate="group_by_year">Group entries by year</span></label>
+            <span i18n:translate="group_by_year_help" class="help-block">If selected entries will be grouped by year under each category</span>
+        </div>
+        <table class="filter">
+            <tr>
+                <td>
+                    <span i18n:translate="">List of authors to be shown in filter (each in newline)</span> <br />
+                    <textarea rows="10" name="filter_authors" tal:content="python:'\n'.join(list(view.filterSettings['filter_authors']))"></textarea>
+                    <div><i>
+                        Ex: <br />
+                        Tata, C <br />
+                        Arslan, A
+                    </i></div>
+                </td>
+                <td>
+                    <span i18n:translate="">List of years to be shown in filter (each in newline)</span> <br />
+                    <textarea rows="10" name="filter_years" tal:content="python:'\n'.join(list(view.filterSettings['filter_years']))"></textarea>
+                     <div><i>
+                        Ex: <br />
+                        2010 <br />
+                        2015
+                    </i></div>
+                </td>
+            </tr>
+        </table>
+
+        <hr />
+        <div class="formControls">
+                <input type="submit" name="form.save.button" value="Save Settings" i18n:attributes="value label_save" i18n:domain="plone" />
+                <input type="submit" name="form.cancel.button" value="Cancel" i18n:attributes="value label_cancel" i18n:domain="plone"/>
+        </div>
+        <input type="hidden" name="form.submitted" value="1" />
+
+    </form>
+    </div>
+    </metal:main>
+
+
+</body>
+</html>
+

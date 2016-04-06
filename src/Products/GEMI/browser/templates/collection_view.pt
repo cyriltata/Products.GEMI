@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="Products.GEMI">
+
+<body>
+
+ 
+<div metal:fill-slot="content-core">
+  <div class="bibfolder-view-wrapper">
+    <dl tal:condition="python: not view.isValid" class="portalMessage error">
+          <dt i18n:translate="error" >Error</dt>
+          <dd i18n:translate="desc_not_valid_view"> This view is not valid for this type of collection</dd>
+    </dl>
+
+    <div class="results-container"
+         tal:condition="python: view.isValid"
+         tal:define="
+              b_start python:request.get('b_start', 0);
+              author request/author | python: ' ';
+              year request/year | python: ' ';
+              query python: view.getQuery();
+
+              batch python:context.results(b_start=b_start, custom_query=query);
+              results python: view.gutil.groupBibItemsByYears(batch);
+          ">
+
+          <!-- Filter -->
+          <metal:block tal:condition="view/showFilter">
+            <div class="bibfolder-filter" tal:define="
+                    b_start python:request.get('b_start', 0);
+                    author request/filter.author | python: ' ';
+                    year request/filter.year | python: ' ';
+            ">
+                <form name="bibfolderfilter" id="bibfolderfilterform" action="" method="get"  class="form-inline">
+                    <span i18n:translate="text_show">Show</span>
+
+                    <span i18n:translate="text_by_author">by author:</span>  
+                    <select name="filter.author" class="form-control">
+                        <option i18n:translate="text_authors_all" value="">all</option>
+                        <metal:block tal:repeat="a view/authorList">
+                            <option tal:attributes="value a; selected python: a==author" tal:content="a">Cyril Tata</option>
+                        </metal:block>
+                    </select>
+                    <span i18n:translate="text_by_year">by year:</span>
+                    <select name="filter.year" class="form-control">
+                        <option i18n:translate="text_years_all" value="">all</option>
+                        <metal:block tal:repeat="y view/yearsList">
+                            <option tal:attributes="value y; selected python: y==year" tal:content="y">2015</option>
+                        </metal:block>
+                    </select>
+                    <input type="submit" value="Show" i18n:attributes="value label_show" class="btn" />
+                </form>
+            </div>
+            </metal:block>
+
+            
+            <!-- grouping by years -->
+            <div>
+                <metal:block tal:condition="results" tal:define="rkeys results/keys; dummy python:rkeys.sort(); dummy python:rkeys.reverse()">
+                    <metal:block tal:repeat="year rkeys">
+                        <div class="year-group">
+                            <div class="year" tal:attributes="id year; name year" tal:content="year">1905</div>
+                            <ul tal:define="items python: results[year]" class="bibfolder-items">
+                                <metal:block
+                                    tal:repeat="result items"
+                                    tal:define="formatter nocall:context/@@bibfolderlistitemformatter">
+                                    <tal:item tal:replace="structure python:formatter(result)" />
+                                </metal:block>
+                            </ul>
+                        </div>
+                    </metal:block>
+                </metal:block>
+            </div>
+            
+
+            <div metal:use-macro="context/batch_macros/macros/navigation" />
+
+    </div>
+  </div>
+</div>
+</body>
+
+
+</html>
+

@@ -1,0 +1,11 @@
+<li class="bibfolder-item">
+    <span class="authors" tal:replace="structure view/item/Authors">Authors</span> (<span tal:content="view/item/getPublication_year"></span>).
+    <span class="title" tal:content="view/item/Title"/>.
+    <i class="journal" tal:condition="view/getJournal" tal:content="view/getJournal" />
+    <i class= "volume" tal:content="python: '%s' % view.formatVolume()" />
+    <span class="pages" tal:condition="view/item/getPages" tal:content="view/item/getPages" />
+    <span class="files" tal:condition="view/getPdfUrl|view/getUrl">
+        <a href="#" tal:attributes="href view/getPdfUrl; target string:_blank"><img src="++resource++Products.GEMI/pdf.gif" /></a>
+        <a href="#" tal:attributes="href view/getUrl; target string:_blank"><img src="++resource++Products.GEMI/link.png" /></a>
+    </span>
+</li>
