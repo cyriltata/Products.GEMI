@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<object name="BibliographyFolder"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="Products.GEMI"
+>
+    <property name="view_methods" purge="False">
+        <element value="bibfolder-view-gemi" remove="True" />
+    </property>
+
+    <action title="Bibfolder View Settings" action_id="bibfolder-view-settings-gemi" category="object" remove="True">
+        <permission value="Modify portal content" />
+    </action>
+
+</object>

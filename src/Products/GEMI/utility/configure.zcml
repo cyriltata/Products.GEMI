@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="Products.GEMI">
+
+    <utility
+        provides="Products.GEMI.interfaces.IProductsGEMIUtility"
+        factory=".utility.ProductsGEMIUtility"
+        />
+
+</configure>
