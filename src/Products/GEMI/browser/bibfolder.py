@@ -35,7 +35,7 @@ class View(BrowserView):
         if (self.context.hasProperty(BFV_CATEGORY_COUNT) and self.context.getProperty(BFV_CATEGORY_COUNT) > 0):
             cats = self.gutil.getBibFolderCategories(self.context, False)
         else:
-            cats = [{id: 'all', 'category': 'all', 'reftypes': bibtool.getReferenceTypes()}]
+            cats = [{id: 'all', 'category': 'all', 'description': 'all', 'reftypes': bibtool.getReferenceTypes()}]
 
         for cat in cats:
             self.queries.append(self.makeCategoryQuery(cat))
@@ -56,6 +56,7 @@ class View(BrowserView):
             'sort_order': 'reverse',
             'Language': 'all',
             'display_label': category['category'],
+            'display_desc': category['description']
         }
 
         author = self.request.get('filter.author', '').strip()
@@ -193,11 +194,12 @@ class ViewSettings(BrowserView):
         for i in range(n+1):
             cat_name = BFV_CATEGORY % i;
             cat_types = BFV_CATEGORY_REFTYPES % i;
+            cat_desc = BFV_CATEGORY_DESCRIPTION % i;
             if (cat_name in item_keys and cat_types in item_keys):
                 if (self.context.hasProperty(cat_name)):
-                    util.modifyBibFolderCategory(self.context, i, items[cat_name], items[cat_types])
+                    util.modifyBibFolderCategory(self.context, i, items[cat_name], items[cat_types], items[cat_desc])
                 else:
-                    util.addBibFolderCategory(self.context, items[cat_name], items[cat_types])
+                    util.addBibFolderCategory(self.context, items[cat_name], items[cat_types], items[cat_desc])
 
         # Save filter settings
         authors = filter(None, items.get('filter_authors', '').splitlines());

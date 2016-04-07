@@ -45,16 +45,24 @@
                         tal:attributes="value c/id" />
                 </td>
                 <td class="name">
-                    <span i18n:translate="">Category Name:</span><br />
+                    <span i18n:translate="">Category Name</span><br />
                     <input
                         type='text'
                         name='category_0:string'
                         value=''
                         tal:attributes="name python: c['id'] + ':string'; value c/category" />
+                        <div>
+                            <span i18n:translate="">Category Description</span><br />
+                            <textarea
+                                rows="10" name="category_description"
+                                tal:attributes="name python: c['id'] + '_description:string'"
+                                tal:content="c/description"></textarea>
+                        </div>
                 </td>
                 <td class="types">
+                    <span i18n:translate="" style="float: right">Content-type (multiselect)</span><br />
                     <select name="category_0_reftypes:list" 
-                        size="6"
+                        size="14"
                         multiple="multiple"
                         tal:attributes="name python: c['id'] + '_reftypes:list'" >
                             <option tal:repeat="rt bibtool/getReferenceTypes" 

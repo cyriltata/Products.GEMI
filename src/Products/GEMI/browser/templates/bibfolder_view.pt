@@ -50,6 +50,10 @@
                             tal:condition="python: query['display_label'] is not 'all'"
                             tal:content="query/display_label"
                         ></h4>
+                        <div class="section-description"
+                            tal:condition="python: query['display_desc'] and query['display_desc'] is not 'all'"
+                            tal:content="query/display_desc"
+                        ></div>
                         <metal:block tal:repeat="year rkeys">
                             <div class="year-group">
                                 <div class="year" tal:attributes="id year; name year" tal:content="year">1905</div>
@@ -72,6 +76,10 @@
                             tal:condition="python: query['display_label'] is not 'all'"
                             tal:content="query/display_label"
                         ></h4>
+                        <div class="section-description"
+                            tal:condition="python: query['display_desc'] and query['display_desc'] is not 'all'"
+                            tal:content="query/display_desc"
+                        ></div>
 
                         <ul class="bibfolder-items">
                             <metal:block

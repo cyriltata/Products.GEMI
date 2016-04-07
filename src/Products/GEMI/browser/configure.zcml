@@ -76,15 +76,6 @@
         layer="..interfaces.IProductsGemiLayer"
     />
 
-    <!-- Document view that parses extension slugs in contenttext -->
-    <browser:page
-        for="Products.ATContentTypes.interface.IATDocument"
-        name="view_with_slugs"
-        permission="cmf.ModifyPortalContent"
-        class=".document.SlugView"
-        layer="..interfaces.IProductsGemiLayer"
-    />
-
     <!-- Bibfolder view settings (GEMI) -->
     <browser:page
         for="Products.CMFBibliographyAT.interface.IBibliographyFolder"

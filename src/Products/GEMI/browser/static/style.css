@@ -22,6 +22,10 @@
     padding-bottom: 5px;
     margin: 8px 0;
 }
+.bibfolder-view-wrapper section div.section-description {
+    font-size: 13px;
+    padding-bottom: 10px;
+}
 .bibfolder-view-wrapper .bibfolder-filter {
     margin-top: 8px;
     margin-bottom: 10px;
@@ -60,15 +64,22 @@
 }
 
 .bibfolder-view-settings table.categories td.name {
-    width: 50%;
+    width: 65%;
 }
 .bibfolder-view-settings table.categories td.name input {
     width: 99%;
 }
-.bibfolder-view-settings table.categories td.types {
-    width: 40%;
+.bibfolder-view-settings table.categories td.name div {
+    margin-top: 8px;
 }
-
+.bibfolder-view-settings table.categories td.types {
+    width: 30%;
+}
+.bibfolder-view-settings table.categories td.name textarea,
+.bibfolder-view-settings table.categories td.name input {
+    padding: 5px;
+    border-radius: 2px;
+}
 .bibfolder-view-settings table.categories td.types select {
     width: 90%;
     float: right;

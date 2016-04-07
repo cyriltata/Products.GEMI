@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0a\n"
-"POT-Creation-Date: 2016-04-07 09:53+0000\n"
+"POT-Creation-Date: 2016-04-07 12:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Cyril Tata <ctata@gwdg.de>\n"
 "Language-Team: AG Technik - GEMI <LL@li.org>\n"
@@ -14,13 +14,17 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.GEMI\n"
 
-#: GEMI/browser/bibfolder.py:227
+#: GEMI/browser/bibfolder.py:229
 msgid "Categories have been deleted!"
 msgstr "Kategorien wurden gelöscht!"
 
+#: GEMI/browser/templates/bibfolder_view_settings.pt:55
+msgid "Category Description"
+msgstr "Beschreibung"
+
 #: GEMI/browser/templates/bibfolder_view_settings.pt:48
-msgid "Category Name:"
-msgstr "Name der Kategorie:"
+msgid "Category Name"
+msgstr "Name der Kategorie"
 
 #: GEMI/interfaces.py:66
 msgid "Collection Filter View Settings"
@@ -41,6 +45,10 @@ msgstr "Inhaltstypen-Kategorie"
 msgid "Content-Type View Settings"
 msgstr "Einstellungen Inhaltstypen-Ansicht"
 
+#: GEMI/browser/templates/bibfolder_view_settings.pt:63
+msgid "Content-type (multiselect)"
+msgstr "Inhaltstypen (Mehrfachauswahl)"
+
 #: GEMI/interfaces.py:26
 msgid "Description"
 msgstr "Beschreibung"
@@ -55,7 +63,7 @@ msgstr "Aktiviert Inhaltstypen"
 msgid "Faculty of Biology"
 msgstr "Biologische Fakultät"
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:76
+#: GEMI/browser/templates/bibfolder_view_settings.pt:84
 #: GEMI/browser/templates/collection_view_settings.pt:29
 msgid "Filter Settings"
 msgstr "Filter-Einstellungen"
@@ -92,12 +100,12 @@ msgstr "Impressum"
 msgid "Institute of Psychology"
 msgstr "Institut für Psychologie"
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:88
+#: GEMI/browser/templates/bibfolder_view_settings.pt:96
 #: GEMI/browser/templates/collection_view_settings.pt:41
 msgid "List of authors to be shown in filter (each in newline)"
 msgstr "Liste von Autoren, die im Filter angezeigt werden soll (je ein Autor pro Zeile)"
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:97
+#: GEMI/browser/templates/bibfolder_view_settings.pt:105
 #: GEMI/browser/templates/collection_view_settings.pt:50
 msgid "List of years to be shown in filter (each in newline)"
 msgstr "List von Jahren, die im Filter angezeigt werden soll (je ein Jahr pro Zeile)"
@@ -150,7 +158,7 @@ msgstr "Einstellungen Ansicht"
 msgid "WWW-Team"
 msgstr "WWW-Team"
 
-#: GEMI/browser/bibfolder.py:215
+#: GEMI/browser/bibfolder.py:217
 #: GEMI/browser/collections.py:60
 #: GEMI/browser/folders.py:245
 msgid "Your settings have been saved!"
@@ -162,7 +170,7 @@ msgid "bcv_show_filter_desc_help"
 msgstr "Falls ausgewählt wird der Filter oberhalb der Auflistung angezeigt"
 
 #. Default: "If selected the filter will be shown at the top of the listing"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:79
+#: GEMI/browser/templates/bibfolder_view_settings.pt:87
 msgid "bfv_show_filter_desc_help"
 msgstr "Falls ausgewählt wird der Filter oberhalb der Auflistung angezeigt"
 
@@ -184,13 +192,13 @@ msgid "error"
 msgstr "Fehler"
 
 #. Default: "Group entries by year"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:82
+#: GEMI/browser/templates/bibfolder_view_settings.pt:90
 #: GEMI/browser/templates/collection_view_settings.pt:35
 msgid "group_by_year"
 msgstr "Einträge nach Jahr gruppieren"
 
 #. Default: "If selected entries will be grouped by year under each category"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:83
+#: GEMI/browser/templates/bibfolder_view_settings.pt:91
 #: GEMI/browser/templates/collection_view_settings.pt:36
 msgid "group_by_year_help"
 msgstr "Falls ausgewählt werden Einträge nach Jahr und Kategorie gruppiert"
@@ -252,7 +260,7 @@ msgid "no_items_in_folder"
 msgstr "Dieser Ordner hat zur Zeit keinen Inhalt."
 
 #. Default: "Show filter"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:78
+#: GEMI/browser/templates/bibfolder_view_settings.pt:86
 #: GEMI/browser/templates/collection_view_settings.pt:31
 msgid "show_filter"
 msgstr "Filter anzeigen"

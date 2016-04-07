@@ -12,13 +12,18 @@ class ProductsGEMIUtility:
         for i in range(1, n):
             k = BFV_CATEGORY % i
             if obj.hasProperty(k):
-                l += [{'id': k, 'category': obj.getProperty(k), 'reftypes': obj.getProperty(BFV_CATEGORY_REFTYPES % i)}]
+                l += [{
+                        'id': k,
+                        'category': obj.getProperty(k),
+                        'reftypes': obj.getProperty(BFV_CATEGORY_REFTYPES % i),
+                        'description': obj.getProperty(BFV_CATEGORY_DESCRIPTION % i)
+                    }]
 
         if not l or add == True:
             l.append(self.defaultCategory(obj));
 
         return l
-    
+
     def getBibFolderCategoryCount(self, obj):
         n = obj.getProperty(BFV_CATEGORY_COUNT);
         if (n is None):
@@ -27,25 +32,32 @@ class ProductsGEMIUtility:
 
     def defaultCategory(self, obj):
         i = self.getBibFolderCategoryCount(obj) + 1;
-        return {'id': BFV_CATEGORY % i, 'category': '', 'reftypes': []}
+        return {'id': BFV_CATEGORY % i, 'category': '', 'description': '', 'reftypes': []}
 
-    def addBibFolderCategory(self, obj, name, reftypes):
+    def addBibFolderCategory(self, obj, name, reftypes, description=''):
         if not name or not reftypes:
             return;
 
         n = self.getBibFolderCategoryCount(obj) + 1;
         obj.manage_addProperty(type='string', id=BFV_CATEGORY % n, value=name)
         obj.manage_addProperty(type='lines', id=BFV_CATEGORY_REFTYPES % n, value=reftypes)
+        obj.manage_addProperty(type='text', id=BFV_CATEGORY_DESCRIPTION % n, value=description)
+
         if (obj.hasProperty(BFV_CATEGORY_COUNT)):
             obj.manage_changeProperties({BFV_CATEGORY_COUNT: n})
         else:
             obj.manage_addProperty(type='int', id=BFV_CATEGORY_COUNT, value=1)
 
-    def modifyBibFolderCategory(self, obj, n, name, reftypes):
+    def modifyBibFolderCategory(self, obj, n, name, reftypes, description=''):
         if not name or not reftypes:
              return;
 
-        obj.manage_changeProperties({BFV_CATEGORY % n: name, BFV_CATEGORY_REFTYPES % n: reftypes})
+        obj.manage_changeProperties({
+            BFV_CATEGORY % n: name,
+            BFV_CATEGORY_REFTYPES % n: reftypes,
+            BFV_CATEGORY_DESCRIPTION % n: description
+        })
+
         if (not obj.hasProperty(BFV_CATEGORY_COUNT)):
             obj.manage_addProperty(type='int', id=BFV_CATEGORY_COUNT, value=1)
 
@@ -53,17 +65,20 @@ class ProductsGEMIUtility:
     def deleteBibFolderCategory(self, obj, ids):
         n = self.getBibFolderCategoryCount(obj);
         del_count = len(ids);
-        if (del_count > n):
+        if (del_count > n + 1):
             raise ValueError, "Can't delete more categories than saved"
-        
+
         for property in ids:
             if not obj.hasProperty(property):
                 return;
 
-        list = ids + [x + '_reftypes' for x in ids];
-        obj.manage_delProperties(list);
-        if (del_count == n):
-            obj.manage_changeProperties({BFV_CATEGORY_COUNT: 0})
+        try:
+            list = ids + [x + '_reftypes' for x in ids] + [x + '_description' for x in ids];
+            obj.manage_delProperties(list);
+            if (del_count == n):
+                obj.manage_changeProperties({BFV_CATEGORY_COUNT: 0})
+        except:
+            pass
 
     def reIndexBibFolderCategories(self, obj):
         categories = self.getBibFolderCategories(obj);
@@ -82,7 +97,7 @@ class ProductsGEMIUtility:
 
         # re-add
         for c in save:
-            self.addBibFolderCategory(obj, c['category'], c['reftypes'])
+            self.addBibFolderCategory(obj, c['category'], c['reftypes'], c['description'])
     
     def saveBibFolderFilterSettings(self, obj, settings):
         for key in settings:
