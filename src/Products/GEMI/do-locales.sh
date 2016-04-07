@@ -49,7 +49,7 @@ else
 fi
 
 # Rebuild .pot
-$I18NDUDE rebuild-pot --pot locales/$CATALOGNAME.pot $MERGE --create $CATALOGNAME $PRODUCT_PATH
+$I18NDUDE rebuild-pot --exclude nbproject --pot locales/$CATALOGNAME.pot $MERGE --create $CATALOGNAME $PRODUCT_PATH
 
 
 # Compile po files

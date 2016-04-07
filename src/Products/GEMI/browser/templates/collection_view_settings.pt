@@ -29,7 +29,7 @@
         <strong i18n:translate="">Filter Settings</strong>
         <div class="checkbox">
             <label><input name="filter_show" type="checkbox" value="True" tal:attributes="checked view/filterSettings/filter_show"> <span i18n:translate="show_filter">Show filter</span></label>
-            <span i18n:translate="show_filter_desc_help" class="help-block">Show filter in 'Filter view' of collection</span>
+            <span i18n:translate="bcv_show_filter_desc_help" class="help-block">If selected the filter will be shown at the top of the listing</span>
         </div>
         <div class="checkbox" style="display:none">
             <label><input name="filter_by_year" type="checkbox" value="True" tal:attributes="checked string:checked"> <span i18n:translate="group_by_year">Group entries by year</span></label>

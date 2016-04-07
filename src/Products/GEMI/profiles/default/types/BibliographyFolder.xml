@@ -4,7 +4,7 @@
         i18n:domain="Products.GEMI"
 >
     <property name="view_methods" purge="False">
-        <element value="bibfolder-view-gemi" i18n:translate="">GEMI View</element>
+        <element value="bibfolder-view-gemi" i18n:translate="">GEMI view</element>
     </property>
 
     <action title="GEMI View Settings"

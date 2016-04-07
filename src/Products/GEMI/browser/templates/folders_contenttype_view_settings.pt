@@ -58,7 +58,7 @@
 
         <br />
         <div class="formControls">
-                <input type="submit" name="form.submit.button" value="Save" i18n:attributes="value label_save" i18n:domain="plone" />
+                <input type="submit" name="form.submit.button" value="Save Settings" i18n:attributes="value label_save" i18n:domain="plone" />
                 <input type="submit" name="form.cancel.button" value="Cancel" i18n:attributes="value label_cancel" i18n:domain="plone"/>
         </div>
         <input type="hidden" name="form.submitted" value="1" />

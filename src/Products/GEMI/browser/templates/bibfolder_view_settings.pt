@@ -14,11 +14,11 @@
             bibtool context/portal_bibliography;
             add python:request.get('add', False) == 'True'">
 
-    <h1 i18n:translate="">
+    <h1 i18n:translate="i18n:translate="heading_bibfolder_view_settings">
         Bibliography folder view settings (GEMI)
     </h1>
 
-    <p class="discreet" i18n:translate="">
+    <p class="discreet" i18n:translate="help_bibfolder_view_settings">
         Create categories for which the contents of this folder will be grouped. If no categories are selected, the contents will be listed as-is.
         Each category must have a set of content types associated to it before it can be displayed.
     </p>
@@ -76,7 +76,7 @@
         <strong i18n:translate="">Filter Settings</strong>
         <div class="checkbox">
             <label><input name="filter_show" type="checkbox" value="True" tal:attributes="checked view/filterSettings/filter_show"> <span i18n:translate="show_filter">Show filter</span></label>
-            <span i18n:translate="show_filter_desc_help" class="help-block">Show filter in 'Filter view' of collection</span>
+            <span i18n:translate="bfv_show_filter_desc_help" class="help-block">If selected the filter will be shown at the top of the listing</span>
         </div>
         <div class="checkbox">
             <label><input name="filter_by_year" type="checkbox" value="True" tal:attributes="checked view/filterSettings/filter_by_year"> <span i18n:translate="group_by_year">Group entries by year</span></label>

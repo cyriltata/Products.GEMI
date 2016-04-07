@@ -16,7 +16,7 @@
     </action>
   
     <property name="view_methods" purge="False">
-        <element value="filter_view" i18n:translate="">Collection View with Filter</element>
+        <element value="filter_view" i18n:translate="">GEMI view</element>
     </property>
 
 </object>
