@@ -14,7 +14,7 @@
             bibtool context/portal_bibliography;
             add python:request.get('add', False) == 'True'">
 
-    <h1 i18n:translate="i18n:translate="heading_bibfolder_view_settings">
+    <h1 i18n:translate="heading_bibfolder_view_settings">
         Bibliography folder view settings (GEMI)
     </h1>
 

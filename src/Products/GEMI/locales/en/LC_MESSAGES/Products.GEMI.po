@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0a\n"
-"POT-Creation-Date: 2016-04-07 08:01+0000\n"
+"POT-Creation-Date: 2016-04-07 09:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Cyril Tata <ctata@gwdg.de>\n"
 "Language-Team: AG Technik - GEMI <LL@li.org>\n"
@@ -16,11 +16,11 @@ msgstr ""
 
 #: GEMI/browser/bibfolder.py:227
 msgid "Categories have been deleted!"
-msgstr ""
+msgstr "Categories have been deleted!"
 
 #: GEMI/browser/templates/bibfolder_view_settings.pt:48
 msgid "Category Name:"
-msgstr ""
+msgstr "Category Name:"
 
 #: GEMI/interfaces.py:66
 msgid "Collection Filter View Settings"
@@ -159,12 +159,12 @@ msgstr "Your settings have been saved!"
 #. Default: "If selected the filter will be shown at the top of the listing"
 #: GEMI/browser/templates/collection_view_settings.pt:32
 msgid "bcv_show_filter_desc_help"
-msgstr ""
+msgstr "If selected the filter will be shown at the top of the listing"
 
 #. Default: "If selected the filter will be shown at the top of the listing"
 #: GEMI/browser/templates/bibfolder_view_settings.pt:79
 msgid "bfv_show_filter_desc_help"
-msgstr ""
+msgstr "If selected the filter will be shown at the top of the listing"
 
 #. Default: "last modified"
 #: GEMI/browser/templates/folders_navigation_like.pt:57
@@ -193,6 +193,11 @@ msgstr ""
 #: GEMI/browser/templates/bibfolder_view_settings.pt:83
 #: GEMI/browser/templates/collection_view_settings.pt:36
 msgid "group_by_year_help"
+msgstr ""
+
+#. Default: "Bibliography folder view settings (GEMI)"
+#: GEMI/browser/templates/bibfolder_view_settings.pt:17
+msgid "heading_bibfolder_view_settings"
 msgstr ""
 
 #. Default: "Collection Filter Settings"
@@ -225,11 +230,6 @@ msgstr "Select content types that you will want to be shown when view is selecte
 #: GEMI/interfaces.py:43
 msgid "help_show_nav_exluded_items"
 msgstr "If selected, contents normally excluded from navigation will not be listed in this view"
-
-#. Default: "Bibliography folder view settings (GEMI)"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:17
-msgid "i18n:translate="
-msgstr ""
 
 #. Default: "Item Title/ID"
 msgid "item_title_or_id"

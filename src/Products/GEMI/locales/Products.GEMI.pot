@@ -1,13 +1,13 @@
 # --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Products.GEMI manual pot file for zope/plone defaut translations.
+# Cyril Tata<ctata@gwdg.de>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: collective.duck 1.0\n"
-"POT-Creation-Date: 2016-04-07 08:09+0000\n"
+"Project-Id-Version: 1.0a\n"
+"POT-Creation-Date: 2016-04-07 09:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Cyril Tata <ctata@gwdg.de>\n"
+"Language-Team: AG Technik - GEMI <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -198,6 +198,11 @@ msgstr ""
 msgid "group_by_year_help"
 msgstr ""
 
+#. Default: "Bibliography folder view settings (GEMI)"
+#: GEMI/browser/templates/bibfolder_view_settings.pt:17
+msgid "heading_bibfolder_view_settings"
+msgstr ""
+
 #. Default: "Collection Filter Settings"
 #: GEMI/browser/templates/collection_view_settings.pt:14
 msgid "heading_collection_filter_settings"
@@ -227,11 +232,6 @@ msgstr ""
 #: GEMI/browser/templates/folders_contenttype_view_settings.pt:36
 #: GEMI/interfaces.py:43
 msgid "help_show_nav_exluded_items"
-msgstr ""
-
-#. Default: "Bibliography folder view settings (GEMI)"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:17
-msgid "i18n:translate="
 msgstr ""
 
 #. Default: "Item Title/ID"
