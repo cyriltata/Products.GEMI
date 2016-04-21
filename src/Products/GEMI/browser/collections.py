@@ -9,6 +9,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.GEMI.config import *
 from Products.CMFCore.utils import getToolByName
+from Products.ATContentTypes.interface import IATTopic
 
 from zope.component import getUtility
 
@@ -89,6 +90,15 @@ class View(BrowserView):
         self.isValid = isApplicableCollectionView(self, config.ALLOWED_TYPES_COLLECTION_FILTER_VIEW);
         return self.template();
 
+    def getResults(self):
+        query = self.getQuery();
+        b_start = self.request.get('b_start', 0);
+
+        if IATTopic.providedBy(self.context):
+            return self.context.queryCatalog(query, batch=True, b_start=b_start);
+        else:
+           return self.context.results(b_start=b_start, custom_query=query)
+
     security.declareProtected(View, 'getQuery')
     def getQuery(self):
         query = {
@@ -148,7 +158,11 @@ class View(BrowserView):
 
 
 def isApplicableCollectionView(view, types):
-    items = view.context.results(b_start=0, b_size=3);
+    if IATTopic.providedBy(view.context):
+        items = view.context.queryCatalog({'portal_type': types}, batch=True, b_size=3)
+    else:
+        items = view.context.results(b_start=0, b_size=3, custom_query={'portal_type': types});
+
     if (items is not None):
         for brain in items:
             if (not brain.portal_type in types):

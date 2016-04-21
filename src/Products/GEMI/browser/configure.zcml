@@ -76,6 +76,24 @@
         layer="..interfaces.IProductsGemiLayer"
     />
 
+    <!-- Filter topic view -->
+    <browser:page
+        for="Products.ATContentTypes.interface.IATTopic"
+        name="filter_view"
+        permission="zope2.View"
+        class=".collections.View"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
+    <!-- Filter topic view settings -->
+    <browser:page
+        for="Products.ATContentTypes.interface.IATTopic"
+        name="filter_settings"
+        permission="cmf.ModifyPortalContent"
+        class=".collections.ViewSettings"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
     <!-- Bibfolder view settings (GEMI) -->
     <browser:page
         for="Products.CMFBibliographyAT.interface.IBibliographyFolder"
@@ -128,6 +146,16 @@
     <!-- display menu item for collection filter view -->
     <browser:menuItem
         for="plone.app.collection.interfaces.ICollection"
+        menu="plone_displayviews"
+        title="GEMI view"
+        action="@@filter_view"
+        description="A collection list view with filter"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
+    <!-- display menu item for topic filter view -->
+    <browser:menuItem
+        for="Products.ATContentTypes.interface.IATTopic"
         menu="plone_displayviews"
         title="GEMI view"
         action="@@filter_view"

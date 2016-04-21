@@ -18,12 +18,7 @@
     <div class="results-container"
          tal:condition="python: view.isValid"
          tal:define="
-              b_start python:request.get('b_start', 0);
-              author request/author | python: ' ';
-              year request/year | python: ' ';
-              query python: view.getQuery();
-
-              batch python:context.results(b_start=b_start, custom_query=query);
+              batch python: view.getResults();
               results python: view.gutil.groupBibItemsByYears(batch);
           ">
 
