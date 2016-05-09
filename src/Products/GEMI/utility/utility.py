@@ -113,7 +113,24 @@ class ProductsGEMIUtility:
             'filter_by_year' : obj.getProperty(BFV_FILTER_BY_YEAR),
             'filter_authors' : obj.getProperty(BFV_FILTER_AUTHORS, []),
             'filter_years' : obj.getProperty(BFV_FILTER_YEARS, []),
+            'filter_default_year': obj.getProperty(BFV_FILTER_DEFAULT_YEAR, ''),
+            'filter_default_author': obj.getProperty(BFV_FILTER_DEFAULT_AUTHOR, ''),
         }
+
+    def getBibFolderFilterValues(self, items):
+        authors = filter(None, items.get('filter_authors', '').splitlines());
+        authors.sort();
+        years = filter(None, items.get('filter_years', '').splitlines());
+        years.sort();
+
+        return {
+            BFV_FILTER_SHOW : {'type':'int', 'value': int(items.get('filter_show', False) == 'True')},
+            BFV_FILTER_BY_YEAR : {'type':'int', 'value': int(items.get('filter_by_year', False) == 'True')},
+            BFV_FILTER_AUTHORS : {'type':'lines', 'value': authors},
+            BFV_FILTER_YEARS : {'type':'lines', 'value': years},
+            BFV_FILTER_DEFAULT_YEAR: {'type': 'string', 'value': items.get('filter_default_year', '')},
+            BFV_FILTER_DEFAULT_AUTHOR: {'type': 'string', 'value': items.get('filter_default_author', '')},
+        };
         
     def groupBibItemsByYears(self, list):
         # nimmt eine liste von References (oder Brains!), gibt ein dictionary zurueck, in dem der key das jahr ist

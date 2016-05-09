@@ -57,6 +57,21 @@
                 </td>
             </tr>
         </table>
+        <div>
+            <span i18n:translate="">Default Filter selection</span>
+            <table class="filter">
+            <tr>
+                <td>
+                    <span i18n:translate="">Selected author</span><br />
+                    <input name="filter_default_author" value="" tal:attributes="value view/filterSettings/filter_default_author" />
+                </td>
+                <td>
+                    <span i18n:translate="">Selected Year</span> <br />
+                    <input name="filter_default_year" value="" tal:attributes="value view/filterSettings/filter_default_year" />
+                </td>
+            </tr>
+        </table>
+        </div>
 
         <hr />
         <div class="formControls">

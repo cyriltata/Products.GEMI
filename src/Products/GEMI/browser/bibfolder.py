@@ -31,6 +31,9 @@ class View(BrowserView):
         cats = [];
         bibtool = getToolByName(self, 'portal_bibliography')
 
+        #initialize filter
+        self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
+
         # initialize categories
         if (self.context.hasProperty(BFV_CATEGORY_COUNT) and self.context.getProperty(BFV_CATEGORY_COUNT) > 0):
             cats = self.gutil.getBibFolderCategories(self.context, False)
@@ -39,9 +42,6 @@ class View(BrowserView):
 
         for cat in cats:
             self.queries.append(self.makeCategoryQuery(cat))
-
-        #initialize filter
-        self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
 
 
     def makeCategoryQuery(self, category):
@@ -59,6 +59,15 @@ class View(BrowserView):
             'display_desc': category['description']
         }
 
+        # if filter is not to be shown then don't apply filter query
+        if self.filterSettings['filter_show'] != 1:
+            return query;
+
+        # if there is no filter in the request then use the default filter
+        if self.request.get('filter.author', None) is None:
+            self.request.set('filter.author', self.context.getProperty(BFV_FILTER_DEFAULT_AUTHOR, ''))
+            self.request.set('filter.year', self.context.getProperty(BFV_FILTER_DEFAULT_YEAR, ''))
+            
         author = self.request.get('filter.author', '').strip()
         author = author.split(',');
         if author:
@@ -66,7 +75,7 @@ class View(BrowserView):
         year = self.request.get('filter.year', '').strip()
         if year:
             query['publication_year'] = year;
-            
+
         return query
 
     def runQuery(self, query, start=0, limit=1000):
@@ -202,16 +211,7 @@ class ViewSettings(BrowserView):
                     util.addBibFolderCategory(self.context, items[cat_name], items[cat_types], items[cat_desc])
 
         # Save filter settings
-        authors = filter(None, items.get('filter_authors', '').splitlines());
-        authors.sort();
-        years = filter(None, items.get('filter_years', '').splitlines());
-        years.sort();
-        filter_settings = {
-            BFV_FILTER_SHOW : {'type':'int', 'value': int(items.get('filter_show', False) == 'True')},
-            BFV_FILTER_BY_YEAR : {'type':'int', 'value': int(items.get('filter_by_year', False) == 'True')},
-            BFV_FILTER_AUTHORS : {'type':'lines', 'value': authors},
-            BFV_FILTER_YEARS : {'type':'lines', 'value': years},
-        };
+        filter_settings = util.getBibFolderFilterValues(items);
         util.saveBibFolderFilterSettings(self.context, filter_settings);
 
         self.messages.add(_(u'Your settings have been saved!'), type=u"info")

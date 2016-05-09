@@ -44,17 +44,8 @@ class ViewSettings(BrowserView):
             return;
         
         # Save filter settings
-        authors = filter(None, items.get('filter_authors', '').splitlines());
-        authors.sort();
-        years = filter(None, items.get('filter_years', '').splitlines());
-        years.sort();
-        filter_settings = {
-            BFV_FILTER_SHOW : {'type':'int', 'value': int(items.get('filter_show', False) == 'True')},
-            BFV_FILTER_BY_YEAR : {'type':'int', 'value': int(items.get('filter_by_year', False) == 'True')},
-            BFV_FILTER_AUTHORS : {'type':'lines', 'value': authors},
-            BFV_FILTER_YEARS : {'type':'lines', 'value': years},
-        };
         util = getUtility(IProductsGEMIUtility)
+        filter_settings = util.getBibFolderFilterValues(items);
         util.saveBibFolderFilterSettings(self.context, filter_settings);
 
         messages = IStatusMessage(self.request)
@@ -106,6 +97,15 @@ class View(BrowserView):
             'sort_order': 'reverse',
             'Language': 'all',
         };
+
+        # if filter is not to be shown then don't apply filter query
+        if self.filterSettings['filter_show'] != 1:
+            return query;
+
+        # if there is no filter in the request then use the default filter
+        if self.request.get('filter.author', None) is None:
+            self.request.set('filter.author', self.context.getProperty(BFV_FILTER_DEFAULT_AUTHOR, ''))
+            self.request.set('filter.year', self.context.getProperty(BFV_FILTER_DEFAULT_YEAR, ''))
 
         author = self.request.get('filter.author', '').strip()
         author = author.split(',');

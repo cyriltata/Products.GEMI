@@ -22,3 +22,7 @@ BFV_FILTER_YEARS = "bvf_filter_years";
 
 BFV_FILTER_PATH = "bvf_filter_path";
 
+BFV_FILTER_DEFAULT_YEAR = "bvf_filter_default_year";
+
+BFV_FILTER_DEFAULT_AUTHOR = "bvf_filter_default_author";
+

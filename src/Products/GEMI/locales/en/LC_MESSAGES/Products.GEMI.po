@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0a\n"
-"POT-Creation-Date: 2016-04-07 12:17+0000\n"
+"POT-Creation-Date: 2016-05-09 12:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Cyril Tata <ctata@gwdg.de>\n"
 "Language-Team: AG Technik - GEMI <LL@li.org>\n"
@@ -49,6 +49,11 @@ msgstr "Content-Type View Settings"
 msgid "Content-type (multiselect)"
 msgstr ""
 
+#: GEMI/browser/templates/bibfolder_view_settings.pt:116
+#: GEMI/browser/templates/collection_view_settings.pt:61
+msgid "Default Filter selection"
+msgstr ""
+
 #: GEMI/interfaces.py:26
 msgid "Description"
 msgstr "Description"
@@ -78,6 +83,7 @@ msgstr "Folder Content-type View Settings"
 
 #: GEMI/profiles/default/types/BibliographyFolder.xml
 #: GEMI/profiles/default/types/Collection.xml
+#: GEMI/profiles/default/types/Topic.xml
 msgid "GEMI View Settings"
 msgstr ""
 
@@ -87,6 +93,7 @@ msgstr "GEMI plone add-on"
 
 #: GEMI/profiles/default/types/BibliographyFolder.xml
 #: GEMI/profiles/default/types/Collection.xml
+#: GEMI/profiles/default/types/Topic.xml
 msgid "GEMI view"
 msgstr ""
 
@@ -134,6 +141,16 @@ msgstr ""
 msgid "Saved"
 msgstr "Saved"
 
+#: GEMI/browser/templates/bibfolder_view_settings.pt:124
+#: GEMI/browser/templates/collection_view_settings.pt:69
+msgid "Selected Year"
+msgstr ""
+
+#: GEMI/browser/templates/bibfolder_view_settings.pt:120
+#: GEMI/browser/templates/collection_view_settings.pt:65
+msgid "Selected author"
+msgstr ""
+
 #: GEMI/browser/folders.py:204
 msgid "Settings for Content-type folder view"
 msgstr "Settings for Content-type folder view"
@@ -159,7 +176,7 @@ msgid "WWW-Team"
 msgstr "WWW-Team"
 
 #: GEMI/browser/bibfolder.py:217
-#: GEMI/browser/collections.py:60
+#: GEMI/browser/collections.py:52
 #: GEMI/browser/folders.py:245
 msgid "Your settings have been saved!"
 msgstr "Your settings have been saved!"
@@ -250,7 +267,7 @@ msgstr ""
 
 #. Default: "Show"
 #: GEMI/browser/templates/bibfolder_view.pt:37
-#: GEMI/browser/templates/collection_view.pt:54
+#: GEMI/browser/templates/collection_view.pt:49
 msgid "label_show"
 msgstr ""
 
@@ -279,31 +296,31 @@ msgstr "Should filter be shown above collection?"
 
 #. Default: "all"
 #: GEMI/browser/templates/bibfolder_view.pt:25
-#: GEMI/browser/templates/collection_view.pt:42
+#: GEMI/browser/templates/collection_view.pt:37
 msgid "text_authors_all"
 msgstr "all"
 
 #. Default: "by author:"
 #: GEMI/browser/templates/bibfolder_view.pt:23
-#: GEMI/browser/templates/collection_view.pt:40
+#: GEMI/browser/templates/collection_view.pt:35
 msgid "text_by_author"
 msgstr ""
 
 #. Default: "by year:"
 #: GEMI/browser/templates/bibfolder_view.pt:30
-#: GEMI/browser/templates/collection_view.pt:47
+#: GEMI/browser/templates/collection_view.pt:42
 msgid "text_by_year"
 msgstr ""
 
 #. Default: "Show"
 #: GEMI/browser/templates/bibfolder_view.pt:21
-#: GEMI/browser/templates/collection_view.pt:38
+#: GEMI/browser/templates/collection_view.pt:33
 msgid "text_show"
 msgstr ""
 
 #. Default: "all"
 #: GEMI/browser/templates/bibfolder_view.pt:32
-#: GEMI/browser/templates/collection_view.pt:49
+#: GEMI/browser/templates/collection_view.pt:44
 msgid "text_years_all"
 msgstr ""
 
