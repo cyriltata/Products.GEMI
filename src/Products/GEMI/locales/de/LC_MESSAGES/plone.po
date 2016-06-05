@@ -30,3 +30,9 @@ msgstr "Ordner"
 
 msgid "Page"
 msgstr "Seite"
+
+msgid "Collection"
+msgstr "Kollektion"
+
+msgid "Bibliography Folder"
+msgstr "Bibliographie Ordner"

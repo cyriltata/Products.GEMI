@@ -52,3 +52,9 @@ msgstr "Folder"
 msgid "Page"
 msgstr "Page"
 
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Bibliography Folder"
+msgstr "Bibliography Folder"
+

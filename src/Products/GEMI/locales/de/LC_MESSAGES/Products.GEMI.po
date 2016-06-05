@@ -73,10 +73,6 @@ msgstr "Biologische Fakultät"
 msgid "Filter Settings"
 msgstr "Filter-Einstellungen"
 
-#. Default: "Folder"
-msgid "Folder"
-msgstr ""
-
 #: GEMI/interfaces.py:60
 msgid "Folder Content-type View Settings"
 msgstr "Einstellungen Inhaltstypen-Ansicht"
@@ -323,4 +319,16 @@ msgstr "anzeigen"
 #: GEMI/browser/templates/collection_view.pt:44
 msgid "text_years_all"
 msgstr "alle"
+
+msgid "Folder"
+msgstr "Ordner"
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Collection"
+msgstr "Kollektion"
+
+msgid "Bibliography Folder"
+msgstr "Bibliographie Ordner"
 
