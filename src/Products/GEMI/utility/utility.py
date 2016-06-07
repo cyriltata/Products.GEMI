@@ -1,6 +1,7 @@
 from Products.GEMI.interfaces import IProductsGEMIUtility
 from Products.GEMI.config import *
 from zope.interface import implements
+from DateTime import DateTime
 
 class ProductsGEMIUtility:
 
@@ -142,5 +143,45 @@ class ProductsGEMIUtility:
                 res[year] = [r]
             else: res[year].append(r)
         return res
-        
+
+    def getStartEnd(self, topic, criterion, catalog):
+        '''
+        Get start and end date ranges for old style plone collections
+        '''
+        if criterion.meta_type in ['ATDateRangeCriterion']:
+            start_date = criterion.getStart()
+            end_date = criterion.getEnd()
+        elif criterion.meta_type in ['ATFriendlyDateCriteria']:
+            date_base = criterion.getCriteriaItems()[0][1]['query']
+            if date_base==None:
+                date_base = DateTime()
+            date_limit = self.getDateLimit(topic, criterion, catalog)
+            start_date = min(date_base, date_limit)
+            end_date =  max(date_base, date_limit)
+
+        return start_date, end_date
+
+    def getDateLimit(self, topic, criterion, catalog):
+        '''
+        get the earliest/latest date that should be included in
+        a daterange covering all dates defined by the criteria
+        '''
+        query = topic.buildQuery()
+        query['sort_on'] = criterion.Field()
+        query['sort_limit'] = 1
+
+        if criterion.getOperation() == 'less':
+            query['sort_order'] = 'ascending'
+            adjust = -1
+        else:
+            query['sort_order'] = 'descending'
+            adjust = 1
+            
+        query.pop(criterion.Field())
+        results = catalog(**query)
+        if len(results) > 0:
+            date_limit = results[0][criterion.Field()] + adjust
+        else:
+            date_limit = DateTime()
+        return date_limit
         

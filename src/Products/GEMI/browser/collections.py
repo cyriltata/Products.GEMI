@@ -3,19 +3,18 @@
 
 # Zope imports
 from AccessControl import ClassSecurityInfo
+from Products.ATContentTypes.interface import IATTopic
 from Products.CMFCore.permissions import View
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.statusmessages.interfaces import IStatusMessage
-from Products.GEMI.config import *
-from Products.CMFCore.utils import getToolByName
-from Products.ATContentTypes.interface import IATTopic
-
-from zope.component import getUtility
-
-from Products.GEMI.interfaces import IProductsGEMIUtility
-from Products.GEMI import config
 from Products.GEMI import _
+from Products.GEMI import config
+from Products.GEMI.config import *
+from Products.GEMI.interfaces import IProductsGEMIUtility
+from Products.statusmessages.interfaces import IStatusMessage
+from zope.component import getUtility
+from plone.batching import Batch
 
 class ViewSettings(BrowserView):
     """A BrowserView to display the Todo listing on a Folder."""
@@ -56,7 +55,7 @@ class ViewSettings(BrowserView):
         self.gutil = getUtility(IProductsGEMIUtility)
         self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
 
-    def _redirect(self, view = None):
+    def _redirect(self, view=None):
         if (view is None):
             view = ''
         contextURL = "%s%s" % (self.context.absolute_url(), view)
@@ -84,11 +83,15 @@ class View(BrowserView):
     def getResults(self):
         query = self.getQuery();
         b_start = self.request.get('b_start', 0);
+        b_size = 200
 
         if IATTopic.providedBy(self.context):
-            return self.context.queryCatalog(query, batch=True, b_start=b_start);
+            query = self.getQuery()
+            query.update(self.getTopicQuery())
+            results = self.context.portal_catalog(**query);
+            return Batch(results, b_size, b_start, orphan=0)
         else:
-           return self.context.results(b_start=b_start, custom_query=query)
+            return self.context.results(b_start=b_start, custom_query=query)
 
     security.declareProtected(View, 'getQuery')
     def getQuery(self):
@@ -129,6 +132,65 @@ class View(BrowserView):
             url = None
 
         return url;
+
+    def getTopicQuery(self):
+        catalog = self.context.portal_catalog
+        topic = self.context
+        query = topic.buildQuery()
+        #query.pop('sort_order', None)
+
+        for criterion in topic.listCriteria():
+            if criterion.meta_type in ['ATDateRangeCriterion', 'ATFriendlyDateCriteria']:
+                start_date, end_date = self.gutil.getStartEnd(topic, criterion, catalog)
+                value = (start_date.strftime('%Y/%m/%d'), end_date.strftime('%Y/%m/%d'))
+            else:
+                value = None
+
+            if value:
+                query[criterion.Field()] = {}
+                if hasattr(criterion, 'getOperator'):
+                    operator = criterion.getOperator()
+                    query[criterion.Field()]['operator'] = operator
+                    assert(criterion.meta_type in ['ATSelectionCriterion', 'ATListCriterion'])
+                else:
+                    operator = None
+                if operator == 'or':
+                    query[criterion.Field()] = {'query':[value], 'operator':'or'}
+                elif operator == 'and':
+                    q = list(criterion.Value()) + [value]
+                    query[criterion.Field()] = {'query':[q], 'operator':'and'}
+                else:
+                    if criterion.meta_type in ['ATDateRangeCriterion', 'ATFriendlyDateCriteria']:
+                        start = DateTime(value[0])
+                        end = DateTime(value[1])
+                        query[criterion.Field()] = {'query':(start, end), 'range': 'min:max'}
+                    else:
+                        assert(criterion.meta_type == 'ATSimpleStringCriterion')
+                        if criterion.Value():
+                            query[criterion.Field()] = {'query': [criterion.Value(), value], 'operator':'and'}
+                        else:
+                            query[criterion.Field()] = value
+            else:
+                continue
+
+        #get sort_on/order out of topic
+        sort_on = 'publication_year'
+        sort_order = 'reverse'
+        for criterion in topic.listCriteria():
+            if criterion.meta_type == 'ATSortCriterion':
+                sort_on = criterion.getCriteriaItems()[0][1]
+                if len(criterion.getCriteriaItems()) == 2 and sortorder == None:
+                    sort_order = criterion.getCriteriaItems()[1][1]
+        if sort_on:
+            query['sort_on'] = sort_on
+        if sort_order:
+            query['sort_order'] = sort_order
+
+        #logger.debug(query)
+        #results = catalog( ** query)
+
+        #return {'results': results, 'size': batch_size, 'start': batch_start, 'num_results': len(results)}
+        return query;
 
     @property
     def showFilter(self):
