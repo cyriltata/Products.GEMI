@@ -3,7 +3,10 @@
     <span class="title" tal:content="view/item/Title"/>.
     <i class="journal" tal:condition="view/getJournal" tal:content="view/getJournal" />
     <i class= "volume" tal:content="python: '%s' % view.formatVolume()" />
-    <span class="pages" tal:condition="view/item/getPages" tal:content="view/item/getPages" />
+    <span class="pages" tal:condition="view/item/getPages" tal:content="view/item/getPages" />.
+    <meta:block tal:condition="view/getFormattedIdentifiers">
+        &nbsp; <span tal:content="view/getFormattedIdentifiers">(doi:xxxx/xxx.xxxx, issn: xxx-xxx)</span>
+    </meta:block>
     <span class="files" tal:condition="view/getPdfUrl|view/getUrl">
         <a href="#" tal:attributes="href view/getPdfUrl; target string:_blank" tal:condition="view/getPdfUrl">
             <img src="++resource++Products.GEMI/pdf.gif" />

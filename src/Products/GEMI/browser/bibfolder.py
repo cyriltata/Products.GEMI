@@ -279,3 +279,8 @@ class ViewListFormatter(BrowserView):
         if self.item.getPublication_url():
             return self.item.getPublication_url()
         return None
+
+    def getFormattedIdentifiers(self):
+        if (not hasattr(self.item, 'identifiers')):
+            return None
+        return ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',');
