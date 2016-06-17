@@ -284,3 +284,8 @@ class ViewListFormatter(BrowserView):
         if (not hasattr(self.item, 'identifiers')):
             return None
         return ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',');
+
+    @property
+    def Authors(self):
+        authors = self.item.AuthorItems(format="%L, %f.%m.");
+        return ', '.join(authors);
