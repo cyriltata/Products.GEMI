@@ -119,6 +119,14 @@
         permission="zope2.View"
         class=".bibfolder.ViewListFormatter"
         />
+ 
+    <!-- View to export Event and News content-types in JSON -->
+    <browser:page
+          for="*"
+          name="exporteventnewsjson"
+          permission="zope2.Public"
+          class=".api.ExportNewsAndEventsAsJSON"
+          />
 
     <!-- Configure menu items -->
     <!-- ==================== -->
