@@ -77,7 +77,7 @@ class ExportNewsAndEventsAsJSON(BrowserView):
         filter = {
             "show_excluded_from_nav": True,
             "portal_type": ('News Item', 'Event'),
-            #"review_state": "published",
+            "review_state": "published",
             "path": {"query": self.request.get("path", "/")}
         }
         
