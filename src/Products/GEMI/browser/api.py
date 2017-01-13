@@ -22,6 +22,7 @@ class ExportNewsAndEventsAsJSON(BrowserView):
     def __call__(self):
         if (self.request["REQUEST_METHOD"] == "GET"):
             self.request.response.setHeader("Content-type", "application/json; charset=utf-8")
+	    self.request.response.setHeader("Access-Control-Allow-Origin", "*")
             return json.dumps(self.getItems());
 
     
