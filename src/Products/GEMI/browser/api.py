@@ -2,6 +2,10 @@
 from Products.Five.browser import BrowserView
 from Products.GEMI import _
 from dateutil.parser import parse as parse_date
+from DateTime import DateTime
+from datetime import datetime
+from time import time
+
 try:
     import json
 except ImportError:
@@ -76,10 +80,28 @@ class ExportNewsAndEventsAsJSON(BrowserView):
     def getItems(self):
         filter = {
             "show_excluded_from_nav": True,
-            "portal_type": ('News Item', 'Event'),
             "review_state": "published",
             "path": {"query": self.request.get("path", "/")}
         }
+
+        date_range = self.getDateRangeQuery(
+            self.request.get('date', None),
+            self.request.get('from', None),
+            self.request.get('to', None)
+        );
+        portal_type = self.request.get('type', 'Event');
+        filter['portal_type'] = (portal_type,)
+
+        if (date_range is not None and portal_type == 'Event'):
+            filter['portal_type'] = ('Event',)
+            filter['start'] = date_range
+        elif (date_range is not None and portal_type == 'NewsItem'):
+            filter['portal_type'] = ('News Item',)
+            filter['modified'] = date_range #should I use last modified time or created date for news item?
+        elif (portal_type == 'NewsItem'):
+            filter['portal_type'] = ('News Item',)
+        else:
+            raise Exception("Request parameters not understood. A date or date range is required!")
         
 
         # Read the first index of the selected batch parameter as HTTP GET request query parameter
@@ -87,21 +109,17 @@ class ExportNewsAndEventsAsJSON(BrowserView):
         limit = 50
 
         data = {
-          "events": {
-            "title": _(u"Events"),
-            "items": [],
-        }, "news": {
-            "title": _(u"News"),
-            "items": [],
-        }}
+            'timezone': 'CET',
+            'items': [],
+        }
 
         items = self.query(start, limit, filter)
         for brain in items:
             obj = brain.getObject();
             if obj.portal_type == "Event":
-                data["events"]["items"].append(self.getDataFromEventObject(obj))
+                data['items'].append(self.getDataFromEventObject(obj))
             else:
-                data["news"]["items"].append(self.getDataFromNewsItemObject(obj))
+                data['items'].append(self.getDataFromNewsItemObject(obj))
 
         return data
     
@@ -117,6 +135,7 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             "location": obj.location,
             "contact_name": obj.contact_name(),
             "contact_email": obj.contact_email(),
+            "modified": self.formatDate(obj.modified()),
         }
     
     def getDataFromNewsItemObject(self, obj):
@@ -131,10 +150,11 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             "location": None,
             "contact_name": obj.Creator(),
             "contact_email": None,
+            "modified": self.formatDate(obj.modified()),
         }
     
-    def formatDate(self, date):
-        if date is None or date == "None":
+    def formatDate(self, date, f=None):
+        if date is None or date == "None" or type(date) is None:
             return None
         if type(date) is str:
             #format: 2016-12-10T07:00:00+01:00
@@ -150,5 +170,56 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             d = format(date.day(), '02')
             hr = format(date.hour(), '02')
             min = format(date.minute(), '02')
+            
+        if (f is None):
+            f = "%s.%s.%s %s:%s:00";
 
-        return "%s-%s-%s %s:%s:00" % (y, m, d, hr, min)
+        return  f % (y, m, d, hr, min)
+
+    def getDateRangeQuery(self, date_str, date_from, date_to):
+        tz= 'CET';
+        z = DateTime(tz);
+        min_date = None;
+        max_date = None;
+
+        if (date_str is not None):
+            if (date_str == 'today'):
+                min_date = ("%s.%s.%s 00:00:01 %s") % (z.day(), z.month(), z.year(), tz);
+                max_date = ("%s.%s.%s 23:59:59 %s") % (z.day(), z.month(), z.year(), tz);
+            elif (date_str == 'yesterday'):
+                y = z - 1
+                min_date = ("%s.%s.%s 00:00:01 %s") % (y.day(), y.month(), y.year(), tz);
+                max_date = ("%s.%s.%s 23:59:59 %s") % (y.day(), y.month(), y.year(), tz);
+            elif (date_str == 'tomorrow'):
+                y = z + 1
+                min_date = ("%s.%s.%s 00:00:01 %s") % (y.day(), y.month(), y.year(), tz);
+                max_date = ("%s.%s.%s 23:59:59 %s") % (y.day(), y.month(), y.year(), tz);
+            else:
+                self.validateDateText(date_str);
+                min_date = ("%s 00:00:01 %s") % (date_str, tz);
+                max_date = ("%s 23:59:59 %s") % (date_str, tz);
+
+        if (date_from is not None and date_to is not None):
+            self.validateDateText(date_from);
+            self.validateDateText(date_to);
+            min_date = ("%s 00:00:01 %s") % (date_from, tz);
+            max_date = ("%s 23:59:59 %s") % (date_to, tz);
+
+        if (min_date is None or max_date is None):
+            return None;
+
+        date_range = {
+            'query': (
+                DateTime(min_date, datefmt='international'),
+                DateTime(max_date, datefmt='international'),
+            ),
+            'range': 'min:max',
+        }
+        return date_range;
+
+    def validateDateText(self, date_text):
+        try:
+            datetime.strptime(date_text, '%d.%m.%Y')
+        except ValueError:
+            raise ValueError("Incorrect data format, should be DD.MM.YYYY")
+    
