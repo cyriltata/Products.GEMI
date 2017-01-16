@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*
 from Products.Five.browser import BrowserView
-from Products.GEMI import _
 from dateutil.parser import parse as parse_date
 from DateTime import DateTime
 from datetime import datetime
-from time import time
+from Products.CMFCore.utils import getToolByName
 
 try:
     import json
@@ -18,6 +17,7 @@ class ExportNewsAndEventsAsJSON(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.members = {};
 
     def __call__(self):
         if (self.request["REQUEST_METHOD"] == "GET"):
@@ -134,7 +134,7 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             "start_or_created": self.formatDate(obj.start()) or self.formatDate(obj.EffectiveDate()) or self.formatDate(obj.created()),
             "end_or_expires": self.formatDate(obj.end()) or self.formatDate(obj.ExpirationDate()) or self.formatDate(obj.expires()),
             "location": obj.location,
-            "contact_name": obj.contact_name(),
+            "contact_name": obj.contact_name() or self.getMemberById(obj.Creator()) or obj.Creator(),
             "contact_email": obj.contact_email(),
             "modified": self.formatDate(obj.modified()),
         }
@@ -149,7 +149,7 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             "start_or_created":  self.formatDate(obj.modified()) or self.formatDate(obj.EffectiveDate()),
             "end_or_expires": self.formatDate(obj.expires()) or self.formatDate(obj.ExpirationDate()),
             "location": None,
-            "contact_name": obj.Creator(),
+            "contact_name": self.getMemberById(obj.Creator()) or obj.Creator(),
             "contact_email": None,
             "modified": self.formatDate(obj.modified()),
         }
@@ -224,3 +224,11 @@ class ExportNewsAndEventsAsJSON(BrowserView):
         except ValueError:
             raise ValueError("Incorrect data format, should be DD.MM.YYYY")
     
+    def getMemberById(self, id):
+        if (id not in self.members):
+            portal_membership = getToolByName(self.context, 'portal_membership');
+            member = portal_membership.getMemberById(id)
+            self.members[id] = member.getProperty("fullname")
+
+        return self.members.get(id, None);
+
