@@ -22,7 +22,7 @@ class ExportNewsAndEventsAsJSON(BrowserView):
     def __call__(self):
         if (self.request["REQUEST_METHOD"] == "GET"):
             self.request.response.setHeader("Content-type", "application/json; charset=utf-8")
-	    self.request.response.setHeader("Access-Control-Allow-Origin", "*")
+            self.request.response.setHeader("Access-Control-Allow-Origin", "*")
             return json.dumps(self.getItems());
 
     
@@ -146,8 +146,8 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             "title": obj.Title(),
             "headline": obj.Description(),
             "url": obj.absolute_url(),
-            "start_or_created": self.formatDate(obj.EffectiveDate()) or self.formatDate(obj.created()),
-            "end_or_expires": self.formatDate(obj.ExpirationDate()) or self.formatDate(obj.expires()),
+            "start_or_created":  self.formatDate(obj.modified()) or self.formatDate(obj.EffectiveDate()),
+            "end_or_expires": self.formatDate(obj.expires()) or self.formatDate(obj.ExpirationDate()),
             "location": None,
             "contact_name": obj.Creator(),
             "contact_email": None,
