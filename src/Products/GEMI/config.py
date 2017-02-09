@@ -26,3 +26,5 @@ BFV_FILTER_DEFAULT_YEAR = "bvf_filter_default_year";
 
 BFV_FILTER_DEFAULT_AUTHOR = "bvf_filter_default_author";
 
+BFV_SHOW_FOLDER_IN_COLLECTION = "bvf_show_folder_in_collection";
+

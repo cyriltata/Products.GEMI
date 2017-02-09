@@ -119,6 +119,14 @@
         permission="zope2.View"
         class=".bibfolder.ViewListFormatter"
         />
+
+    <!-- Template to hold content of a bibfolder -->
+    <browser:page
+        for="*"
+        name="bibfoldercontent"
+        permission="zope2.View"
+        class=".bibfolder.ViewContent"
+        />
  
     <!-- View to export Event and News content-types in JSON -->
     <browser:page

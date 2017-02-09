@@ -13,8 +13,14 @@ from Products.GEMI import config
 from Products.GEMI.config import *
 from Products.GEMI.interfaces import IProductsGEMIUtility
 from Products.statusmessages.interfaces import IStatusMessage
+from Products.CMFBibliographyAT.interface import IBibliographyFolder
 from zope.component import getUtility
 from plone.batching import Batch
+from plone.app.querystring import queryparser
+from Acquisition import aq_acquire
+from Acquisition import aq_inner
+from Acquisition import aq_base
+from zope.component import getMultiAdapter
 
 class ViewSettings(BrowserView):
     """A BrowserView to display the Todo listing on a Folder."""
@@ -69,6 +75,8 @@ class View(BrowserView):
     isValid = False
     gutil = None;
     filterSettings = {};
+    innerView = None
+    hasInnerView = False
 
     def __init__(self, context, request):
         self.context = context
@@ -78,20 +86,49 @@ class View(BrowserView):
         self.gutil = getUtility(IProductsGEMIUtility)
         self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
         self.isValid = isApplicableCollectionView(self, config.ALLOWED_TYPES_COLLECTION_FILTER_VIEW);
-        return self.template();
+        if self.filterSettings['show_folder_in_collection'] == 1:
+            return self.folder_template();
+        else:
+            return self.template();
+
+    def folder_template(self):
+        obj = None;
+        if IATTopic.providedBy(self.context):
+            query = self.context.buildQuery();
+        else:
+            query = queryparser.parseFormquery(self.context, self.context.getRawQuery()) 
+
+        if (query.get('path')):
+            path = query.get('path')
+            name = 'bibfolder-view-gemi';
+            if IATTopic.providedBy(self.context):
+                target_obj = self.context.restrictedTraverse(path.get('query'))
+            else:
+                target_obj = self.context.restrictedTraverse(path.get('query')[0])
+            obj = aq_inner(target_obj)
+            if IBibliographyFolder.providedBy(obj):
+                # May raise ComponentLookUpError
+                view = getMultiAdapter((obj, self.request), name=name)
+                # Add the view to the acquisition chain
+                view = view.__of__(obj)
+                self.hasInnerView = True
+                self.innerView = view
+                return self.template()
+
+        return 'ERROR/OBJECT/M.I';
 
     def getResults(self):
         query = self.getQuery();
         b_start = self.request.get('b_start', 0);
         b_size = 200
-
-        if IATTopic.providedBy(self.context):
-            query = self.getQuery()
-            query.update(self.getTopicQuery())
-            results = self.context.portal_catalog(**query);
-            return Batch(results, b_size, b_start, orphan=0)
-        else:
-            return self.context.results(b_start=b_start, custom_query=query)
+        return self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size, **query)
+#        if IATTopic.providedBy(self.context):
+#            query = self.getQuery()
+#            query.update(self.getTopicQuery())
+#            results = self.context.portal_catalog(**query);
+#            return Batch(results, b_size, b_start, orphan=0)
+#        else:
+#            return self.context.results(b_start=b_start, custom_query=query)
 
     security.declareProtected(View, 'getQuery')
     def getQuery(self):
@@ -220,15 +257,17 @@ class View(BrowserView):
 
 
 def isApplicableCollectionView(view, types):
-    if IATTopic.providedBy(view.context):
-        items = view.context.queryCatalog({'portal_type': types}, batch=True, b_size=3)
-    else:
-        items = view.context.results(b_start=0, b_size=3, custom_query={'portal_type': types});
+    return True;
 
-    if (items is not None):
-        for brain in items:
-            if (not brain.portal_type in types):
-                return False
-        return True
+#    if IATTopic.providedBy(view.context):
+#        items = view.context.queryCatalog({'portal_type': types}, batch=True, b_size=3)
+#    else:
+#        items = view.context.results(b_start=0, b_size=3, custom_query={'portal_type': types});
 
-    return False;
+#    if (items is not None):
+#        for brain in items:
+#            if (not brain.portal_type in types):
+#                return False
+#        return True
+
+#    return False;

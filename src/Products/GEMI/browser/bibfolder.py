@@ -51,17 +51,19 @@ class View(BrowserView):
         path = '/'.join(self.context.getPhysicalPath());
         query = {
             'portal_type': list(category['reftypes']),
-            'path': path,
+            'path': {'query': path, 'depth': 1},
             'sort_on': 'publication_year',
             'sort_order': 'reverse',
-            'Language': 'all',
+            'Language': 'all'
+        }
+        labels = {
             'display_label': category['category'],
             'display_desc': category['description']
         }
 
         # if filter is not to be shown then don't apply filter query
         if self.filterSettings['filter_show'] != 1:
-            return query;
+            return {'filter': query, 'labels': labels};
 
         # if there is no filter in the request then use the default filter
         if self.request.get('filter.author', None) is None:
@@ -76,7 +78,7 @@ class View(BrowserView):
         if year:
             query['publication_year'] = year;
 
-        return query
+        return {'filter': query, 'labels': labels};
 
     def runQuery(self, query, start=0, limit=1000):
         """ Make catalog query for the folder listing.
@@ -99,8 +101,7 @@ class View(BrowserView):
         # set to content filter
         mtool = self.context.portal_membership
         cur_path = '/'.join(self.context.getPhysicalPath())
-        path = {}
-        contentFilter = query
+        contentFilter = query['filter']
 
         if not contentFilter:
             contentFilter = {}
@@ -110,9 +111,9 @@ class View(BrowserView):
         if not contentFilter.get('sort_on', None):
             contentFilter['sort_on'] = 'getObjPositionInParent'
 
-        if contentFilter.get('path', None) is None:
-            path['query'] = cur_path
-            path['depth'] = 1
+        path = contentFilter.get('path', None);
+        if path is None:
+            path = {'query': cur_path, 'depth': 1}
             contentFilter['path'] = path
 
         # Folder or Large Folder like content
@@ -289,3 +290,12 @@ class ViewListFormatter(BrowserView):
     def Authors(self):
         authors = self.item.AuthorItems(format="%L, %f.%m.");
         return ', '.join(authors);
+    
+
+class ViewContent(BrowserView):
+
+    template = ViewPageTemplateFile('templates/bibfolder_content.pt')
+
+    def __call__(self, p=None):
+        self.parent = p
+        return self.template()

@@ -116,6 +116,7 @@ class ProductsGEMIUtility:
             'filter_years' : obj.getProperty(BFV_FILTER_YEARS, []),
             'filter_default_year': obj.getProperty(BFV_FILTER_DEFAULT_YEAR, ''),
             'filter_default_author': obj.getProperty(BFV_FILTER_DEFAULT_AUTHOR, ''),
+            'show_folder_in_collection': obj.getProperty(BFV_SHOW_FOLDER_IN_COLLECTION, 0),
         }
 
     def getBibFolderFilterValues(self, items):
@@ -131,6 +132,7 @@ class ProductsGEMIUtility:
             BFV_FILTER_YEARS : {'type':'lines', 'value': years},
             BFV_FILTER_DEFAULT_YEAR: {'type': 'string', 'value': items.get('filter_default_year', '')},
             BFV_FILTER_DEFAULT_AUTHOR: {'type': 'string', 'value': items.get('filter_default_author', '')},
+            BFV_SHOW_FOLDER_IN_COLLECTION: {'type':'int', 'value': int(items.get('show_folder_in_collection', False) == 'True')}
         };
         
     def groupBibItemsByYears(self, list):
