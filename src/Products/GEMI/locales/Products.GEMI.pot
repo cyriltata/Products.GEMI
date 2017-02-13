@@ -17,7 +17,11 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.GEMI\n"
 
-#: GEMI/browser/bibfolder.py:229
+#. Default: "Bibliography Folder"
+msgid "Bibliography Folder"
+msgstr ""
+
+#: GEMI/browser/bibfolder.py:230
 msgid "Categories have been deleted!"
 msgstr ""
 
@@ -28,6 +32,10 @@ msgstr ""
 #: GEMI/browser/templates/bibfolder_view_settings.pt:48
 msgid "Category Name"
 msgstr ""
+
+#. Default: "Collection"
+msgid "Collection"
+msgstr "Collection"
 
 #: GEMI/interfaces.py:66
 msgid "Collection Filter View Settings"
@@ -53,7 +61,7 @@ msgid "Content-type (multiselect)"
 msgstr ""
 
 #: GEMI/browser/templates/bibfolder_view_settings.pt:116
-#: GEMI/browser/templates/collection_view_settings.pt:61
+#: GEMI/browser/templates/collection_view_settings.pt:68
 msgid "Default Filter selection"
 msgstr ""
 
@@ -72,7 +80,7 @@ msgid "Faculty of Biology"
 msgstr ""
 
 #: GEMI/browser/templates/bibfolder_view_settings.pt:84
-#: GEMI/browser/templates/collection_view_settings.pt:29
+#: GEMI/browser/templates/collection_view_settings.pt:36
 msgid "Filter Settings"
 msgstr ""
 
@@ -111,12 +119,12 @@ msgid "Institute of Psychology"
 msgstr ""
 
 #: GEMI/browser/templates/bibfolder_view_settings.pt:96
-#: GEMI/browser/templates/collection_view_settings.pt:41
+#: GEMI/browser/templates/collection_view_settings.pt:48
 msgid "List of authors to be shown in filter (each in newline)"
 msgstr ""
 
 #: GEMI/browser/templates/bibfolder_view_settings.pt:105
-#: GEMI/browser/templates/collection_view_settings.pt:50
+#: GEMI/browser/templates/collection_view_settings.pt:57
 msgid "List of years to be shown in filter (each in newline)"
 msgstr ""
 
@@ -145,12 +153,12 @@ msgid "Saved"
 msgstr ""
 
 #: GEMI/browser/templates/bibfolder_view_settings.pt:124
-#: GEMI/browser/templates/collection_view_settings.pt:69
+#: GEMI/browser/templates/collection_view_settings.pt:76
 msgid "Selected Year"
 msgstr ""
 
 #: GEMI/browser/templates/bibfolder_view_settings.pt:120
-#: GEMI/browser/templates/collection_view_settings.pt:65
+#: GEMI/browser/templates/collection_view_settings.pt:72
 msgid "Selected author"
 msgstr ""
 
@@ -171,6 +179,10 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#: GEMI/browser/templates/collection_view_settings.pt:28
+msgid "View Content Settings"
+msgstr ""
+
 #: GEMI/profiles/default/types/Folder.xml
 msgid "View Settings"
 msgstr ""
@@ -178,14 +190,14 @@ msgstr ""
 msgid "WWW-Team"
 msgstr ""
 
-#: GEMI/browser/bibfolder.py:217
-#: GEMI/browser/collections.py:52
+#: GEMI/browser/bibfolder.py:218
+#: GEMI/browser/collections.py:57
 #: GEMI/browser/folders.py:245
 msgid "Your settings have been saved!"
 msgstr ""
 
 #. Default: "If selected the filter will be shown at the top of the listing"
-#: GEMI/browser/templates/collection_view_settings.pt:32
+#: GEMI/browser/templates/collection_view_settings.pt:39
 msgid "bcv_show_filter_desc_help"
 msgstr ""
 
@@ -200,26 +212,26 @@ msgid "box_last_modified"
 msgstr ""
 
 #. Default: "This view is not valid for this type of collection"
-#: GEMI/browser/templates/collection_view.pt:15
+#: GEMI/browser/templates/collection_view.pt:12
 #: GEMI/browser/templates/collection_view_settings.pt:18
 msgid "desc_not_valid_view"
 msgstr ""
 
 #. Default: "Error"
-#: GEMI/browser/templates/collection_view.pt:14
+#: GEMI/browser/templates/collection_view.pt:11
 #: GEMI/browser/templates/collection_view_settings.pt:17
 msgid "error"
 msgstr ""
 
 #. Default: "Group entries by year"
 #: GEMI/browser/templates/bibfolder_view_settings.pt:90
-#: GEMI/browser/templates/collection_view_settings.pt:35
+#: GEMI/browser/templates/collection_view_settings.pt:42
 msgid "group_by_year"
 msgstr ""
 
 #. Default: "If selected entries will be grouped by year under each category"
 #: GEMI/browser/templates/bibfolder_view_settings.pt:91
-#: GEMI/browser/templates/collection_view_settings.pt:36
+#: GEMI/browser/templates/collection_view_settings.pt:43
 msgid "group_by_year_help"
 msgstr ""
 
@@ -269,8 +281,7 @@ msgid "label_by_author"
 msgstr ""
 
 #. Default: "Show"
-#: GEMI/browser/templates/bibfolder_view.pt:37
-#: GEMI/browser/templates/collection_view.pt:49
+#: GEMI/browser/templates/collection_view.pt:43
 msgid "label_show"
 msgstr ""
 
@@ -281,7 +292,7 @@ msgstr ""
 
 #. Default: "Show filter"
 #: GEMI/browser/templates/bibfolder_view_settings.pt:86
-#: GEMI/browser/templates/collection_view_settings.pt:31
+#: GEMI/browser/templates/collection_view_settings.pt:38
 msgid "show_filter"
 msgstr ""
 
@@ -295,33 +306,38 @@ msgstr ""
 msgid "show_filter_help"
 msgstr ""
 
+#. Default: "Override collection content and show contents of specified path."
+#: GEMI/browser/templates/collection_view_settings.pt:30
+msgid "show_folder_in_collection_desc"
+msgstr ""
+
+#. Default: "If this option is selected and within the collection criteria you specified a bibliography folder as the base search path, then the properties of that bibliography folder will be inherited and contents of that bibliography folder will be shown."
+#: GEMI/browser/templates/collection_view_settings.pt:31
+msgid "show_folder_in_collection_desc_help"
+msgstr ""
+
 #. Default: "all"
-#: GEMI/browser/templates/bibfolder_view.pt:25
-#: GEMI/browser/templates/collection_view.pt:37
+#: GEMI/browser/templates/collection_view.pt:31
 msgid "text_authors_all"
 msgstr ""
 
 #. Default: "by author:"
-#: GEMI/browser/templates/bibfolder_view.pt:23
-#: GEMI/browser/templates/collection_view.pt:35
+#: GEMI/browser/templates/collection_view.pt:29
 msgid "text_by_author"
 msgstr ""
 
 #. Default: "by year:"
-#: GEMI/browser/templates/bibfolder_view.pt:30
-#: GEMI/browser/templates/collection_view.pt:42
+#: GEMI/browser/templates/collection_view.pt:36
 msgid "text_by_year"
 msgstr ""
 
 #. Default: "Show"
-#: GEMI/browser/templates/bibfolder_view.pt:21
-#: GEMI/browser/templates/collection_view.pt:33
+#: GEMI/browser/templates/collection_view.pt:28
 msgid "text_show"
 msgstr ""
 
 #. Default: "all"
-#: GEMI/browser/templates/bibfolder_view.pt:32
-#: GEMI/browser/templates/collection_view.pt:44
+#: GEMI/browser/templates/collection_view.pt:38
 msgid "text_years_all"
 msgstr ""
 

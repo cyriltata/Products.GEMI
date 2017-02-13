@@ -27,7 +27,7 @@
 
         <strong i18n:translate="">View Content Settings</strong>
         <div class="checkbox">
-            <label><input name="show_folder_in_collection" type="checkbox" value="True" tal:attributes="checked view/filterSettings/show_folder_in_collection"> <span i18n:translate="show_folder_in_collection_desc">Override collection content and show contents of specified path.</span></label>
+            <label><input name="show_folder_in_collection" type="checkbox" value="True" tal:attributes="checked view/filterSettings/show_folder_in_collection"> <span i18n:translate="show_folder_in_collection_desc">Show contents of specified path</span></label>
             <span i18n:translate="show_folder_in_collection_desc_help" class="help-block">
                 If this option is selected and within the collection criteria you specified a bibliography folder as the base search path, then the properties of that bibliography folder will be inherited and contents of that bibliography folder will be shown.
             </span>
