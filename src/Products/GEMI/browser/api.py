@@ -95,7 +95,7 @@ class ExportNewsAndEventsAsJSON(BrowserView):
 
         if (date_range is not None and portal_type == 'Event'):
             filter['portal_type'] = ('Event',)
-            filter['start'] = date_range
+            filter['end'] = date_range
         elif (date_range is not None and portal_type == 'NewsItem'):
             filter['portal_type'] = ('News Item',)
             filter['modified'] = date_range #should I use last modified time or created date for news item?
