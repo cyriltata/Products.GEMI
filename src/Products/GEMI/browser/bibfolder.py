@@ -67,13 +67,17 @@ class View(BrowserView):
 
         # if there is no filter in the request then use the default filter
         if self.request.get('filter.author', None) is None:
-            self.request.set('filter.author', self.context.getProperty(BFV_FILTER_DEFAULT_AUTHOR, ''))
+            self.request.set('filter.author', self.context.getProperty(BFV_FILTER_DEFAULT_AUTHOR, '').replace(',', ''))
             self.request.set('filter.year', self.context.getProperty(BFV_FILTER_DEFAULT_YEAR, ''))
             
-        author = self.request.get('filter.author', '').strip()
-        author = author.split(',');
-        if author:
-            query['SearchableText'] = author[0] if author else '';
+        author = self.request.get('filter.author', '').strip().replace(',', ' ')
+        author = filter(None, author.split(' '));
+        author = map(str.strip, author);
+
+        if author and author[0]:
+           #query['SearchableText'] = author[0];
+           query['AuthorItems'] = ' '.join(author);
+
         year = self.request.get('filter.year', '').strip()
         if year:
             query['publication_year'] = year;
@@ -256,13 +260,13 @@ class ViewListFormatter(BrowserView):
             if num:
                 v += '('+num+')';
         if v:
-            v = ', ' + v + ', ';
+            v = v + ', ';
         return v;
     
     def getJournal(self):
         if (not hasattr(self.item, 'journal')):
             return False
-        return self.item.getJournal();
+        return self.item.getJournal() + ',';
 
     def getPdfUrl(self):
         r = self.item;
@@ -286,10 +290,37 @@ class ViewListFormatter(BrowserView):
             return None
         return ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',');
 
+    def inBook(self):
+        """ In editor, booktitle, chapter, pages. Publisher: Address """
+        book = [];
+        if (hasattr(self.item, 'editor')):
+            book.append(self.item.getEditor())
+        else:
+            return None;
+
+        if (hasattr(self.item, 'booktitle')):
+            book.append(self.item.getBooktitle())
+        if (hasattr(self.item, 'chapter')):
+            book.append(self.item.getChapter())
+        if (hasattr(self.item, 'pages')):
+            book.append(self.item.getPages())
+        book = filter(None, book);
+
+        str = '';
+
+        if book:
+            str += 'In ' + ', '.join(book) + '.'
+        if (hasattr(self.item, 'publisher')):
+            str += ' Publisher: %s, %s' % (self.item.getPublisher(), self.item.getAddress())
+
+        return str;
+
     @property
     def Authors(self):
-        authors = self.item.AuthorItems(format="%L, %f.%m.");
-        return ', '.join(authors);
+        if (hasattr(self.item, 'AuthorItems')):
+            authors = self.item.AuthorItems(format="%L, %f.%m.");
+            return ', '.join(authors);
+        return None;
     
 
 class ViewContent(BrowserView):

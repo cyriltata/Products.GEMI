@@ -144,13 +144,17 @@ class View(BrowserView):
 
         # if there is no filter in the request then use the default filter
         if self.request.get('filter.author', None) is None:
-            self.request.set('filter.author', self.context.getProperty(BFV_FILTER_DEFAULT_AUTHOR, ''))
+            self.request.set('filter.author', self.context.getProperty(BFV_FILTER_DEFAULT_AUTHOR, '').replace(',', ''))
             self.request.set('filter.year', self.context.getProperty(BFV_FILTER_DEFAULT_YEAR, ''))
 
-        author = self.request.get('filter.author', '').strip()
-        author = author.split(',');
-        if author:
-            query['SearchableText'] = author[0] if author else '';
+        author = self.request.get('filter.author', '').strip().replace(',', ' ')
+        author = filter(None, author.split(' '));
+        author = map(str.strip, author);
+
+        if author and author[0]:
+           #query['SearchableText'] = author[0];
+           query['AuthorItems'] = ' '.join(author);
+
         year = self.request.get('filter.year', '').strip()
         if year:
             query['publication_year'] = year;

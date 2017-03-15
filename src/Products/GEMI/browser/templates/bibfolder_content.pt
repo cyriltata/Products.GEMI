@@ -11,7 +11,7 @@
             <select name="filter.author" class="form-control">
                 <option i18n:translate="text_authors_all" value="">all</option>
                 <metal:block tal:repeat="a view/parent/authorList">
-                    <option tal:attributes="value a; selected python: a==author" tal:content="a">Cyril Tata</option>
+                    <option tal:define="v python: a.replace(',', '')" tal:attributes="value v; selected python: v==author" tal:content="a">Cyril Tata</option>
                 </metal:block>
             </select>
             <span i18n:translate="text_by_year">by year:</span>
@@ -40,7 +40,7 @@
                     tal:content="query/labels/display_desc"
                     ></div>
                 <metal:block tal:repeat="year rkeys">
-                    <div class="year-group">
+                    <div class="year-group" tal:condition="python: year.lower() == 'in press' or float(year) > 1900">
                         <div class="year" tal:attributes="id year; name year" tal:content="year">1905</div>
                         <ul tal:define="items python: results[year]" class="bibfolder-items">
                             <metal:block

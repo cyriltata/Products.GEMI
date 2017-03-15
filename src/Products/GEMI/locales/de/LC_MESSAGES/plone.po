@@ -36,3 +36,6 @@ msgstr "Kollektion"
 
 msgid "Bibliography Folder"
 msgstr "Bibliographie Ordner"
+
+msgid "Log in"
+msgstr "Login"

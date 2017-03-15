@@ -108,7 +108,7 @@
         for="Products.CMFBibliographyAT.interface.IBibliographyFolder"
         name="bibfolder-view-gemi"
         class=".bibfolder.View"
-        permission="cmf.ModifyPortalContent"
+        permission="zope2.View"
         layer="..interfaces.IProductsGemiLayer"
     />
 
