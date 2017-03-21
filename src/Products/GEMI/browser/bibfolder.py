@@ -32,7 +32,8 @@ class View(BrowserView):
         bibtool = getToolByName(self, 'portal_bibliography')
 
         #initialize filter
-        self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
+        if not self.filterSettings:
+            self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
 
         # initialize categories
         if (self.context.hasProperty(BFV_CATEGORY_COUNT) and self.context.getProperty(BFV_CATEGORY_COUNT) > 0):
@@ -62,14 +63,16 @@ class View(BrowserView):
         }
 
         # if filter is not to be shown then don't apply filter query
-        if self.filterSettings['filter_show'] != 1:
-            return {'filter': query, 'labels': labels};
+        #if self.filterSettings['filter_show'] != 1:
+        #    return {'filter': query, 'labels': labels};
 
         # if there is no filter in the request then use the default filter
         if self.request.get('filter.author', None) is None:
-            self.request.set('filter.author', self.context.getProperty(BFV_FILTER_DEFAULT_AUTHOR, '').replace(',', ''))
-            self.request.set('filter.year', self.context.getProperty(BFV_FILTER_DEFAULT_YEAR, ''))
-            
+            self.request.set('filter.author', self.filterSettings.get('filter_default_author', '').replace(',', ''))
+
+        if self.request.get('filter.year', None) is None:
+            self.request.set('filter.year', self.filterSettings.get('filter_default_year', ''))
+
         author = self.request.get('filter.author', '').strip().replace(',', ' ')
         author = filter(None, author.split(' '));
         author = map(str.strip, author);
@@ -132,7 +135,7 @@ class View(BrowserView):
     
     @property
     def authorList(self):
-        a = self.context.getProperty(BFV_FILTER_AUTHORS);
+        a = self.filterSettings.get('filter_authors', None);
         if a is None:
             a = []
         authors = list(a)
@@ -144,7 +147,7 @@ class View(BrowserView):
     
     @property
     def yearsList(self):
-        y = self.context.getProperty(BFV_FILTER_YEARS);
+        y = self.filterSettings.get('filter_years', None);
         if y is None:
             y = []
         years = list(y)

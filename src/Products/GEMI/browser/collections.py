@@ -105,10 +105,13 @@ class View(BrowserView):
                 target_obj = self.context.restrictedTraverse(path.get('query'))
             else:
                 target_obj = self.context.restrictedTraverse(path.get('query')[0])
+
             obj = aq_inner(target_obj)
             if IBibliographyFolder.providedBy(obj):
                 # May raise ComponentLookUpError
                 view = getMultiAdapter((obj, self.request), name=name)
+                # Overwrite filter settings with those in collection
+                view.filterSettings = self.filterSettings;
                 # Add the view to the acquisition chain
                 view = view.__of__(obj)
                 self.hasInnerView = True
@@ -139,13 +142,15 @@ class View(BrowserView):
         };
 
         # if filter is not to be shown then don't apply filter query
-        if self.filterSettings['filter_show'] != 1:
-            return query;
+        #if self.filterSettings['filter_show'] != 1:
+        #    return {'filter': query, 'labels': labels};
 
         # if there is no filter in the request then use the default filter
         if self.request.get('filter.author', None) is None:
-            self.request.set('filter.author', self.context.getProperty(BFV_FILTER_DEFAULT_AUTHOR, '').replace(',', ''))
-            self.request.set('filter.year', self.context.getProperty(BFV_FILTER_DEFAULT_YEAR, ''))
+            self.request.set('filter.author', self.filterSettings.get('filter_default_author', '').replace(',', ''))
+
+        if self.request.get('filter.year', None) is None:
+            self.request.set('filter.year', self.filterSettings.get('filter_default_year', ''))
 
         author = self.request.get('filter.author', '').strip().replace(',', ' ')
         author = filter(None, author.split(' '));
@@ -239,7 +244,7 @@ class View(BrowserView):
     
     @property
     def authorList(self):
-        a = self.context.getProperty(BFV_FILTER_AUTHORS);
+        a = self.filterSettings.get('filter_authors', None);
         if a is None:
             a = []
         authors = list(a)
@@ -250,7 +255,7 @@ class View(BrowserView):
 
     @property
     def yearsList(self):
-        y = self.context.getProperty(BFV_FILTER_YEARS);
+        y = self.filterSettings.get('filter_years', None);
         if y is None:
             y = []
         years = list(y)
