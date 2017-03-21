@@ -1,12 +1,12 @@
 <li class="bibfolder-item" tal:condition="python: hasattr(view.item,'AuthorItems')">
     <span class="authors" tal:replace="python: view.Authors">Authors</span> (<span tal:content="view/item/getPublication_year"></span>).
-    <i class="title" tal:content="view/item/Title"/>
-    <span class="journal" tal:condition="view/getJournal" tal:content="view/getJournal" />
-    <i class= "volume" tal:content="python: '%s' % view.formatVolume()" />
+    <span class="title" tal:content="view/item/Title"/>.
+    <i class="journal" tal:condition="view/getJournal" tal:content="view/getJournal" />
+    <span class= "volume" tal:content="python: '%s' % view.formatVolume()" />
     <meta:block tal:condition="view/inBook">
         <span class="in-book" tal:content="view/inBook"></span>
     </meta:block>
-    <span class="pages" tal:condition="python: hasattr(view.item,'pages') and not view.inBook()" tal:content="view/item/getPages" />
+    <span class="pages" tal:condition="python: hasattr(view.item,'pages') and not view.inBook()" tal:content="view/getPages" />
     <meta:block tal:condition="view/getFormattedIdentifiers">
         <span tal:content="view/getFormattedIdentifiers">(doi:xxxx/xxx.xxxx, issn: xxx-xxx)</span>
     </meta:block>

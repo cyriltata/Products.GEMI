@@ -262,14 +262,23 @@ class ViewListFormatter(BrowserView):
             num = self.item.getNumber();
             if num:
                 v += '('+num+')';
-        if v:
+        if v and self.getPages():
             v = v + ', ';
+        elif v and not self.getPages():
+            v = v + '.'
+
         return v;
     
     def getJournal(self):
         if (not hasattr(self.item, 'journal')):
             return False
-        return self.item.getJournal() + ',';
+        journal = self.item.getJournal();
+        if self.formatVolume():
+            journal += ', ';
+        else:
+            journal += '.';
+
+        return journal;
 
     def getPdfUrl(self):
         r = self.item;
@@ -292,6 +301,10 @@ class ViewListFormatter(BrowserView):
         if (not hasattr(self.item, 'identifiers')):
             return None
         return ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',');
+
+    def getPages(self):
+        if (hasattr(self.item, 'pages') and self.item.getPages()):
+            return self.item.getPages() + '.'
 
     def inBook(self):
         """ In editor, booktitle, chapter, pages. Publisher: Address """
@@ -321,8 +334,24 @@ class ViewListFormatter(BrowserView):
     @property
     def Authors(self):
         if (hasattr(self.item, 'AuthorItems')):
-            authors = self.item.AuthorItems(format="%L, %f.%m.");
-            return ', '.join(authors);
+            authors = self.item.getAuthors();
+            _list = [];
+            for a in authors:
+                _a = a.get('lastname') + ', ';
+                if a.get('firstname'):
+                    _a += a.get('firstname')[0] + '.'
+                if a.get('middlename'):
+                    _a += a.get('middlename')[0] + '.'
+                if len(_list) > 0:
+                    _a = ', ' + _a
+
+                _list.append(_a);
+
+            if len(_list) > 1:
+                lastIndex = len(_list) - 1;
+                _list[lastIndex] = ' & '+ _list[lastIndex].replace(',', '').strip();
+
+            return ''.join(_list);
         return None;
     
 
