@@ -253,7 +253,11 @@ class ViewListFormatter(BrowserView):
     def __call__(self, item=None):
         self.item = item.getObject()
         return self.template()
-    
+
+    def Title(self):
+        t = self.item.Title().strip('.');
+        return t + '.'
+
     def formatVolume(self):
         v = '';
         if (hasattr(self.item, 'volume')):
@@ -303,19 +307,12 @@ class ViewListFormatter(BrowserView):
         return ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',');
 
     def getPages(self):
-        if (hasattr(self.item, 'pages') and self.item.getPages()):
+        if (hasattr(self.item, 'pages') and self.item.getPages() and not self.inBook()):
             return self.item.getPages() + '.'
 
     def inBook(self):
-        """ In editor, booktitle, chapter, pages. Publisher: Address """
+        """ chapter, pages. Publisher: Address """
         book = [];
-        if (hasattr(self.item, 'editor')):
-            book.append(self.item.getEditor())
-        else:
-            return None;
-
-        if (hasattr(self.item, 'booktitle')):
-            book.append(self.item.getBooktitle())
         if (hasattr(self.item, 'chapter')):
             book.append(self.item.getChapter())
         if (hasattr(self.item, 'pages')):
@@ -325,9 +322,11 @@ class ViewListFormatter(BrowserView):
         str = '';
 
         if book:
-            str += 'In ' + ', '.join(book) + '.'
-        if (hasattr(self.item, 'publisher')):
-            str += ' Publisher: %s, %s' % (self.item.getPublisher(), self.item.getAddress())
+            str += ', '.join(book) + '.'
+        if (hasattr(self.item, 'publisher') and not self.item.getAddress()):
+            str += ' %s.' % self.item.getPublisher()
+        elif (hasattr(self.item, 'publisher') and self.item.getAddress()):
+            str += ' %s: %s.' % (self.item.getAddress(), self.item.getPublisher())
 
         return str;
 
@@ -353,6 +352,34 @@ class ViewListFormatter(BrowserView):
 
             return ''.join(_list);
         return None;
+
+    @property
+    def Editors(self):
+        if not hasattr(self.item, 'editor'):
+            return None;
+
+        if self.item.getEditor():
+            return 'In ' + self.item.getEditor() + ', '
+
+    @property
+    def BookTitle(self):
+        if not hasattr(self.item, 'booktitle'):
+            return None;
+
+        str = '';
+        if not self.Editors:
+            str += 'In '
+        str += self.item.getBooktitle();
+        return str + '.';
+
+    @property
+    def Edition(self):
+        if not hasattr(self.item, 'edition'):
+            return None;
+
+        if (self.item.getEdition()):
+            return ' (' + self.item.getEdition + ').'
+
     
 
 class ViewContent(BrowserView):
