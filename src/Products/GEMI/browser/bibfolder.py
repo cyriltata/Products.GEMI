@@ -348,7 +348,7 @@ class ViewListFormatter(BrowserView):
 
             if len(_list) > 1:
                 lastIndex = len(_list) - 1;
-                _list[lastIndex] = ' & '+ _list[lastIndex].replace(',', '').strip();
+                _list[lastIndex] = ' & '+ _list[lastIndex].strip(',');
 
             return ''.join(_list);
         return None;
