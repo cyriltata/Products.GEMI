@@ -304,7 +304,7 @@ class ViewListFormatter(BrowserView):
     def getFormattedIdentifiers(self):
         if (not hasattr(self.item, 'identifiers')):
             return None
-        return ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',');
+        return ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',') + '.';
 
     def getPages(self):
         if (hasattr(self.item, 'pages') and self.item.getPages() and not self.inBook()):
