@@ -309,10 +309,10 @@ class ViewListFormatter(BrowserView):
         if s:
             return s + '.';
 
-    @property
     def getPages(self):
         if (hasattr(self.item, 'pages') and self.item.getPages()):
             return self.item.getPages() + '.'
+        return None;
 
     def inBook(self):
         """ chapter, pages. Publisher: Address """
@@ -359,11 +359,9 @@ class ViewListFormatter(BrowserView):
 
     @property
     def Editors(self):
-        if not hasattr(self.item, 'editor'):
-            return None;
-
-        if self.item.getEditor():
+        if hasattr(self.item, 'editor') and self.item.getEditor():
             return 'In ' + self.item.getEditor() + ', '
+        return None;
 
     @property
     def BookTitle(self):
@@ -378,11 +376,9 @@ class ViewListFormatter(BrowserView):
 
     @property
     def Edition(self):
-        if not hasattr(self.item, 'edition'):
-            return None;
-
-        if (self.item.getEdition()):
+        if (hasattr(self.item, 'edition') and self.item.getEdition()):
             return ' (' + self.item.getEdition + ').'
+        return None;
 
     
 
