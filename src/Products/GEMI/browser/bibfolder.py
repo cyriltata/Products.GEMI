@@ -266,6 +266,7 @@ class ViewListFormatter(BrowserView):
             num = self.item.getNumber();
             if num:
                 v += '('+num+')';
+        v = v.strip();
         if v and self.getPages():
             v = v + ', ';
         elif v and not self.getPages():
@@ -307,7 +308,7 @@ class ViewListFormatter(BrowserView):
         return ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',') + '.';
 
     def getPages(self):
-        if (hasattr(self.item, 'pages') and self.item.getPages() and not self.inBook()):
+        if (hasattr(self.item, 'pages') and self.item.getPages()):
             return self.item.getPages() + '.'
 
     def inBook(self):
