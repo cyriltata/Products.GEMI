@@ -306,7 +306,7 @@ class ViewListFormatter(BrowserView):
         if (not hasattr(self.item, 'identifiers')):
             return None
         str = ' '.join([" %s:%s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',').strip();
-        if str
+        if str:
             return str + '.';
 
     @property
