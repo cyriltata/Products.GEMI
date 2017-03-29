@@ -130,8 +130,9 @@ class View(BrowserView):
         from Products.CMFPlone import Batch
         results =  Batch(contents, b_size, b_start, orphan=0)
         if self.filterSettings['filter_by_year']:
-            results = self.gutil.groupBibItemsByYears(results)
-        return self.gutil.sortByFirstAuthor(results)
+            return self.gutil.groupBibItemsByYears(results)
+
+        return self.gutil.sortByFirstAuthor(results, True)
     
     @property
     def authorList(self):

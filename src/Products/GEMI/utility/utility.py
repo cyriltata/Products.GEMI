@@ -148,11 +148,14 @@ class ProductsGEMIUtility:
         
         # Now sort each year group by first author
         
-        return self.sortByFirstAuthor(res)
+        return self.sortByFirstAuthor(res, False)
     
-    def sortByFirstAuthor(self, res):
-        for year, group in enumerate(res):
-            res[group] = sorted(res[group], key=lambda item: (item.getObject().getAuthors()[0].get('lastname'), item.getObject().getAuthors()[0].get('firstname')))
+    def sortByFirstAuthor(self, res, plain):
+        if plain:
+            res = sorted(res, key=lambda item: (item.getObject().getAuthors()[0].get('lastname'), item.getObject().getAuthors()[0].get('firstname')))
+        else:
+            for year, group in enumerate(res):
+                res[group] = sorted(res[group], key=lambda item: (item.getObject().getAuthors()[0].get('lastname'), item.getObject().getAuthors()[0].get('firstname')))
             
         return res
 
