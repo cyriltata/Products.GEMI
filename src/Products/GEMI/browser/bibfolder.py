@@ -131,7 +131,7 @@ class View(BrowserView):
         results =  Batch(contents, b_size, b_start, orphan=0)
         if self.filterSettings['filter_by_year']:
             results = self.gutil.groupBibItemsByYears(results)
-        return results
+        return self.gutil.sortByFirstAuthor(results)
     
     @property
     def authorList(self):
@@ -379,8 +379,6 @@ class ViewListFormatter(BrowserView):
         if (hasattr(self.item, 'edition') and self.item.getEdition()):
             return ' (' + self.item.getEdition + ').'
         return None;
-
-    
 
 class ViewContent(BrowserView):
 

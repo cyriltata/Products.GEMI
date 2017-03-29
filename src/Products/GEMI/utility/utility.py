@@ -143,7 +143,17 @@ class ProductsGEMIUtility:
             year = r.publication_year
             if not res.has_key(year):
                 res[year] = [r]
-            else: res[year].append(r)
+            else: 
+                res[year].append(r)
+        
+        # Now sort each year group by first author
+        
+        return self.sortByFirstAuthor(res)
+    
+    def sortByFirstAuthor(self, res):
+        for year, group in enumerate(res):
+            res[group] = sorted(res[group], key=lambda item: (item.getObject().getAuthors()[0].get('lastname'), item.getObject().getAuthors()[0].get('firstname')))
+            
         return res
 
     def getStartEnd(self, topic, criterion, catalog):
