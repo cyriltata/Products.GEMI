@@ -152,11 +152,13 @@ class ProductsGEMIUtility:
     
     def sortByFirstAuthor(self, res, plain):
         if plain:
-            res = sorted(res, key=lambda item: (item.getObject().getAuthors()[0].get('lastname'), item.getObject().getAuthors()[0].get('firstname')))
+            #res = sorted(res, key=lambda item: (item.getObject().getAuthors()[0].get('lastname'), item.getObject().getAuthors()[0].get('firstname')))
+            res = sorted(res, cmp=sort_by_authors);
         else:
             for year, group in enumerate(res):
-                res[group] = sorted(res[group], key=lambda item: (item.getObject().getAuthors()[0].get('lastname'), item.getObject().getAuthors()[0].get('firstname')))
-            
+                #res[group] = sorted(res[group], key=lambda item: (item.getObject().getAuthors()[0].get('lastname'), item.getObject().getAuthors()[0].get('firstname')))
+                res[group] = sorted(res[group], cmp=sort_by_authors);
+
         return res
 
     def getStartEnd(self, topic, criterion, catalog):
@@ -199,4 +201,29 @@ class ProductsGEMIUtility:
         else:
             date_limit = DateTime()
         return date_limit
+    
+def sort_by_authors(item1, item2):
+    item1Authors = item1.getObject().getAuthors();
+    item2Authors = item2.getObject().getAuthors();
+    check = True;
+    index1 = 0;
+    index2 = 0;
+    while check and index1 < len(item1Authors) and index2 < len(item2Authors):
+        author1 = (item1Authors[index1].get('lastname'), item1Authors[index1].get('firstname'));
+        author2 =  (item2Authors[index2].get('lastname'), item2Authors[index2].get('firstname'));
+        compared = cmp(author1, author2)
+        if (compared == 0):
+            index1 += 1;
+            index2 += 1;
+            # check if one of the items have exahausted it's authors list and return the one with fewer authors as "less-than"
+            if index1 >= len(item1Authors) and index1 < len(item2Authors):
+                compared = -1
+                check = False;
+            if index2 >= len(item2Authors) and index2 < len(item1Authors):
+                compared = 1
+                check = False;
+        else:
+            check = False
+
+    return compared;
         
