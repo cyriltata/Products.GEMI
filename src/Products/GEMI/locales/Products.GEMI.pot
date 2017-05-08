@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0a\n"
-"POT-Creation-Date: 2016-05-09 12:38+0000\n"
+"POT-Creation-Date: 2017-05-08 09:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Cyril Tata <ctata@gwdg.de>\n"
 "Language-Team: AG Technik - GEMI <LL@li.org>\n"
@@ -17,11 +17,27 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.GEMI\n"
 
+#: GEMI/browser/configure.zcml:170
+msgid "A collection list view with filter"
+msgstr ""
+
+#: GEMI/browser/configure.zcml:190
+msgid "A gemi specific bibfolder view"
+msgstr ""
+
+#: GEMI/browser/configure.zcml:150
+msgid "A list of items like in a navigation"
+msgstr ""
+
+#: GEMI/browser/configure.zcml:160
+msgid "A list of items showing only configured content types"
+msgstr ""
+
 #. Default: "Bibliography Folder"
 msgid "Bibliography Folder"
 msgstr ""
 
-#: GEMI/browser/bibfolder.py:230
+#: GEMI/browser/bibfolder.py:238
 msgid "Categories have been deleted!"
 msgstr ""
 
@@ -35,12 +51,13 @@ msgstr ""
 
 #. Default: "Collection"
 msgid "Collection"
-msgstr "Collection"
+msgstr ""
 
 #: GEMI/interfaces.py:66
 msgid "Collection Filter View Settings"
 msgstr ""
 
+#: GEMI/browser/configure.zcml:160
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Content Type View"
 msgstr ""
@@ -92,20 +109,8 @@ msgstr ""
 msgid "Folder Content-type View Settings"
 msgstr ""
 
-#: GEMI/profiles/default/types/BibliographyFolder.xml
-#: GEMI/profiles/default/types/Collection.xml
-#: GEMI/profiles/default/types/Topic.xml
-msgid "GEMI View Settings"
-msgstr ""
-
 #: Profile title in configure.zcml
 msgid "GEMI plone add-on"
-msgstr ""
-
-#: GEMI/profiles/default/types/BibliographyFolder.xml
-#: GEMI/profiles/default/types/Collection.xml
-#: GEMI/profiles/default/types/Topic.xml
-msgid "GEMI view"
 msgstr ""
 
 #: GEMI/profiles/default/types/Gemifolder.xml
@@ -113,6 +118,10 @@ msgid "Gemifolder"
 msgstr ""
 
 msgid "Imprint"
+msgstr ""
+
+#: GEMI/configure.zcml:24
+msgid "Installs the Products.GEMI add-on."
 msgstr ""
 
 msgid "Institute of Psychology"
@@ -128,6 +137,7 @@ msgstr ""
 msgid "List of years to be shown in filter (each in newline)"
 msgstr ""
 
+#: GEMI/browser/configure.zcml:150
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Navigation-like View"
 msgstr ""
@@ -140,12 +150,28 @@ msgstr ""
 msgid "Plone add-on for GEMI specific things!"
 msgstr ""
 
+#: GEMI/configure.zcml:24
+msgid "Products.GEMI (Georg-Elias-Müller-Institut für Psychologie) Extension"
+msgstr ""
+
 #: GEMI/profiles/default/controlpanel.xml
 msgid "Products.GEMI Settings"
 msgstr ""
 
 #: GEMI/browser/controlpanel.py:8
 msgid "Products.GEMI settings"
+msgstr ""
+
+#: GEMI/browser/configure.zcml:170
+#: GEMI/profiles/default/types/BibliographyFolder.xml
+#: GEMI/profiles/default/types/Collection.xml
+msgid "Publications view"
+msgstr ""
+
+#: GEMI/profiles/default/types/BibliographyFolder.xml
+#: GEMI/profiles/default/types/Collection.xml
+#: GEMI/profiles/default/types/Topic.xml
+msgid "Publications view Settings"
 msgstr ""
 
 #: GEMI/browser/folders.py:245
@@ -179,6 +205,14 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
+#: GEMI/configure.zcml:39
+msgid "Uninstall Products.GEMI"
+msgstr ""
+
+#: GEMI/configure.zcml:39
+msgid "Uninstall Products.GEMI extension."
+msgstr ""
+
 #: GEMI/browser/templates/collection_view_settings.pt:28
 msgid "View Content Settings"
 msgstr ""
@@ -190,7 +224,7 @@ msgstr ""
 msgid "WWW-Team"
 msgstr ""
 
-#: GEMI/browser/bibfolder.py:218
+#: GEMI/browser/bibfolder.py:226
 #: GEMI/browser/collections.py:57
 #: GEMI/browser/folders.py:245
 msgid "Your settings have been saved!"
@@ -306,7 +340,7 @@ msgstr ""
 msgid "show_filter_help"
 msgstr ""
 
-#. Default: "Override collection content and show contents of specified path."
+#. Default: "Show contents of specified path"
 #: GEMI/browser/templates/collection_view_settings.pt:30
 msgid "show_folder_in_collection_desc"
 msgstr ""
@@ -340,4 +374,3 @@ msgstr ""
 #: GEMI/browser/templates/collection_view.pt:38
 msgid "text_years_all"
 msgstr ""
-

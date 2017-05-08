@@ -22,8 +22,11 @@ msgstr "Bitte füllen Sie dieses Formular aus, um die TECHNISCH Verantwortlichen
 msgid "View Settings"
 msgstr "Einstellungen Ansicht"
 
-msgid "GEMI View Settings"
-msgstr "Einstellungen GEMI-Ansicht"
+msgid "Publications view Settings"
+msgstr "Einstellungen Publikationen-Ordner"
+
+msgid "Publications view"
+msgstr "Publikationen-Ordner"
 
 msgid "Folder"
 msgstr "Ordner"
@@ -36,6 +39,9 @@ msgstr "Kollektion"
 
 msgid "Bibliography Folder"
 msgstr "Bibliographie Ordner"
+
+msgid "Publications Folder"
+msgstr "Publikationen-Ordner"
 
 msgid "Log in"
 msgstr "Login"

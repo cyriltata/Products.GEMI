@@ -163,7 +163,7 @@
     <browser:menuItem
         for="plone.app.collection.interfaces.ICollection"
         menu="plone_displayviews"
-        title="GEMI view"
+        title="Publications view"
         action="@@filter_view"
         description="A collection list view with filter"
         layer="..interfaces.IProductsGemiLayer"
@@ -173,7 +173,7 @@
     <browser:menuItem
         for="Products.ATContentTypes.interface.IATTopic"
         menu="plone_displayviews"
-        title="GEMI view"
+        title="Publications view"
         action="@@filter_view"
         description="A collection list view with filter"
         layer="..interfaces.IProductsGemiLayer"
@@ -183,7 +183,7 @@
      <browser:menuItem
         for="Products.CMFBibliographyAT.interface.IBibliographyFolder"
         menu="plone_displayviews"
-        title="GEMI view"
+        title="Publications view"
         action="@@bibfolder-view-gemi"
         description="A gemi specific bibfolder view"
         layer="..interfaces.IProductsGemiLayer"

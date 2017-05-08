@@ -4,7 +4,7 @@
         i18n:domain="Products.GEMI">
 
     <action 
-        title="GEMI View Settings"
+        title="Publications view Settings"
         action_id="filter_settings" 
         category="object" 
         condition_expr=""
@@ -16,7 +16,7 @@
     </action>
   
     <property name="view_methods" purge="False">
-        <element value="filter_view" i18n:translate="">GEMI view</element>
+        <element value="filter_view" i18n:translate="">Publications view</element>
     </property>
 
 </object>
