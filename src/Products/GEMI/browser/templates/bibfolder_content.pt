@@ -1,3 +1,9 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    lang="en"
+    i18n:domain="Products.GEMI">
+
 <!-- Filter -->
 <metal:block tal:condition="view/parent/filterSettings/filter_show">
     <div class="bibfolder-filter" tal:define="
@@ -77,3 +83,5 @@
         </metal:block>
     </div>
 </section>
+
+</div>
