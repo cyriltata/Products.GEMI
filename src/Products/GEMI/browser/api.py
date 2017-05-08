@@ -79,6 +79,10 @@ class ExportNewsAndEventsAsJSON(BrowserView):
         return Batch(filtered, b_size, b_start, orphan=0)
 
     def getItems(self):
+        # Read the first index of the selected batch parameter as HTTP GET request query parameter
+        start = self.request.get("b_start", 0)
+        limit = self.request.get("b_limit", 20)
+
         filter = {
             "show_excluded_from_nav": True,
             "review_state": "published",
@@ -101,13 +105,11 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             filter['expires'] = date_range #should I use last modified time or created date for news item?
         elif (portal_type == 'NewsItem'):
             filter['portal_type'] = ('News Item',)
+            filter['sort_on'] = 'Date',
+            filter['sort_order'] = 'reverse',
+            filter['sort_limit'] = limit
         else:
             raise Exception("Request parameters not understood. A date or date range is required!")
-        
-
-        # Read the first index of the selected batch parameter as HTTP GET request query parameter
-        start = self.request.get("b_start", 0)
-        limit = 50
 
         data = {
             'timezone': 'CET',
