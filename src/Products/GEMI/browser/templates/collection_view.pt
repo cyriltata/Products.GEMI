@@ -48,7 +48,7 @@
                 <div tal:condition="not:view/hasInnerView">
                     <metal:block tal:condition="results" tal:define="rkeys results/keys; dummy python:rkeys.sort(); dummy python:rkeys.reverse()">
                         <metal:block tal:repeat="year rkeys">
-                            <div class="year-group" tal:condition="python: year.lower() and (year.lower() == 'in press' or float(year) > 1900)">
+                            <div class="year-group" tal:condition="python: view.isValidYear(year)">
                                 <div class="year" tal:attributes="id year; name year" tal:content="year">1905</div>
                                 <ul tal:define="items python: results[year]" class="bibfolder-items">
                                     <metal:block

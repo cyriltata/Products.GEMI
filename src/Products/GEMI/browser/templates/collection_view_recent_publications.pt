@@ -27,7 +27,7 @@
                         <ul class="bibfolder-items home-publications">
                             <metal:block tal:repeat="year rkeys">
                                 <metal:block 
-                                    tal:condition="python: year.lower() and (year.lower() == 'in press' or float(year) > 1900)"
+                                    tal:condition="python: view.isValidYear(year)"
                                     tal:define="items python: results[year]">
                                         <metal:block
                                             tal:repeat="result items"

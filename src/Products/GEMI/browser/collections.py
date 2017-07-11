@@ -264,6 +264,9 @@ class View(BrowserView):
             years = bibtool.getAllBibYears();
         return years
 
+    def isValidYear(self, year):
+        return year.lower() and (year.lower() == 'in press' or (year.isdigit() and float(year) > 1900))
+
 
 class RecentPublicationsView(View):
 
