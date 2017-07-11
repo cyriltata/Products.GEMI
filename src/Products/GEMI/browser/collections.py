@@ -290,17 +290,16 @@ class RecentPublicationsView(View):
         b_size = self.context.b_size;
         #limit = self.context.limit;
 
-        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size, **query)
-        acquired_objects = [result.getObject() for result in results];
+        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size * 2, **query)
         for brain in results:
-            id = brain.UID;
-            if id in self.duplicates:
+            if brain.UID in self.duplicates:
                 continue;
             self.items.append(brain)
             if (len(self.items) >= b_size):
                 break;
 
-            is_duplicate, matches = self.gutil.isDuplicate(self, brain.getObject(), 'global', acquired_objects);
+            self.duplicates[brain.UID] = None
+            is_duplicate, matches = self.gutil.isDuplicate(self, brain.getObject(), 'global');
             if (is_duplicate):
                 for match in matches:
                     self.duplicates[match.UID()] = None
