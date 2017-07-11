@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0a\n"
-"POT-Creation-Date: 2017-05-08 09:42+0000\n"
+"POT-Creation-Date: 2017-07-10 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Cyril Tata <ctata@gwdg.de>\n"
 "Language-Team: AG Technik - GEMI <LL@li.org>\n"
@@ -14,19 +14,19 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.GEMI\n"
 
-#: GEMI/browser/configure.zcml:170
+#: GEMI/browser/configure.zcml:188
 msgid "A collection list view with filter"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:190
+#: GEMI/browser/configure.zcml:208
 msgid "A gemi specific bibfolder view"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:150
+#: GEMI/browser/configure.zcml:168
 msgid "A list of items like in a navigation"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:160
+#: GEMI/browser/configure.zcml:178
 msgid "A list of items showing only configured content types"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgstr "Kollektion"
 msgid "Collection Filter View Settings"
 msgstr "Einstellungen Kollektion - gefilterte Ansicht "
 
-#: GEMI/browser/configure.zcml:160
+#: GEMI/browser/configure.zcml:178
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Content Type View"
 msgstr "Inhaltstypen-Ansicht"
@@ -134,7 +134,7 @@ msgstr "Liste von Autoren, die im Filter angezeigt werden soll (je ein Autor pro
 msgid "List of years to be shown in filter (each in newline)"
 msgstr "List von Jahren, die im Filter angezeigt werden soll (je ein Jahr pro Zeile)"
 
-#: GEMI/browser/configure.zcml:150
+#: GEMI/browser/configure.zcml:168
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Navigation-like View"
 msgstr "wie Navigation"
@@ -159,7 +159,7 @@ msgstr "Einstellungen für Products.GEMI"
 msgid "Products.GEMI settings"
 msgstr "Einstellungen für Products.GEMI"
 
-#: GEMI/browser/configure.zcml:170
+#: GEMI/browser/configure.zcml:188
 #: GEMI/profiles/default/types/BibliographyFolder.xml
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Publications view"
@@ -170,6 +170,11 @@ msgstr "Publikationen-Ordner"
 #: GEMI/profiles/default/types/Topic.xml
 msgid "Publications view Settings"
 msgstr "Einstellungen Publikationen-Ordner"
+
+#: GEMI/profiles/default/types/Collection.xml
+#: GEMI/profiles/default/types/Topic.xml
+msgid "Recent Publications view"
+msgstr "Neueste Publikationen"
 
 #: GEMI/browser/folders.py:245
 msgid "Saved"
@@ -312,6 +317,7 @@ msgid "label_by_author"
 msgstr "von ${author}"
 
 #. Default: "Show"
+#: GEMI/browser/templates/bibfolder_content.pt:30
 #: GEMI/browser/templates/collection_view.pt:43
 msgid "label_show"
 msgstr "anzeigen"
@@ -350,26 +356,31 @@ msgid "show_folder_in_collection_desc_help"
 msgstr "Wenn diese Option ausgewählt und ein Publikationen-Ordner als Such-Basis definiert wird, werden die Einstellungen ebendieses Publikationen-Ordners automatisch übernommen und dessen Inhalt angezeigt"
 
 #. Default: "all"
+#: GEMI/browser/templates/bibfolder_content.pt:18
 #: GEMI/browser/templates/collection_view.pt:31
 msgid "text_authors_all"
 msgstr "alle"
 
 #. Default: "by author:"
+#: GEMI/browser/templates/bibfolder_content.pt:16
 #: GEMI/browser/templates/collection_view.pt:29
 msgid "text_by_author"
 msgstr "nach Autor:"
 
 #. Default: "by year:"
+#: GEMI/browser/templates/bibfolder_content.pt:23
 #: GEMI/browser/templates/collection_view.pt:36
 msgid "text_by_year"
 msgstr "nach Jahr:"
 
 #. Default: "Show"
+#: GEMI/browser/templates/bibfolder_content.pt:15
 #: GEMI/browser/templates/collection_view.pt:28
 msgid "text_show"
 msgstr "anzeigen"
 
 #. Default: "all"
+#: GEMI/browser/templates/bibfolder_content.pt:25
 #: GEMI/browser/templates/collection_view.pt:38
 msgid "text_years_all"
 msgstr "alle"

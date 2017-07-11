@@ -76,6 +76,15 @@
         layer="..interfaces.IProductsGemiLayer"
     />
 
+    <!-- Recent publications collection view -->
+    <browser:page
+        for="plone.app.collection.interfaces.ICollection"
+        name="recent_publications_view"
+        permission="zope2.View"
+        class=".collections.RecentPublicationsView"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
     <!-- Filter topic view -->
     <browser:page
         for="Products.ATContentTypes.interface.IATTopic"
@@ -186,6 +195,16 @@
         title="Publications view"
         action="@@bibfolder-view-gemi"
         description="A gemi specific bibfolder view"
+        layer="..interfaces.IProductsGemiLayer"
+    />
+
+    <!-- display menu item for recent publications collection view -->
+    <browser:menuItem
+        for="plone.app.collection.interfaces.ICollection"
+        menu="plone_displayviews"
+        title="Recent Publications view"
+        action="@@recent_publications_view"
+        description="A collection of most recent publications added with the publications extension"
         layer="..interfaces.IProductsGemiLayer"
     />
 

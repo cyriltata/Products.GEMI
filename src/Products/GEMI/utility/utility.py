@@ -2,10 +2,16 @@ from Products.GEMI.interfaces import IProductsGEMIUtility
 from Products.GEMI.config import *
 from zope.interface import implements
 from DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
+from Products.CMFBibliographyAT.config import FOLDER_TYPES
+from bibliograph.core.utils import _decode
+from operator import and_
 
 class ProductsGEMIUtility:
 
     implements(IProductsGEMIUtility)
+
+    cache = {}
 
     def getBibFolderCategories(self, obj, add = False):
         l = []
@@ -201,6 +207,98 @@ class ProductsGEMIUtility:
         else:
             date_limit = DateTime()
         return date_limit
+
+    def isDuplicate(self, context, bibref_item, span_of_search=None, acquired_objects=None):
+        """
+        checks if bib folder entry is duplicated
+        """
+
+        span_of_search = span_of_search or 'global'
+        bib_tool = getToolByName(context, 'portal_bibliography')
+        all_criteria = bib_tool.getSelectedCriteria()
+        entry = bib_tool.getEntryDict(bibref_item)
+        ref_types = bib_tool.getReferenceTypes()
+        have = all_criteria.has_key
+        global_tests = []
+        filter = {'portal_type': ref_types}
+
+        # get search span from criteria
+        cache_key = 'CMFBibliographyAT_duplicates cache'
+        if acquired_objects is not None:
+            self.cache[cache_key] = acquired_objects;
+
+        if cache_key in self.cache:
+            acquired_objects = self.cache[cache_key]
+        elif span_of_search == 'local':
+            # local configuration
+            acquired_objects = context.contentValues(filter=filter)
+            self.cache[cache_key] = acquired_objects
+        elif span_of_search == 'global':
+            acquired_objects = []
+            portal_catalog = getToolByName(context, 'portal_catalog')
+            all_folders = portal_catalog(meta_type=FOLDER_TYPES)
+            for each_result in all_folders:
+                obj = each_result.getObject()
+                acquired_objects += obj.contentValues(filter=filter)
+            self.cache[cache_key] = acquired_objects
+        else:
+            raise ValueError("span of search for duplicates has an invalid value : %s" % span_of_search)
+
+        bibref_item_uid = bibref_item.UID()
+
+        for existing_object in acquired_objects:
+            if existing_object.UID() == bibref_item_uid:
+                continue
+            bib_type = entry.get('reference_type', 'ArticleReference')
+            if not have(bib_type):
+                continue
+            criteria = all_criteria[bib_type]
+            if not criteria:
+                return False, []
+            # authors need special treatment
+            for attribute in criteria:
+                # authors need special treatment
+                if attribute == 'authors':
+                    equal = self.compareAuthors(entry, existing_object)
+                    if not equal:
+                        break
+                else:
+                    x = entry.get(attribute, None)
+                    try:
+                        get_func = getattr(existing_object, 'get' + attribute.capitalize())
+                    except AttributeError:
+                        try:
+                            get_func = getattr(existing_object, attribute.capitalize())
+                        except AttributeError:
+                            # XXX print ?
+                            print "can't do get" + attribute.capitalize(), 'or', attribute.capitalize()
+                            break;
+                    y = _decode(get_func())
+                    if y and y[-1] == '.':
+                        y = y[:-1]
+                    if x and x[-1] == '.':
+                        x = x[:-1]
+                    if x != y:
+                        #print "***Debug***: found difference"
+                        #print "%s doesn't match %s" % (x, y)
+                        break
+            else:
+                global_tests.append((True, existing_object))
+
+        matching_objects = [ext_obj for (test, ext_obj) in global_tests if test]
+        global_bools = [test for (test, ext_obj) in global_tests]
+        if global_tests:
+            return reduce(and_, global_bools), matching_objects
+        return False, []
+
+    def compareAuthors(self, entry, existing):
+        new_last_names = [_decode(a.get('lastname'))
+                          for a in entry.get('authors', [])]
+        old_last_names = [_decode(a.get('lastname'))
+                          for a in existing.getRawAuthors()]
+        if new_last_names == old_last_names:
+            return True
+        return False
     
 def sort_by_authors(item1, item2):
     item1Authors = item1.getObject().getAuthors();

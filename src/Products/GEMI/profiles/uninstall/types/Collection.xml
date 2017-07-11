@@ -9,6 +9,7 @@
   
     <property name="view_methods" purge="False">
         <element value="filter_view" remove="True" />
+        <element value="recent_publications_view" remove="True" />
     </property>
 
 </object>

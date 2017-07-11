@@ -265,6 +265,56 @@ class View(BrowserView):
         return years
 
 
+class RecentPublicationsView(View):
+
+    template = ViewPageTemplateFile('templates/collection_view_recent_publications.pt');
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+        self.duplicates = {}
+        self.items = []
+
+    def __call__(self):
+        self.gutil = getUtility(IProductsGEMIUtility)
+        return self.template();
+
+    def getQuery(self):
+        query = super(RecentPublicationsView, self).getQuery();
+        query['path'] = {"query": "/"}
+        return query;
+
+    def getResults(self, b_start=None):
+        query = self.getQuery();
+        b_start = b_start or self.request.get('b_start', 0);
+        b_size = self.context.b_size;
+        #limit = self.context.limit;
+
+        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size, **query)
+        acquired_objects = [result.getObject() for result in results];
+        for brain in results:
+            id = brain.UID;
+            if id in self.duplicates:
+                continue;
+            self.items.append(brain)
+            if (len(self.items) >= b_size):
+                break;
+
+            is_duplicate, matches = self.gutil.isDuplicate(self, brain.getObject(), 'global', acquired_objects);
+            if (is_duplicate):
+                for match in matches:
+                    self.duplicates[match.UID()] = None
+
+        if results and len(self.items) < b_size:
+            self.getResults(b_start + b_size)
+
+        return self.items;
+
+    def getEnableDuplicatesManager(self):
+        return True;
+
+
+
 def isApplicableCollectionView(view, types):
     return True;
 
