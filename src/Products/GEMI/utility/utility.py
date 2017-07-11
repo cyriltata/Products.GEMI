@@ -236,7 +236,8 @@ class ProductsGEMIUtility:
         elif span_of_search == 'global':
             acquired_objects = []
             portal_catalog = getToolByName(context, 'portal_catalog')
-            all_folders = portal_catalog(meta_type=FOLDER_TYPES)
+            all_folders = portal_catalog.searchResults({'path': {'query': '/'}, 'meta_type': FOLDER_TYPES, 'Language': 'all'})
+            #all_folders = portal_catalog(meta_type=FOLDER_TYPES, path={'query': '/'})
             for each_result in all_folders:
                 obj = each_result.getObject()
                 acquired_objects += obj.contentValues(filter=filter)
