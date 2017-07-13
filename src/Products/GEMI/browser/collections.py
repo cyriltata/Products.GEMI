@@ -266,7 +266,9 @@ class View(BrowserView):
 
     def isValidYear(self, year):
         year = year.lower().strip();
-        return year or (year.isdigit() and float(year) > 1900)
+        if (year.isdigit()):
+            return float(year) > 1900;
+        return year
 
 
 class RecentPublicationsView(View):
