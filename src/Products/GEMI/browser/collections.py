@@ -15,12 +15,11 @@ from Products.GEMI.interfaces import IProductsGEMIUtility
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFBibliographyAT.interface import IBibliographyFolder
 from zope.component import getUtility
-from plone.batching import Batch
 from plone.app.querystring import queryparser
-from Acquisition import aq_acquire
 from Acquisition import aq_inner
-from Acquisition import aq_base
 from zope.component import getMultiAdapter
+import datetime
+
 
 class ViewSettings(BrowserView):
     """A BrowserView to display the Todo listing on a Folder."""
@@ -280,6 +279,8 @@ class RecentPublicationsView(View):
         self.request = request
         self.duplicates = {}
         self.items = []
+        self.itr_count = 0;
+        self.max_itr_count = 10;
 
     def __call__(self):
         self.gutil = getUtility(IProductsGEMIUtility)
@@ -290,8 +291,16 @@ class RecentPublicationsView(View):
         query['path'] = {"query": "/"}
         return query;
 
-    def getResults(self, b_start=None):
+    def getResults(self, b_start=None, year=None):
+        if (year is None):
+            now = datetime.datetime.now()
+            year = now.year
+
+        self.request.set('filter.year', str(year));
         query = self.getQuery();
+        query['sort_on'] = None;
+        query['sort_order'] = None;
+
         b_start = b_start or self.request.get('b_start', 0);
         b_size = self.context.b_size;
         #limit = self.context.limit;
@@ -310,8 +319,9 @@ class RecentPublicationsView(View):
                 for match in matches:
                     self.duplicates[match.UID()] = None
 
-        if results and len(self.items) < b_size:
-            self.getResults(b_start + b_size)
+        if results and len(self.items) < b_size and self.itr_count < self.max_itr_count:
+            self.itr_count += 1;
+            self.getResults(b_start + b_size, year - 1)
 
         return self.items;
 
