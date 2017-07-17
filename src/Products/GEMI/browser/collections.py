@@ -281,6 +281,7 @@ class RecentPublicationsView(View):
         self.items = []
         self.itr_count = 0;
         self.max_itr_count = 10;
+        self.now = datetime.datetime.now();
 
     def __call__(self):
         self.gutil = getUtility(IProductsGEMIUtility)
@@ -293,19 +294,27 @@ class RecentPublicationsView(View):
 
     def getResults(self, b_start=None, year=None):
         if (year is None):
-            now = datetime.datetime.now()
-            year = now.year
+            year = 'accepted'
 
-        self.request.set('filter.year', str(year));
         query = self.getQuery();
         query['sort_on'] = None;
         query['sort_order'] = None;
+
+        if (year is 'accepted'):
+            query['publication_year'] = {'query': ('accepted', 'Accepted'), 'operator': 'or'}
+            prev_year = 'in press'
+        elif (year is 'in press'):
+            query['publication_year'] = {'query': ('in press', 'In Press', 'In press'), 'operator': 'or'}
+            prev_year = self.now.year
+        else:
+            query['publication_year'] = str(year)
+            prev_year = year - 1
 
         b_start = b_start or self.request.get('b_start', 0);
         b_size = self.context.b_size;
         #limit = self.context.limit;
 
-        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size * 2, **query)
+        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size * 3, **query)
         for brain in results:
             if brain.UID in self.duplicates:
                 continue;
@@ -319,9 +328,12 @@ class RecentPublicationsView(View):
                 for match in matches:
                     self.duplicates[match.UID()] = None
 
-        if results and len(self.items) < b_size and self.itr_count < self.max_itr_count:
+        #if results:
+        #    b_start += b_size
+
+        if len(self.items) < b_size and self.itr_count < self.max_itr_count:
             self.itr_count += 1;
-            self.getResults(b_start + b_size, year - 1)
+            self.getResults(b_start, prev_year)
 
         return self.items;
 
