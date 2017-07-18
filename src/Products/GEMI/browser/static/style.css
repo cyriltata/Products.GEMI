@@ -122,9 +122,9 @@
 }
 li.bibfolder-item a {
     text-decoration: none!important;
-    color: #000;
+    color: #333333;
 }
 li.bibfolder-item a:hover {
     text-decoration: none!important;
-    color: #333333;
+    color: #163776;
 }
