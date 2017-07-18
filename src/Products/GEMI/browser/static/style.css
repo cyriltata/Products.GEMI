@@ -120,3 +120,11 @@
 .kssattr-formname-gemi-settings span.option {
     display: block !important;
 }
+li.bibfolder-item a {
+    text-decoration: none!important;
+    color: #000;
+}
+li.bibfolder-item a:hover {
+    text-decoration: none!important;
+    color: #163776;
+}
