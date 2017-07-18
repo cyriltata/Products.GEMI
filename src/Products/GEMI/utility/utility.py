@@ -223,7 +223,7 @@ class ProductsGEMIUtility:
         filter = {'portal_type': ref_types}
 
         # get search span from criteria
-        cache_key = 'CMFBibliographyAT_duplicates cache'
+        cache_key = 'CMFBibliographyAT_duplicates_cache'
         if acquired_objects is not None:
             self.cache[cache_key] = acquired_objects;
 

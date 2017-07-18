@@ -323,11 +323,13 @@ class RecentPublicationsView(View):
                 break;
 
             self.duplicates[brain.UID] = None
-            is_duplicate, matches = self.gutil.isDuplicate(self, brain.getObject(), 'global');
-            if (is_duplicate):
-                for match in matches:
-                    self.duplicates[match.UID()] = None
-
+            try:
+                is_duplicate, matches = self.gutil.isDuplicate(self, brain.getObject(), 'global');
+                if (is_duplicate):
+                    for match in matches:
+                        self.duplicates[match.UID()] = None
+            except:
+                prev_year = year
         #if results:
         #    b_start += b_size
 
