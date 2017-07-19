@@ -19,6 +19,7 @@ from plone.app.querystring import queryparser
 from Acquisition import aq_inner
 from zope.component import getMultiAdapter
 import datetime
+import random
 
 
 class ViewSettings(BrowserView):
@@ -314,7 +315,8 @@ class RecentPublicationsView(View):
         b_size = self.context.b_size;
         #limit = self.context.limit;
 
-        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size * 3, **query)
+        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size * 10, **query)
+        results = self.randomizeBatch(results);
         for brain in results:
             if brain.UID in self.duplicates:
                 continue;
@@ -342,6 +344,12 @@ class RecentPublicationsView(View):
     def getEnableDuplicatesManager(self):
         return True;
 
+    def randomizeBatch(self, batch):
+        items = [brain for brain in batch];
+        items = list(items);
+        if (len(items) > 1):
+            random.shuffle(items)
+        return items;
 
 
 def isApplicableCollectionView(view, types):

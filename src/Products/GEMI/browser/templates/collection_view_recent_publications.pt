@@ -18,27 +18,16 @@
         <div class="bibfolder-recent-collections">
             <div class="results-container"
                 tal:define="
-                batch python: view.getResults();
-                results python: view.gutil.groupBibItemsByYears(batch);
+                results python: view.getResults();
                 ">
-                <!-- grouping by years -->
-                <div tal:condition="batch">
-                    <metal:block tal:condition="results" tal:define="rkeys results/keys; dummy python:rkeys.sort(); dummy python:rkeys.reverse()">
-                        <ul class="bibfolder-items home-publications">
-                            <metal:block tal:repeat="year rkeys">
-                                <metal:block 
-                                    tal:condition="python: view.isValidYear(year)"
-                                    tal:define="items python: results[year]">
-                                        <metal:block
-                                            tal:repeat="result items"
-                                            tal:define="formatter nocall:context/@@bibfolderlistitemformatter">
-                                            <tal:item tal:replace="structure python:formatter(result)" />
-                                        </metal:block>
-
-                                </metal:block>
-                            </metal:block>
-                        </ul>
-                    </metal:block>
+                <div tal:condition="results">
+                    <ul class="bibfolder-items home-publications">
+                        <metal:block
+                            tal:repeat="result results"
+                            tal:define="formatter nocall:context/@@bibfolderlistitemformatter">
+                            <tal:item tal:replace="structure python:formatter(result)" />
+                        </metal:block>
+                    </ul>
                 </div>
 
             </div>
