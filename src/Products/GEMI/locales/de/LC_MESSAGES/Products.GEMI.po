@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0a\n"
-"POT-Creation-Date: 2017-07-10 10:43+0000\n"
+"POT-Creation-Date: 2017-07-19 10:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Cyril Tata <ctata@gwdg.de>\n"
 "Language-Team: AG Technik - GEMI <LL@li.org>\n"
@@ -14,19 +14,23 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.GEMI\n"
 
-#: GEMI/browser/configure.zcml:188
+#: GEMI/browser/configure.zcml:179
 msgid "A collection list view with filter"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:208
+#: GEMI/browser/configure.zcml:209
+msgid "A collection of most recent publications added with the publications extension"
+msgstr ""
+
+#: GEMI/browser/configure.zcml:199
 msgid "A gemi specific bibfolder view"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:168
+#: GEMI/browser/configure.zcml:159
 msgid "A list of items like in a navigation"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:178
+#: GEMI/browser/configure.zcml:169
 msgid "A list of items showing only configured content types"
 msgstr ""
 
@@ -34,7 +38,7 @@ msgstr ""
 msgid "Bibliography Folder"
 msgstr "Bibliographie Ordner"
 
-#: GEMI/browser/bibfolder.py:238
+#: GEMI/browser/bibfolder.py:244
 msgid "Categories have been deleted!"
 msgstr "Kategorien wurden gelöscht!"
 
@@ -54,7 +58,7 @@ msgstr "Kollektion"
 msgid "Collection Filter View Settings"
 msgstr "Einstellungen Kollektion - gefilterte Ansicht "
 
-#: GEMI/browser/configure.zcml:178
+#: GEMI/browser/configure.zcml:169
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Content Type View"
 msgstr "Inhaltstypen-Ansicht"
@@ -134,7 +138,7 @@ msgstr "Liste von Autoren, die im Filter angezeigt werden soll (je ein Autor pro
 msgid "List of years to be shown in filter (each in newline)"
 msgstr "List von Jahren, die im Filter angezeigt werden soll (je ein Jahr pro Zeile)"
 
-#: GEMI/browser/configure.zcml:168
+#: GEMI/browser/configure.zcml:159
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Navigation-like View"
 msgstr "wie Navigation"
@@ -159,7 +163,7 @@ msgstr "Einstellungen für Products.GEMI"
 msgid "Products.GEMI settings"
 msgstr "Einstellungen für Products.GEMI"
 
-#: GEMI/browser/configure.zcml:188
+#: GEMI/browser/configure.zcml:179
 #: GEMI/profiles/default/types/BibliographyFolder.xml
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Publications view"
@@ -171,8 +175,8 @@ msgstr "Publikationen-Ordner"
 msgid "Publications view Settings"
 msgstr "Einstellungen Publikationen-Ordner"
 
+#: GEMI/browser/configure.zcml:209
 #: GEMI/profiles/default/types/Collection.xml
-#: GEMI/profiles/default/types/Topic.xml
 msgid "Recent Publications view"
 msgstr "Neueste Publikationen"
 
@@ -226,7 +230,7 @@ msgstr "Einstellungen Ansicht"
 msgid "WWW-Team"
 msgstr "WWW-Team"
 
-#: GEMI/browser/bibfolder.py:226
+#: GEMI/browser/bibfolder.py:232
 #: GEMI/browser/collections.py:57
 #: GEMI/browser/folders.py:245
 msgid "Your settings have been saved!"

@@ -298,8 +298,11 @@ class RecentPublicationsView(View):
             year = 'accepted'
 
         query = self.getQuery();
-        query['sort_on'] = None;
-        query['sort_order'] = None;
+        query['sort_on'] = self.context.sort_on;
+        if self.context.sort_reversed:
+            query['sort_order'] = 'descending';
+        else:
+            query['sort_order'] = 'ascending';
 
         if (year is 'accepted'):
             query['publication_year'] = {'query': ('accepted', 'Accepted'), 'operator': 'or'}
