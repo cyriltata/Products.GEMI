@@ -18,11 +18,6 @@
         Bibliography folder view settings (GEMI)
     </h1>
 
-    <p class="discreet" i18n:translate="help_bibfolder_view_settings">
-        Create categories for which the contents of this folder will be grouped. If no categories are selected, the contents will be listed as-is.
-        Each category must have a set of content types associated to it before it can be displayed.
-    </p>
-
     <dl tal:condition="view/statusMessage"
         tal:attributes="class view/statusMessage/klass">
         <dt tal:condition="view/statusMessage/title" tal:content="view/statusMessage/title" />
@@ -35,6 +30,10 @@
           tal:attributes="action string:${here/absolute_url}/bibfolder-view-settings-gemi">
 
         <strong i18n:translate="">Content-Type Categories</strong>
+        <p class="discreet" i18n:translate="help_bibfolder_view_settings">
+            Create categories for which the contents of this folder will be grouped. If no categories are selected, the contents will be listed as-is.
+            Each category must have a set of content types associated to it before it can be displayed.
+        </p>
         <table class="categories">
             <tr class="repeat-row" tal:repeat="c python: gutil.getBibFolderCategories(context, add)">
                 <td>

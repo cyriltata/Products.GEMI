@@ -42,10 +42,10 @@ class View(BrowserView):
             cats = [{id: 'all', 'category': 'all', 'description': 'all', 'reftypes': bibtool.getReferenceTypes()}]
 
         for cat in cats:
-            self.queries.append(self.makeCategoryQuery(cat))
+            self.queries.append(self.getCategoryQuery(cat))
 
 
-    def makeCategoryQuery(self, category):
+    def getCategoryQuery(self, category):
         if not category['category'] or not category['reftypes']:
             return None;
 

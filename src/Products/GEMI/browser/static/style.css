@@ -103,8 +103,9 @@
     border-radius: 4px;
 }
 
-#collection_filter_settings label {
-    font-size: 14px;
+.bibfolder-view-settings label {
+    font-size: 12px;
+    line-height: 24px;
 }
 
 .template-todo #content-core dd span.description {

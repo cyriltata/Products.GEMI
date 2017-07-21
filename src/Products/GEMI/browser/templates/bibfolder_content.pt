@@ -31,8 +31,10 @@
         </form>
     </div>
 </metal:block>
+
 <!-- Listing -->
 <section tal:repeat="query view/parent/queries">
+
     <!-- grouping by years -->
     <div tal:condition="view/parent/filterSettings/filter_by_year">
         <metal:block tal:define="results python: view.parent.runQuery(query);">
@@ -60,6 +62,7 @@
             </metal:block>
         </metal:block>
     </div>
+
     <!-- not grouping by years -->
     <div tal:condition="not:view/parent/filterSettings/filter_by_year">
         <metal:block tal:define="results python: view.parent.runQuery(query)">

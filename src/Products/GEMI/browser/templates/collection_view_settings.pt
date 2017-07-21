@@ -8,7 +8,10 @@
 <body>
   <div metal:fill-slot="main"
        tal:define="
+            gutil view/gutil;
             global props python:container.portal_properties;
+            bibtool context/portal_bibliography;
+            add python:request.get('add', False) == 'True'
         ">
 
     <h1 i18n:translate="heading_collection_filter_settings" class="documentFirstHeading"> Collection Filter Settings </h1>
@@ -23,23 +26,68 @@
           name="collection_filter_settings"
           method="post"
           tal:condition="python: view.isValid"
-          tal:attributes="action string:${here/absolute_url}/@@filter_settings">
+          tal:attributes="action string:${here/absolute_url}/@@filter_settings; class string:bibfolder-view-settings">
 
-        <strong i18n:translate="">View Content Settings</strong>
-        <div class="checkbox">
-            <label><input name="show_folder_in_collection" type="checkbox" value="True" tal:attributes="checked view/filterSettings/show_folder_in_collection"> <span i18n:translate="show_folder_in_collection_desc">Show contents of specified path</span></label>
-            <span i18n:translate="show_folder_in_collection_desc_help" class="help-block">
-                If this option is selected and within the collection criteria you specified a bibliography folder as the base search path, then the properties of that bibliography folder will be inherited and contents of that bibliography folder will be shown.
-            </span>
+        <strong i18n:translate="">Content-Type Categories</strong>
+        <p class="discreet" i18n:translate="help_bibfolder_view_settings">
+            Create categories for which the contents of this folder will be grouped. If no categories are selected, the contents will be listed as-is.
+            Each category must have a set of content types associated to it before it can be displayed.
+        </p>
+        <table class="categories">
+            <tr class="repeat-row" tal:repeat="c python: gutil.getBibFolderCategories(context, add)">
+                <td>
+                    <input type="checkbox" value="true"
+                        type="checkbox"
+                        name="category_checks:list"
+                        value="category_0"
+                        tal:attributes="value c/id" />
+                </td>
+                <td class="name">
+                    <span i18n:translate="">Category Name</span><br />
+                    <input
+                        type='text'
+                        name='category_0:string'
+                        value=''
+                        tal:attributes="name python: c['id'] + ':string'; value c/category" />
+                        <div>
+                            <span i18n:translate="">Category Description</span><br />
+                            <textarea
+                                rows="10" name="category_description"
+                                tal:attributes="name python: c['id'] + '_description:string'"
+                                tal:content="c/description"></textarea>
+                        </div>
+                </td>
+                <td class="types">
+                    <span i18n:translate="" style="float: right">Content-type (multiselect)</span><br />
+                    <select name="category_0_reftypes:list" 
+                        size="14"
+                        multiple="multiple"
+                        tal:attributes="name python: c['id'] + '_reftypes:list'" >
+                            <option tal:repeat="rt bibtool/getReferenceTypes" 
+                                tal:content="rt" 
+                                tal:attributes="selected python: rt in c['reftypes']">
+                                Bla
+                            </option>
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+        <div class="formControls">
+            <input type="submit" name="form.add.button" value="Add Row" i18n:attributes="value label_add" i18n:domain="plone" />
+            <input type="submit" name="form.delete.button" value="Delete Selected Rows" i18n:attributes="value label_delete" i18n:domain="plone" />
         </div>
+
+
+
         <p>&nbsp;</p>
         <strong i18n:translate="">Filter Settings</strong>
         <div class="checkbox">
             <label><input name="filter_show" type="checkbox" value="True" tal:attributes="checked view/filterSettings/filter_show"> <span i18n:translate="show_filter">Show filter</span></label>
             <span i18n:translate="bcv_show_filter_desc_help" class="help-block">If selected the filter will be shown at the top of the listing</span>
         </div>
-        <div class="checkbox" style="display:none">
-            <label><input name="filter_by_year" type="checkbox" value="True" tal:attributes="checked string:checked"> <span i18n:translate="group_by_year">Group entries by year</span></label>
+        <div class="checkbox">
+            <label><input name="filter_by_year" type="checkbox" value="True" tal:attributes="checked view/filterSettings/filter_by_year"> <span i18n:translate="group_by_year">Group entries by year</span></label>
             <span i18n:translate="group_by_year_help" class="help-block">If selected entries will be grouped by year under each category</span>
         </div>
         <table class="filter">
