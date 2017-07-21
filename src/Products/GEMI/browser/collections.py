@@ -168,11 +168,6 @@ class View(BrowserView):
             return None;
 
         query = self.getQuery();
-        query = {
-            'sort_on': 'publication_year',
-            'sort_order': 'reverse',
-            'Language': 'all'
-        }
         if category['reftypes']:
             query['portal_type'] = list(category['reftypes']);
 
