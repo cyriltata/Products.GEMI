@@ -3,7 +3,6 @@
 
 # Zope imports
 from AccessControl import ClassSecurityInfo
-from Products.ATContentTypes.interface import IATTopic
 from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -13,11 +12,9 @@ from Products.GEMI import config
 from Products.GEMI.config import *
 from Products.GEMI.interfaces import IProductsGEMIUtility
 from Products.statusmessages.interfaces import IStatusMessage
-from Products.CMFBibliographyAT.interface import IBibliographyFolder
 from zope.component import getUtility
 from plone.app.querystring import queryparser
-from Acquisition import aq_inner
-from zope.component import getMultiAdapter
+from plone.app.collection.interfaces import ICollection
 import datetime
 import random
 
@@ -160,6 +157,10 @@ class View(BrowserView):
             query = self.getQuery();
         b_start = self.request.get('b_start', 0);
         b_size = 200
+        custom_path = self.getAndCleanUpQueryLocationFilterPath()
+        if (custom_path):
+            query['path'] = custom_path;
+
         return self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size, **query)
 
     security.declareProtected(View, 'getCategoryQuery')
@@ -255,6 +256,22 @@ class View(BrowserView):
         if (year.isdigit()):
             return float(year) > 1900;
         return year
+
+    def getAndCleanUpQueryLocationFilterPath(self):
+        if not ICollection.providedBy(self.context):
+            return None;
+
+        site_path = '/'.join(self.context.portal_url.getPortalObject().getPhysicalPath());
+        raw_query = queryparser.parseFormquery(self.context, self.context.getRawQuery());
+        path = raw_query.get('path');
+        if path and path['query']:
+            for i, p in enumerate(path['query']):
+                idx = p.rfind(site_path);
+                if (idx > 0):
+                    path['query'][i] = p[idx:];
+
+            return path;
+        return None;
 
 
 class RecentPublicationsView(View):

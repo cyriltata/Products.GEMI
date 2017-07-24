@@ -58,12 +58,14 @@
                         ></div>
 
                     <!-- grouping by years -->
-                    <div 
-                        tal:condition="view/filterSettings/filter_by_year"
-                        tal:define="
-                        batch python: view.getResults(query['filter']);
-                        results python: view.gutil.groupBibItemsByYears(batch);">
-                        <metal:block tal:condition="results" tal:define="rkeys results/keys; dummy python:rkeys.sort(); dummy python:rkeys.reverse()">
+                    <div tal:condition="view/filterSettings/filter_by_year">
+                        <metal:block 
+                            tal:define="
+                            batch python: view.getResults(query['filter']);
+                            results python: view.gutil.groupBibItemsByYears(batch);
+                            rkeys results/keys;
+                            dummy python:rkeys.sort();
+                            dummy python:rkeys.reverse()" tal:condition="results">
                             <metal:block tal:repeat="year rkeys">
                                 <div class="year-group" tal:condition="python: view.isValidYear(year)">
                                     <div class="year" tal:attributes="id year; name year" tal:content="year">1905</div>
@@ -80,13 +82,13 @@
                     </div>
 
                     <!-- not grouping by years -->
-                    <div 
-                        tal:condition="not:view/filterSettings/filter_by_year"
-                        tal:define="
-                        batch python: view.getResults(query['filter']);
-                        results python: view.gutil.groupBibItemsByYears(batch);
-                        rkeys results/keys; dummy python:rkeys.sort(); dummy python:rkeys.reverse()">
-                        <metal:block tal:condition="results">
+                    <div tal:condition="not:view/filterSettings/filter_by_year">
+                        <metal:block
+                            tal:define="
+                            batch python: view.getResults(query['filter']);
+                            results python: view.gutil.groupBibItemsByYears(batch);
+                            rkeys results/keys; dummy python:rkeys.sort(); dummy python:rkeys.reverse()"
+                            tal:condition="results">
                             <metal:block tal:repeat="year rkeys">
                                 <div class="year-group" tal:condition="python: view.isValidYear(year)">
                                     <ul tal:define="items python: results[year]" class="bibfolder-items" style="margin-bottom: 0px;">
