@@ -302,6 +302,9 @@ class ProductsGEMIUtility:
         return False
     
 def sort_by_authors(item1, item2):
+    if not hasattr(item1, 'getAuthors') or not hasattr(item2, 'getAuthors'):
+        return 0;
+
     item1Authors = item1.getObject().getAuthors();
     item2Authors = item2.getObject().getAuthors();
     check = True;

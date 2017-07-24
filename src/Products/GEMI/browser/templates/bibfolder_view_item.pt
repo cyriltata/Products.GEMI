@@ -1,6 +1,6 @@
 <li class="bibfolder-item">
 <a tal:attributes="href view/item/getURL; target string:_blank; class string:bibfolder-item-link">
-    <metal:block tal:condition="python: view.item.portal_type not in ['IncollectionReference', 'InbookReference', 'ConferenceReference']">
+    <metal:block tal:condition="python: view.item.portal_type in ['ProceedingsReference', 'ArticleReference', 'ManualReference', 'UnpublishedReference', 'MastersthesisReference', 'WebpublishedReference', 'PhdthesisReference', 'PreprintReference', 'BookReference' 'BookletReference' 'TechreportReference', 'MiscReference', 'InproceedingsReference']">
         <span class="authors" tal:replace="python: view.Authors">Authors</span> (<span tal:content="view/item/getPublication_year"></span>).
         <span class="title" tal:content="view/Title"/>
         <i class="journal" tal:condition="view/getJournal" tal:content="view/getJournal" />
