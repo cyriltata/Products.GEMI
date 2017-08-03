@@ -158,7 +158,9 @@ class View(BrowserView):
         if not years:
             bibtool = getToolByName(self, 'portal_bibliography')
             path = self.context.getProperty(BFV_FILTER_PATH, '/'.join(self.context.getPhysicalPath()));
-            years = [_('')] + bibtool.getAllBibYears(p=path);
+            years = bibtool.getAllBibYears(p=path);
+        if (len(years) > 1):
+            years = [_('')] + years;
         return years
 
     def isValidYear(self, year):

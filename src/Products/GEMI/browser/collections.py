@@ -251,7 +251,10 @@ class View(BrowserView):
         years = list(y)
         if not years:
             bibtool = getToolByName(self, 'portal_bibliography')
-            years = [_('')] + bibtool.getAllBibYears();
+            years = bibtool.getAllBibYears();
+        if (len(years) > 1):
+            years = [_('')] + years;
+
         return years
 
     def isValidYear(self, year):
