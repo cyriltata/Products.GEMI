@@ -208,7 +208,7 @@ class View(BrowserView):
 
         year = self.request.get('filter.year', '').strip()
         if year:
-            query['publication_year'] = year;
+            query['publication_year'] = self.gutil.publicationYearQueryValue(year);
 
         return query
     
@@ -238,6 +238,9 @@ class View(BrowserView):
         if not authors:
             bibtool = getToolByName(self, 'portal_bibliography')
             authors = bibtool.getAllBibAuthors();
+        if (len(authors) > 1):
+            authors = [_('')] + authors;
+
         return authors
 
     @property
@@ -248,7 +251,7 @@ class View(BrowserView):
         years = list(y)
         if not years:
             bibtool = getToolByName(self, 'portal_bibliography')
-            years = bibtool.getAllBibYears();
+            years = [_('')] + bibtool.getAllBibYears();
         return years
 
     def isValidYear(self, year):
@@ -307,11 +310,11 @@ class RecentPublicationsView(View):
         else:
             query['sort_order'] = 'ascending';
 
-        if (year is 'accepted'):
-            query['publication_year'] = {'query': ('accepted', 'Accepted'), 'operator': 'or'}
+        if (year == 'accepted'):
+            query['publication_year'] = self.gutil.publicationYearQueryValue(year);
             prev_year = 'in press'
-        elif (year is 'in press'):
-            query['publication_year'] = {'query': ('in press', 'In Press', 'In press'), 'operator': 'or'}
+        elif (year == 'in press'):
+            query['publication_year'] = self.gutil.publicationYearQueryValue(year);
             prev_year = self.now.year
         else:
             query['publication_year'] = str(year)

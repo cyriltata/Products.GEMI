@@ -83,7 +83,7 @@ class View(BrowserView):
 
         year = self.request.get('filter.year', '').strip()
         if year:
-            query['publication_year'] = year;
+            query['publication_year'] = self.gutil.publicationYearQueryValue(year);
 
         return {'filter': query, 'labels': labels};
 
@@ -144,6 +144,9 @@ class View(BrowserView):
             bibtool = getToolByName(self, 'portal_bibliography')
             path = self.context.getProperty(BFV_FILTER_PATH, '/'.join(self.context.getPhysicalPath()));
             authors = bibtool.getAllBibAuthors(p=path);
+        if (len(authors) > 1):
+            authors = [_('')] + authors;
+
         return authors
     
     @property
@@ -155,7 +158,7 @@ class View(BrowserView):
         if not years:
             bibtool = getToolByName(self, 'portal_bibliography')
             path = self.context.getProperty(BFV_FILTER_PATH, '/'.join(self.context.getPhysicalPath()));
-            years = bibtool.getAllBibYears(p=path);
+            years = [_('')] + bibtool.getAllBibYears(p=path);
         return years
 
     def isValidYear(self, year):
@@ -387,10 +390,3 @@ class ViewListFormatter(BrowserView):
             return ' (' + self.item.getEdition + ').'
         return None;
 
-class ViewContent(BrowserView):
-
-    template = ViewPageTemplateFile('templates/bibfolder_content.pt')
-
-    def __call__(self, p=None):
-        self.parent = p
-        return self.template()

@@ -27,16 +27,16 @@
                             <span i18n:translate="text_show">Show</span>
                             <span i18n:translate="text_by_author">by author:</span>  
                             <select name="filter.author" class="form-control">
-                                <option i18n:translate="text_authors_all" value="">all</option>
                                 <metal:block tal:repeat="a view/authorList">
-                                    <option tal:define="v python: a.replace(',', '')" tal:attributes="value v; selected python: v==author" tal:content="a">Cyril Tata</option>
+                                    <option i18n:translate="text_authors_all" value="" tal:condition="not:a">all</option>
+                                    <option tal:define="v python: a.replace(',', '')" tal:attributes="value v; selected python: v==author" tal:content="a" tal:condition="a">Cyril Tata</option>
                                 </metal:block>
                             </select>
                             <span i18n:translate="text_by_year">by year:</span>
                             <select name="filter.year" class="form-control">
-                                <option i18n:translate="text_years_all" value="">all</option>
                                 <metal:block tal:repeat="y view/yearsList">
-                                    <option tal:attributes="value y; selected python: y==year" tal:content="y">2015</option>
+                                    <option i18n:translate="text_authors_all" value="" tal:condition="not:y">all</option>
+                                    <option tal:attributes="value y; selected python: y==year" tal:content="y" tal:condition="y">2015</option>
                                 </metal:block>
                             </select>
                             <input type="submit" value="Show" i18n:attributes="value label_show" class="btn" />
@@ -104,8 +104,6 @@
                     </div>
 
                 </section>
-                
-
           
 
             </div>

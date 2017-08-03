@@ -301,6 +301,16 @@ class ProductsGEMIUtility:
             return True
         return False
     
+    def publicationYearQueryValue(self, year):
+        year = year.lower().strip();
+
+        if year == 'in press':
+            return {'query': ('in press', 'In Press', 'In press'), 'operator': 'or'}
+        elif year == 'accepted':
+            return {'query': ('accepted', 'Accepted'), 'operator': 'or'}
+
+        return year;
+    
 def sort_by_authors(item1, item2):
     if not hasattr(item1, 'getAuthors') or not hasattr(item2, 'getAuthors'):
         return 0;
