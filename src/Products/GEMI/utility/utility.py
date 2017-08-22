@@ -312,11 +312,13 @@ class ProductsGEMIUtility:
         return year;
     
 def sort_by_authors(item1, item2):
+    item1 = item1.getObject();
+    item2 = item2.getObject();
     if not hasattr(item1, 'getAuthors') or not hasattr(item2, 'getAuthors'):
         return 0;
 
-    item1Authors = item1.getObject().getAuthors();
-    item2Authors = item2.getObject().getAuthors();
+    item1Authors = item1.getAuthors();
+    item2Authors = item2.getAuthors();
     check = True;
     index1 = 0;
     index2 = 0;
