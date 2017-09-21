@@ -298,16 +298,7 @@ class ViewListFormatter(BrowserView):
         return journal;
 
     def getPdfUrl(self):
-        r = self.item;
-        if (hasattr(self.item, 'pdf_url') and r.getPdf_url()):
-            url = r.getPdf_url()
-        elif (hasattr(self.item, 'pdf_file') and r.getPdf_file()):
-            pdf = r.getPdf_file();
-            url = pdf.absolute_url();
-        else:
-            url = None
-
-        return url;
+        return self.item.download_pdf()
 
     def getUrl(self):
         if self.item.getPublication_url():

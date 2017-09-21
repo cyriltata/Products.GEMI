@@ -214,16 +214,7 @@ class View(BrowserView):
     
     security.declareProtected(View, 'getPdfUrl')
     def getPdfUrl(self, ref):
-        r = ref.getObject();
-        if (r.getPdf_url()):
-            url = r.getPdf_url()
-        elif (r.getPdf_file()):
-            pdf = r.getPdf_file();
-            url = pdf.absolute_url();
-        else:
-            url = None
-
-        return url;
+        return ref.getObject().download_pdf();
 
     @property
     def showFilter(self):
