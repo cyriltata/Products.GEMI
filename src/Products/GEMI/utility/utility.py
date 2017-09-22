@@ -322,6 +322,7 @@ def sort_by_authors(item1, item2):
     check = True;
     index1 = 0;
     index2 = 0;
+    compared = 0;
     while check and index1 < len(item1Authors) and index2 < len(item2Authors):
         author1 = (item1Authors[index1].get('lastname'), item1Authors[index1].get('firstname'));
         author2 =  (item2Authors[index2].get('lastname'), item2Authors[index2].get('firstname'));
