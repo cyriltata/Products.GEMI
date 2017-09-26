@@ -9,6 +9,7 @@ from Products.GEMI import _
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility
 from Products.CMFCore.utils import getToolByName
+from HTMLParser import HTMLParser
 
 class View(BrowserView):
 
@@ -262,6 +263,10 @@ class ViewListFormatter(BrowserView):
 
     template = ViewPageTemplateFile('templates/bibfolder_view_item.pt')
 
+    def __init__(self, context, request):
+        super(ViewListFormatter, self).__init__(context, request);
+        self.htmlparser = HTMLParser();
+
     def __call__(self, item=None):
         self.item = item.getObject()
         return self.template()
@@ -314,7 +319,7 @@ class ViewListFormatter(BrowserView):
 
     def getPages(self):
         if (hasattr(self.item, 'pages') and self.item.getPages()):
-            return self.item.getPages() + '.'
+            return self.htmlparser.unescape(self.item.getPages()) + '.'
         return None;
 
     def inBook(self):
