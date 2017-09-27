@@ -313,9 +313,12 @@ class ViewListFormatter(BrowserView):
     def getFormattedIdentifiers(self):
         if (not hasattr(self.item, 'identifiers')):
             return None
-        s = ' '.join([" %s: %s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',').strip();
-        if s:
-            return s + '.';
+        try:
+            s = ' '.join([" %s: %s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',').strip();
+            if s:
+                return s + '.';
+        except:
+            return None;
 
     def getPages(self):
         if (hasattr(self.item, 'pages') and self.item.getPages()):
