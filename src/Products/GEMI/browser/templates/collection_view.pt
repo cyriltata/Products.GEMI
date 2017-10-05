@@ -12,6 +12,14 @@
                 <dd i18n:translate="desc_not_valid_view"> This view is not valid for this type of collection</dd>
             </dl>
 
+            <div metal:define-macro="text-field-view"
+                id="parent-fieldname-text" class="stx"
+                tal:define="has_text exists:context/aq_explicit/getText;
+                            text python:has_text and here.getText() or ''"
+                tal:condition="text">
+               <div metal:define-slot="inside" tal:replace="structure text">The body</div>
+           </div>
+
             <div class="results-container"
                 tal:condition="python: view.isValid"
                 >
