@@ -94,6 +94,10 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             self.request.get('from', None),
             self.request.get('to', None)
         );
+        
+        #effective_date = self.getDateRangeQuery('today', None, None);
+        filter['effectiveRange'] = DateTime();
+
         portal_type = self.request.get('type', 'Event');
         filter['portal_type'] = (portal_type,)
 
