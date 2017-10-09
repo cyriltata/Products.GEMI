@@ -82,12 +82,15 @@ class ExportNewsAndEventsAsJSON(BrowserView):
         # Read the first index of the selected batch parameter as HTTP GET request query parameter
         start = self.request.get("b_start", 0)
         limit = self.request.get("b_limit", 20)
+        keywords = self.request.get('keywords', None);
 
         filter = {
             "show_excluded_from_nav": True,
             "review_state": "published",
             "path": {"query": self.request.get("path", "/")}
         }
+        if keywords:
+            filter['Subject'] = keywords.split('|');
 
         date_range = self.getDateRangeQuery(
             self.request.get('date', None),
