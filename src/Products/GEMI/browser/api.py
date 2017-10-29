@@ -124,12 +124,22 @@ class ExportNewsAndEventsAsJSON(BrowserView):
         }
 
         items = self.query(start, limit, filter)
+        paths = [];
         for brain in items:
             obj = brain.getObject();
             if obj.portal_type == "Event":
                 data['items'].append(self.getDataFromEventObject(obj))
             else:
                 data['items'].append(self.getDataFromNewsItemObject(obj))
+            
+            try:
+                path = '/'.join(obj.getPhysicalPath()[0:4]);
+                if not path in paths and obj.portal_type == "News Item":
+                    paths.append(path);
+            except:
+                pass
+
+        data['paths'] = self.getPathObjects(paths);
 
         return data
     
@@ -240,4 +250,21 @@ class ExportNewsAndEventsAsJSON(BrowserView):
             self.members[id] = member.getProperty("fullname")
 
         return self.members.get(id, None);
+
+    def getPathObjects(self, paths):
+        objs = {}
+        if not paths:
+            return objs;
+
+        filter = {
+            "show_excluded_from_nav": True,
+            "review_state": "published",
+            "path": {"query": paths, "operator": "or", "depth": 0}
+        }
+        items = self.query(0, len(paths), filter);
+        for brain in items:
+            obj = brain.getObject();
+            path = '/'.join(obj.getPhysicalPath()[2:4]);
+            objs[path] = obj.Title();
+        return objs
 
