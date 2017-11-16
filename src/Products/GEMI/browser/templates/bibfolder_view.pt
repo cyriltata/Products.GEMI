@@ -39,7 +39,7 @@
             </metal:block>
 
             <!-- Listing -->
-            <section tal:repeat="query view/queries">
+            <section tal:repeat="query view/queries" tal:define="formatter nocall:context/@@bibfolderlistitemformatter">
 
                 <!-- grouping by years -->
                 <div tal:condition="view/filterSettings/filter_by_year">
@@ -57,9 +57,7 @@
                                 <div class="year-group" tal:condition="python: view.isValidYear(year)">
                                     <div class="year" tal:attributes="id year; name year" tal:content="year">1905</div>
                                     <ul tal:define="items python: results[year]" class="bibfolder-items">
-                                        <metal:block
-                                            tal:repeat="result items"
-                                            tal:define="formatter nocall:context/@@bibfolderlistitemformatter">
+                                        <metal:block tal:repeat="result items">
                                             <tal:item tal:replace="structure python:formatter(result)" />
                                         </metal:block>
                                     </ul>
@@ -82,15 +80,15 @@
                                 tal:content="query/labels/display_desc"
                                 ></div>
                             <ul class="bibfolder-items">
-                                <metal:block
-                                    tal:repeat="result results"
-                                    tal:define="formatter nocall:context/@@bibfolderlistitemformatter">
+                                <metal:block tal:repeat="result results">
                                     <tal:item tal:replace="structure python:formatter(result)" />
                                 </metal:block>
                             </ul>
                         </metal:block>
                     </metal:block>
                 </div>
+
+                <a name="os-keywords-list"><strong class="os-keywords-list" tal:content="structure python: formatter.listOpenscienceKeywords()"></strong></a>
             </section>
         </div>
 

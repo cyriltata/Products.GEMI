@@ -266,6 +266,7 @@ class ViewListFormatter(BrowserView):
     def __init__(self, context, request):
         super(ViewListFormatter, self).__init__(context, request);
         self.htmlparser = HTMLParser();
+        self.oskeywords = [];
 
     def __call__(self, item=None):
         self.item = item.getObject()
@@ -390,4 +391,29 @@ class ViewListFormatter(BrowserView):
         if (hasattr(self.item, 'edition') and self.item.getEdition()):
             return ' (' + self.item.getEdition + ').'
         return None;
+
+    def OpenscienceKeywords(self):
+        keywords = self.item.getOpenscience_keywords();
+        if (not keywords):
+            return None;
+
+        indices = [];
+        for _key in keywords:
+            if _key in self.oskeywords:
+                indices.append(self.oskeywords.index(_key) + 1);
+            else:
+                self.oskeywords.append(_key);
+                indices.append(len(self.oskeywords));
+
+        indices.sort()
+        return ','.join(map(str, indices));
+
+    def listOpenscienceKeywords(self):
+        if not self.oskeywords:
+            return ''
+
+        strs = [];
+        for indx, word in enumerate(self.oskeywords):
+            strs.append('['+ str(indx+1) + '] ' + word);
+        return ' &nbsp; '.join(strs);
 
