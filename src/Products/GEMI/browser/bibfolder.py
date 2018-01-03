@@ -40,16 +40,13 @@ class View(BrowserView):
         if (self.context.hasProperty(BFV_CATEGORY_COUNT) and self.context.getProperty(BFV_CATEGORY_COUNT) > 0):
             cats = self.gutil.getBibFolderCategories(self.context, False)
         else:
-            cats = [{id: 'all', 'category': 'all', 'description': 'all', 'reftypes': bibtool.getReferenceTypes(), 'tags': None}]
+            cats = [{'id': 'all', 'category': 'all', 'description': 'all', 'reftypes': bibtool.getReferenceTypes(), 'tags': None}]
 
         for cat in cats:
             self.queries.append(self.getCategoryQuery(cat))
 
 
     def getCategoryQuery(self, category):
-        if not category['category'] or (not category['reftypes'] and not category['tags']):
-            return None;
-
         path = '/'.join(self.context.getPhysicalPath());
         query = {
             'path': {'query': path, 'depth': 1},
@@ -57,9 +54,9 @@ class View(BrowserView):
             'sort_order': 'reverse',
             'Language': 'all'
         }
-        if category['reftypes']:
+        if category['category'] and category['reftypes']:
             query['portal_type'] = list(category['reftypes']);
-        if category['tags']:
+        if category['category'] and category['tags']:
             query['Subject'] = list(category['tags']);
 
         labels = {
