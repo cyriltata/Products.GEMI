@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0a\n"
-"POT-Creation-Date: 2017-07-10 10:43+0000\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Cyril Tata <ctata@gwdg.de>\n"
 "Language-Team: AG Technik - GEMI <LL@li.org>\n"
@@ -14,19 +14,23 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.GEMI\n"
 
-#: GEMI/browser/configure.zcml:188
+#: GEMI/browser/configure.zcml:171
 msgid "A collection list view with filter"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:208
+#: GEMI/browser/configure.zcml:201
+msgid "A collection of most recent publications added with the publications extension"
+msgstr ""
+
+#: GEMI/browser/configure.zcml:191
 msgid "A gemi specific bibfolder view"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:168
+#: GEMI/browser/configure.zcml:151
 msgid "A list of items like in a navigation"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:178
+#: GEMI/browser/configure.zcml:161
 msgid "A list of items showing only configured content types"
 msgstr ""
 
@@ -34,15 +38,18 @@ msgstr ""
 msgid "Bibliography Folder"
 msgstr "Bibliography Folder"
 
-#: GEMI/browser/bibfolder.py:238
+#: GEMI/browser/bibfolder.py:275
+#: GEMI/browser/collections.py:124
 msgid "Categories have been deleted!"
 msgstr "Categories have been deleted!"
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:55
+#: GEMI/browser/templates/bibfolder_view_settings.pt:59
+#: GEMI/browser/templates/collection_view_settings.pt:58
 msgid "Category Description"
 msgstr ""
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:48
+#: GEMI/browser/templates/bibfolder_view_settings.pt:52
+#: GEMI/browser/templates/collection_view_settings.pt:51
 msgid "Category Name"
 msgstr ""
 
@@ -54,7 +61,12 @@ msgstr "Collection"
 msgid "Collection Filter View Settings"
 msgstr "Collection Filter View Settings"
 
-#: GEMI/browser/configure.zcml:178
+#: GEMI/browser/templates/bibfolder_view_settings.pt:69
+#: GEMI/browser/templates/collection_view_settings.pt:68
+msgid "Content Type"
+msgstr ""
+
+#: GEMI/browser/configure.zcml:161
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Content Type View"
 msgstr "Content Type View"
@@ -63,19 +75,21 @@ msgstr "Content Type View"
 msgid "Content types shown"
 msgstr ""
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:37
+#: GEMI/browser/templates/bibfolder_view_settings.pt:32
+#: GEMI/browser/templates/collection_view_settings.pt:31
 msgid "Content-Type Categories"
 msgstr ""
 
 msgid "Content-Type View Settings"
 msgstr "Content-Type View Settings"
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:63
+#: GEMI/browser/templates/bibfolder_view_settings.pt:74
+#: GEMI/browser/templates/collection_view_settings.pt:73
 msgid "Content-type (multiselect)"
 msgstr ""
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:116
-#: GEMI/browser/templates/collection_view_settings.pt:68
+#: GEMI/browser/templates/bibfolder_view_settings.pt:142
+#: GEMI/browser/templates/collection_view_settings.pt:143
 msgid "Default Filter selection"
 msgstr ""
 
@@ -93,8 +107,8 @@ msgstr "Enabled content types"
 msgid "Faculty of Biology"
 msgstr "Faculty of Biology"
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:84
-#: GEMI/browser/templates/collection_view_settings.pt:36
+#: GEMI/browser/templates/bibfolder_view_settings.pt:110
+#: GEMI/browser/templates/collection_view_settings.pt:111
 msgid "Filter Settings"
 msgstr "Filter Settings"
 
@@ -124,17 +138,22 @@ msgstr ""
 msgid "Institute of Psychology"
 msgstr "Institute of Psychology"
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:96
-#: GEMI/browser/templates/collection_view_settings.pt:48
+#: GEMI/browser/templates/bibfolder_view_settings.pt:40
+#: GEMI/browser/templates/collection_view_settings.pt:39
+msgid "Label"
+msgstr ""
+
+#: GEMI/browser/templates/bibfolder_view_settings.pt:122
+#: GEMI/browser/templates/collection_view_settings.pt:123
 msgid "List of authors to be shown in filter (each in newline)"
 msgstr ""
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:105
-#: GEMI/browser/templates/collection_view_settings.pt:57
+#: GEMI/browser/templates/bibfolder_view_settings.pt:131
+#: GEMI/browser/templates/collection_view_settings.pt:132
 msgid "List of years to be shown in filter (each in newline)"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:168
+#: GEMI/browser/configure.zcml:151
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Navigation-like View"
 msgstr ""
@@ -159,7 +178,7 @@ msgstr ""
 msgid "Products.GEMI settings"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:188
+#: GEMI/browser/configure.zcml:171
 #: GEMI/profiles/default/types/BibliographyFolder.xml
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Publications view"
@@ -171,8 +190,13 @@ msgstr ""
 msgid "Publications view Settings"
 msgstr ""
 
+#: GEMI/browser/templates/bibfolder_view_settings.pt:41
+#: GEMI/browser/templates/collection_view_settings.pt:40
+msgid "Query"
+msgstr ""
+
+#: GEMI/browser/configure.zcml:201
 #: GEMI/profiles/default/types/Collection.xml
-#: GEMI/profiles/default/types/Topic.xml
 msgid "Recent Publications view"
 msgstr ""
 
@@ -180,13 +204,13 @@ msgstr ""
 msgid "Saved"
 msgstr "Saved"
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:124
-#: GEMI/browser/templates/collection_view_settings.pt:76
+#: GEMI/browser/templates/bibfolder_view_settings.pt:150
+#: GEMI/browser/templates/collection_view_settings.pt:151
 msgid "Selected Year"
 msgstr ""
 
-#: GEMI/browser/templates/bibfolder_view_settings.pt:120
-#: GEMI/browser/templates/collection_view_settings.pt:72
+#: GEMI/browser/templates/bibfolder_view_settings.pt:146
+#: GEMI/browser/templates/collection_view_settings.pt:147
 msgid "Selected author"
 msgstr ""
 
@@ -203,6 +227,11 @@ msgstr "Show items exluded from navigation"
 msgid "Some global settings of the Products.GEMI extension"
 msgstr ""
 
+#: GEMI/browser/templates/bibfolder_view_settings.pt:70
+#: GEMI/browser/templates/collection_view_settings.pt:69
+msgid "Tag"
+msgstr ""
+
 #: GEMI/interfaces.py:21
 msgid "Title"
 msgstr "Title"
@@ -215,10 +244,6 @@ msgstr ""
 msgid "Uninstall Products.GEMI extension."
 msgstr ""
 
-#: GEMI/browser/templates/collection_view_settings.pt:28
-msgid "View Content Settings"
-msgstr "View Content Settings"
-
 #: GEMI/profiles/default/types/Folder.xml
 msgid "View Settings"
 msgstr ""
@@ -226,19 +251,19 @@ msgstr ""
 msgid "WWW-Team"
 msgstr "WWW-Team"
 
-#: GEMI/browser/bibfolder.py:226
-#: GEMI/browser/collections.py:57
+#: GEMI/browser/bibfolder.py:263
+#: GEMI/browser/collections.py:65
 #: GEMI/browser/folders.py:245
 msgid "Your settings have been saved!"
 msgstr "Your settings have been saved!"
 
 #. Default: "If selected the filter will be shown at the top of the listing"
-#: GEMI/browser/templates/collection_view_settings.pt:39
+#: GEMI/browser/templates/collection_view_settings.pt:114
 msgid "bcv_show_filter_desc_help"
 msgstr "If selected the filter will be shown at the top of the listing"
 
 #. Default: "If selected the filter will be shown at the top of the listing"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:87
+#: GEMI/browser/templates/bibfolder_view_settings.pt:113
 msgid "bfv_show_filter_desc_help"
 msgstr "If selected the filter will be shown at the top of the listing"
 
@@ -249,25 +274,25 @@ msgstr ""
 
 #. Default: "This view is not valid for this type of collection"
 #: GEMI/browser/templates/collection_view.pt:12
-#: GEMI/browser/templates/collection_view_settings.pt:18
+#: GEMI/browser/templates/collection_view_settings.pt:21
 msgid "desc_not_valid_view"
 msgstr ""
 
 #. Default: "Error"
 #: GEMI/browser/templates/collection_view.pt:11
-#: GEMI/browser/templates/collection_view_settings.pt:17
+#: GEMI/browser/templates/collection_view_settings.pt:20
 msgid "error"
 msgstr ""
 
 #. Default: "Group entries by year"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:90
-#: GEMI/browser/templates/collection_view_settings.pt:42
+#: GEMI/browser/templates/bibfolder_view_settings.pt:116
+#: GEMI/browser/templates/collection_view_settings.pt:117
 msgid "group_by_year"
 msgstr ""
 
 #. Default: "If selected entries will be grouped by year under each category"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:91
-#: GEMI/browser/templates/collection_view_settings.pt:43
+#: GEMI/browser/templates/bibfolder_view_settings.pt:117
+#: GEMI/browser/templates/collection_view_settings.pt:118
 msgid "group_by_year_help"
 msgstr ""
 
@@ -277,12 +302,13 @@ msgid "heading_bibfolder_view_settings"
 msgstr ""
 
 #. Default: "Collection Filter Settings"
-#: GEMI/browser/templates/collection_view_settings.pt:14
+#: GEMI/browser/templates/collection_view_settings.pt:17
 msgid "heading_collection_filter_settings"
 msgstr ""
 
 #. Default: "Create categories for which the contents of this folder will be grouped. If no categories are selected, the contents will be listed as-is. Each category must have a set of content types associated to it before it can be displayed."
-#: GEMI/browser/templates/bibfolder_view_settings.pt:21
+#: GEMI/browser/templates/bibfolder_view_settings.pt:33
+#: GEMI/browser/templates/collection_view_settings.pt:32
 msgid "help_bibfolder_view_settings"
 msgstr ""
 
@@ -317,8 +343,8 @@ msgid "label_by_author"
 msgstr ""
 
 #. Default: "Show"
-#: GEMI/browser/templates/bibfolder_content.pt:30
-#: GEMI/browser/templates/collection_view.pt:43
+#: GEMI/browser/templates/bibfolder_view.pt:36
+#: GEMI/browser/templates/collection_view.pt:50
 msgid "label_show"
 msgstr ""
 
@@ -328,8 +354,8 @@ msgid "no_items_in_folder"
 msgstr ""
 
 #. Default: "Show filter"
-#: GEMI/browser/templates/bibfolder_view_settings.pt:86
-#: GEMI/browser/templates/collection_view_settings.pt:38
+#: GEMI/browser/templates/bibfolder_view_settings.pt:112
+#: GEMI/browser/templates/collection_view_settings.pt:113
 msgid "show_filter"
 msgstr "Show filter"
 
@@ -345,42 +371,31 @@ msgstr "If selected the filter to search for collections will be shown above lis
 msgid "show_filter_help"
 msgstr "Should filter be shown above collection?"
 
-#. Default: "Show contents of specified path"
-#: GEMI/browser/templates/collection_view_settings.pt:30
-msgid "show_folder_in_collection_desc"
-msgstr "Show contents of specified path"
-
-#. Default: "If this option is selected and within the collection criteria you specified a bibliography folder as the base search path, then the properties of that bibliography folder will be inherited and contents of that bibliography folder will be shown."
-#: GEMI/browser/templates/collection_view_settings.pt:31
-msgid "show_folder_in_collection_desc_help"
-msgstr "If this option is selected and within the collection criteria you specified a bibliography folder as the base search path, then the properties of that bibliography folder will be inherited and contents of that bibliography folder will be shown."
-
 #. Default: "all"
-#: GEMI/browser/templates/bibfolder_content.pt:18
-#: GEMI/browser/templates/collection_view.pt:31
+#: GEMI/browser/templates/bibfolder_view.pt:25
+#: GEMI/browser/templates/collection_view.pt:39
 msgid "text_authors_all"
 msgstr "all"
 
 #. Default: "by author:"
-#: GEMI/browser/templates/bibfolder_content.pt:16
-#: GEMI/browser/templates/collection_view.pt:29
+#: GEMI/browser/templates/bibfolder_view.pt:22
+#: GEMI/browser/templates/collection_view.pt:36
 msgid "text_by_author"
 msgstr ""
 
 #. Default: "by year:"
-#: GEMI/browser/templates/bibfolder_content.pt:23
-#: GEMI/browser/templates/collection_view.pt:36
+#: GEMI/browser/templates/bibfolder_view.pt:29
+#: GEMI/browser/templates/collection_view.pt:43
 msgid "text_by_year"
 msgstr ""
 
 #. Default: "Show"
-#: GEMI/browser/templates/bibfolder_content.pt:15
-#: GEMI/browser/templates/collection_view.pt:28
+#: GEMI/browser/templates/bibfolder_view.pt:21
+#: GEMI/browser/templates/collection_view.pt:35
 msgid "text_show"
 msgstr ""
 
 #. Default: "all"
-#: GEMI/browser/templates/bibfolder_content.pt:25
-#: GEMI/browser/templates/collection_view.pt:38
+#: GEMI/browser/templates/bibfolder_view.pt:32
 msgid "text_years_all"
 msgstr ""

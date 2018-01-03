@@ -108,7 +108,6 @@
                         </metal:block>
                     </div>
 
-                    <a name="os-keywords-list"><strong class="os-keywords-list" tal:content="structure python: formatter.listOpenscienceKeywords()"></strong></a>
                 </section>
           
 

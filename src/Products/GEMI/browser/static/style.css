@@ -63,9 +63,6 @@
    padding: 15px 0px;
 }
 
-.bibfolder-view-settings table.categories td.name {
-    width: 65%;
-}
 .bibfolder-view-settings table.categories td.name input {
     width: 99%;
 }
@@ -73,18 +70,26 @@
     margin-top: 8px;
 }
 .bibfolder-view-settings table.categories td.types {
-    width: 30%;
+    width: 40%;
+}
+.bibfolder-view-settings table.categories td.name {
+    width: 50%;
+    padding: 15px 15px 0px 5px;
 }
 .bibfolder-view-settings table.categories td.name textarea,
 .bibfolder-view-settings table.categories td.name input {
     padding: 5px;
     border-radius: 2px;
+    border: 1px solid #ddd;
 }
 .bibfolder-view-settings table.categories td.types select {
-    width: 90%;
-    float: right;
+    width: 98%;
+    border: 0px;
 }
-
+.bibfolder-view-settings table.categories label{
+    display: block !important;
+    margin-bottom: 0px;
+}
 .bibfolder-view-settings table.filter td {
     border: none !important;
 }
@@ -128,4 +133,40 @@ li.bibfolder-item a {
 li.bibfolder-item a:hover {
     text-decoration: none!important;
     color: #163776;
+}
+.has-tabs > ul {
+    list-style: none;
+    padding: 0px;
+}
+.has-tabs > ul > li {
+    float: left;
+}
+.has-tabs > ul > li a {
+    display: block;
+    padding: 8px 10px;
+}
+.has-tabs > ul > li.active > a {
+    background: #fff;
+    border: 1px solid #dddddd;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.has-tabs .tab-contents {
+    display: block;
+    clear: both;
+    padding: 0px;
+    border-top: 1px solid #efefef;
+}
+.has-tabs .tab-content {
+    display: none;
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.has-tabs .tab-content.active {
+    display: block;
+    background: #fff;
+    border: 1px solid #dddddd;
+    border-top: 0px;
 }

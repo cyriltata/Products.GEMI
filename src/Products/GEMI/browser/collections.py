@@ -17,6 +17,7 @@ from plone.app.querystring import queryparser
 from plone.app.collection.interfaces import ICollection
 import datetime
 import random
+import math
 
 
 class ViewSettings(BrowserView):
@@ -30,6 +31,7 @@ class ViewSettings(BrowserView):
         self.request = request
         self.gutil = getUtility(IProductsGEMIUtility)
         self.messages = IStatusMessage(self.request)
+        self.subjectKeywords = [];
 
     def __call__(self):
         if (self.request["REQUEST_METHOD"] == "POST"):
@@ -65,22 +67,43 @@ class ViewSettings(BrowserView):
 
     def initSettings(self):
         self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
+        self.subjectKeywords = self.context.portal_catalog.uniqueValuesFor('Subject')
 
     def save(self, items):
         item_keys = items.keys();
         util = self.gutil;
         n = util.getBibFolderCategoryCount(self.context) + 1;
+        index = 1;
 
-        # Save categories
+        # Save category settings
         for i in range(n+1):
             cat_name = BFV_CATEGORY % i;
             cat_types = BFV_CATEGORY_REFTYPES % i;
             cat_desc = BFV_CATEGORY_DESCRIPTION % i;
-            if (cat_name in item_keys and cat_types in item_keys):
-                if (self.context.hasProperty(cat_name)):
-                    util.modifyBibFolderCategory(self.context, i, items[cat_name], items[cat_types], items[cat_desc])
-                else:
-                    util.addBibFolderCategory(self.context, items[cat_name], items[cat_types], items[cat_desc])
+            cat_tags = BFV_CATEGORY_TAGS % i;
+            category = {};
+            category[cat_name] = None;
+
+            if (cat_name in item_keys and items[cat_name]):
+                category[cat_name] = {'value': items[cat_name], 'type': 'string'};
+            if (cat_desc in item_keys):
+                category[cat_desc] = {'value': items[cat_desc], 'type': 'text'};
+            if (cat_types in item_keys):
+                category[cat_types] = {'value': items[cat_types], 'type': 'lines'};
+            else:
+                category[cat_types] = {'value': [], 'type': 'lines'};
+                
+            if (cat_tags in item_keys):
+                category[cat_tags] = {'value': items[cat_tags], 'type': 'lines'};
+            else:
+                category[cat_tags] = {'value': [], 'type': 'lines'};
+
+            if not category[cat_name]:
+                continue;
+
+            util.saveBibFolderCategorySettings(self.context, category, index);
+            index += 1;
+
 
         # Save filter settings
         filter_settings = util.getBibFolderFilterValues(items);
@@ -147,10 +170,12 @@ class View(BrowserView):
         if (self.context.hasProperty(BFV_CATEGORY_COUNT) and self.context.getProperty(BFV_CATEGORY_COUNT) > 0):
             cats = self.gutil.getBibFolderCategories(self.context, False)
         else:
-            cats = [{id: 'all', 'category': 'all', 'description': 'all', 'reftypes': None}]
+            cats = [{id: 'all', 'category': 'all', 'description': 'all', 'reftypes': None, 'tags': None}]
 
         for cat in cats:
-            self.queries.append(self.getCategoryQuery(cat))
+            catQuery = self.getCategoryQuery(cat)
+            if catQuery:
+                self.queries.append(catQuery)
 
     def getResults(self, query=None):
         if query is None:
@@ -165,12 +190,14 @@ class View(BrowserView):
 
     security.declareProtected(View, 'getCategoryQuery')
     def getCategoryQuery(self, category):
-        if not category['category'] or not 'reftypes' in category:
+        if not category['category'] or (not category['reftypes'] and not category['tags']):
             return None;
 
         query = self.getQuery();
         if category['reftypes']:
             query['portal_type'] = list(category['reftypes']);
+        if category['tags']:
+            query['Subject'] = list(category['tags']);
 
         labels = {
             'display_label': category['category'],
@@ -293,7 +320,15 @@ class RecentPublicationsView(View):
         query['path'] = {"query": "/"}
         return query;
 
-    def getResults(self, b_start=None, year=None):
+    def getResults(self, b_start = None):
+        y_size = math.floor(float(self.context.b_size) * (2.0/3.0));
+        t_size = self.context.b_size - y_size;
+        b_start = b_start or self.request.get('b_start', 0);
+        self.getResultsByYear(b_start, t_size, 'in press');
+        self.getResultsByYear(b_start, y_size, self.now.year);
+        return self.items;
+        
+    def getResultsByYear(self, b_start=None, b_size=None, year=None, items=None):
         if (year is None):
             year = 'accepted'
 
@@ -314,18 +349,20 @@ class RecentPublicationsView(View):
             query['publication_year'] = str(year)
             prev_year = year - 1
 
-        b_start = b_start or self.request.get('b_start', 0);
-        b_size = self.context.b_size;
+        #b_start = b_start or self.request.get('b_start', 0);
+        #b_size = self.context.b_size;
         #limit = self.context.limit;
 
         results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size * 10, **query)
         results = self.randomizeBatch(results);
+        items = items or [];
         for brain in results:
             if brain.UID in self.duplicates:
                 continue;
-            self.items.append(brain)
-            if (len(self.items) >= b_size):
-                break;
+            items.append(brain)
+            if (len(items) >= b_size):
+                self.items.extend(items);
+                return;
 
             self.duplicates[brain.UID] = None
             try:
@@ -337,12 +374,12 @@ class RecentPublicationsView(View):
                 prev_year = year
         #if results:
         #    b_start += b_size
-
-        if len(self.items) < b_size and self.itr_count < self.max_itr_count:
+        self.items.extend(items);
+        if len(self.items) < self.context.b_size and self.itr_count < self.max_itr_count:
             self.itr_count += 1;
-            self.getResults(b_start, prev_year)
+            self.getResultsByYear(b_start, b_size, prev_year, items)
 
-        return self.items;
+        return items;
 
     def getEnableDuplicatesManager(self):
         return True;

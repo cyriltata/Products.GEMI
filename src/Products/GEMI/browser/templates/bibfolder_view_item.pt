@@ -10,7 +10,6 @@
                 <span tal:content="view/getFormattedIdentifiers">(doi:xxxx/xxx.xxxx, issn: xxx-xxx)</span>
             </metal:block>
         </a>
-        <sup class="os-keywords" tal:condition="view/item/getOpenscience_keywords"><a href="#os-keywords-list" tal:content="view/OpenscienceKeywords"></a></sup>
 
         <span class="files" tal:condition="view/getPdfUrl|view/getUrl">
             <a href="#" tal:attributes="href view/getPdfUrl; target string:_blank" tal:condition="view/getPdfUrl">
@@ -34,7 +33,6 @@
                 <span tal:content="view/getFormattedIdentifiers">(doi:xxxx/xxx.xxxx, issn: xxx-xxx)</span>
             </metal:block>
         </a>
-        <sup class="os-keywords" tal:condition="view/item/getOpenscience_keywords"><a href="#os-keywords-list" tal:content="view/OpenscienceKeywords"></a></sup>
         
         <span class="files" tal:condition="view/getPdfUrl|view/getUrl">
             <a href="#" tal:attributes="href view/getPdfUrl; target string:_blank" tal:condition="view/getPdfUrl">

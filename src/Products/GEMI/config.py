@@ -10,6 +10,8 @@ BFV_CATEGORY_DESCRIPTION = "bvf_category_%i_description";
 
 BFV_CATEGORY_REFTYPES = "bvf_category_%i_reftypes";
 
+BFV_CATEGORY_TAGS = "bvf_category_%i_tags";
+
 BFV_CATEGORY_COUNT = "bvf_category_count";
 
 BFV_FILTER_SHOW = "bvf_filter_show";

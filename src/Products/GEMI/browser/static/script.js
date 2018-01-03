@@ -21,6 +21,7 @@
         init: function () {
             console.log("ProductsGEMI plugin initialized");
             app.initViews();
+            app.initTabs();
         },
 
         initViews: function () {
@@ -29,7 +30,7 @@
 
         embedContentView: function () {
             if (!$('body').is('.template-view_with_slugs')) {
-                return
+                return;
             }
 
             var $navigation = $('#content-core .listingBar');
@@ -52,10 +53,25 @@
                     $('#' + parent_id).html(content_core)
                     app.initViews();
                 });
-                return false
+                return false;
             });
         },
  
+        initTabs: function() {
+            if (!$('.has-tabs').length) {
+                return;
+            }
+            $('.has-tabs').each(function(i, e) {
+                var $container = $(e);
+                $container.find('ul.tab-tabs>li>a').bind('click', function(){
+                    $container.find('ul.tab-tabs>li').removeClass('active');
+                    $container.find('.tab-content').removeClass('active');
+                    var $this = $(this);
+                    $this.parents('li').addClass('active');
+                    $container.find($this.data('href')).addClass('active');
+                });
+            });
+        }
     };
 
     $(document).ready(app.init);

@@ -40,24 +40,28 @@ class View(BrowserView):
         if (self.context.hasProperty(BFV_CATEGORY_COUNT) and self.context.getProperty(BFV_CATEGORY_COUNT) > 0):
             cats = self.gutil.getBibFolderCategories(self.context, False)
         else:
-            cats = [{id: 'all', 'category': 'all', 'description': 'all', 'reftypes': bibtool.getReferenceTypes()}]
+            cats = [{id: 'all', 'category': 'all', 'description': 'all', 'reftypes': bibtool.getReferenceTypes(), 'tags': None}]
 
         for cat in cats:
             self.queries.append(self.getCategoryQuery(cat))
 
 
     def getCategoryQuery(self, category):
-        if not category['category'] or not category['reftypes']:
+        if not category['category'] or (not category['reftypes'] and not category['tags']):
             return None;
 
         path = '/'.join(self.context.getPhysicalPath());
         query = {
-            'portal_type': list(category['reftypes']),
             'path': {'query': path, 'depth': 1},
             'sort_on': 'publication_year',
             'sort_order': 'reverse',
             'Language': 'all'
         }
+        if category['reftypes']:
+            query['portal_type'] = list(category['reftypes']);
+        if category['tags']:
+            query['Subject'] = list(category['tags']);
+
         labels = {
             'display_label': category['category'],
             'display_desc': category['description']
@@ -184,6 +188,7 @@ class ViewSettings(BrowserView):
         self.request = request
         self.gutil = getUtility(IProductsGEMIUtility)
         self.messages = IStatusMessage(self.request)
+        self.subjectKeywords = []
 
     def __call__(self):
         if (self.request["REQUEST_METHOD"] == "POST"):
@@ -195,6 +200,7 @@ class ViewSettings(BrowserView):
     
     def initSettings(self):
         self.filterSettings = self.gutil.getBibFolderFilterSettings(self.context);
+        self.subjectKeywords = self.context.portal_catalog.uniqueValuesFor('Subject');
     
     def postRequest(self):
         items = dict(self.request.form.items());
@@ -220,16 +226,35 @@ class ViewSettings(BrowserView):
         util = self.gutil;
         n = util.getBibFolderCategoryCount(self.context) + 1;
 
-        # Save categories
+        # Save category settings
+        index = 1;
         for i in range(n+1):
             cat_name = BFV_CATEGORY % i;
             cat_types = BFV_CATEGORY_REFTYPES % i;
             cat_desc = BFV_CATEGORY_DESCRIPTION % i;
-            if (cat_name in item_keys and cat_types in item_keys):
-                if (self.context.hasProperty(cat_name)):
-                    util.modifyBibFolderCategory(self.context, i, items[cat_name], items[cat_types], items[cat_desc])
-                else:
-                    util.addBibFolderCategory(self.context, items[cat_name], items[cat_types], items[cat_desc])
+            cat_tags = BFV_CATEGORY_TAGS % i;
+            category = {};
+            category[cat_name] = None;
+
+            if (cat_name in item_keys and items[cat_name]):
+                category[cat_name] = {'value': items[cat_name], 'type': 'string'};
+            if (cat_desc in item_keys):
+                category[cat_desc] = {'value': items[cat_desc], 'type': 'text'};
+            if (cat_types in item_keys):
+                category[cat_types] = {'value': items[cat_types], 'type': 'lines'};
+            else:
+                category[cat_types] = {'value': [], 'type': 'lines'};
+                
+            if (cat_tags in item_keys):
+                category[cat_tags] = {'value': items[cat_tags], 'type': 'lines'};
+            else:
+                category[cat_tags] = {'value': [], 'type': 'lines'};
+
+            if not category[cat_name]:
+                continue;
+
+            util.saveBibFolderCategorySettings(self.context, category, index);
+            index += 1;
 
         # Save filter settings
         filter_settings = util.getBibFolderFilterValues(items);
@@ -266,7 +291,6 @@ class ViewListFormatter(BrowserView):
     def __init__(self, context, request):
         super(ViewListFormatter, self).__init__(context, request);
         self.htmlparser = HTMLParser();
-        self.oskeywords = [];
 
     def __call__(self, item=None):
         self.item = item.getObject()
@@ -392,28 +416,4 @@ class ViewListFormatter(BrowserView):
             return ' (' + self.item.getEdition + ').'
         return None;
 
-    def OpenscienceKeywords(self):
-        keywords = self.item.getOpenscience_keywords();
-        if (not keywords):
-            return None;
-
-        indices = [];
-        for _key in keywords:
-            if _key in self.oskeywords:
-                indices.append(self.oskeywords.index(_key) + 1);
-            else:
-                self.oskeywords.append(_key);
-                indices.append(len(self.oskeywords));
-
-        indices.sort()
-        return ','.join(map(str, indices));
-
-    def listOpenscienceKeywords(self):
-        if not self.oskeywords:
-            return ''
-
-        strs = [];
-        for indx, word in enumerate(self.oskeywords):
-            strs.append('['+ str(indx+1) + '] ' + word);
-        return ' &nbsp; '.join(strs);
 

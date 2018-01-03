@@ -33,9 +33,14 @@
             Create categories for which the contents of this folder will be grouped. If no categories are selected, the contents will be listed as-is.
             Each category must have a set of content types associated to it before it can be displayed.
         </p>
-        <table class="categories">
+        <table class="categories table">
+            <tr>
+                <th>&nbsp;</th>
+                <th i18n:translate="">Label</th>
+                <th i18n:translate="">Query</th>
+            </tr>
             <tr class="repeat-row" tal:repeat="c python: gutil.getBibFolderCategories(context, add)">
-                <td>
+                <td class="text-center">
                     <input type="checkbox" value="true"
                         type="checkbox"
                         name="category_checks:list"
@@ -48,7 +53,7 @@
                         type='text'
                         name='category_0:string'
                         value=''
-                        tal:attributes="name python: c['id'] + ':string'; value c/category" />
+                        tal:attributes="name python: c['id'] + ':string'; value c/category; class string:'form-control'" />
                         <div>
                             <span i18n:translate="">Category Description</span><br />
                             <textarea
@@ -57,18 +62,40 @@
                                 tal:content="c/description"></textarea>
                         </div>
                 </td>
-                <td class="types">
-                    <span i18n:translate="" style="float: right">Content-type (multiselect)</span><br />
-                    <select name="category_0_reftypes:list" 
-                        size="14"
-                        multiple="multiple"
-                        tal:attributes="name python: c['id'] + '_reftypes:list'" >
-                            <option tal:repeat="rt bibtool/getReferenceTypes" 
-                                tal:content="rt" 
-                                tal:attributes="selected python: rt in c['reftypes']">
-                                Bla
-                            </option>
-                    </select>
+                <td class="types has-tabs">
+
+                    <ul class="tab-tabs">
+                        <li class="active"><a href="javascript:void(0);" tal:attributes="data-href python: '#tab-content-type-' + c['id']" i18n:translate="">Content Type</a></li>
+                        <li><a href="javascript:void(0);" tal:attributes="data-href python: '#tab-tag-' + c['id']" i18n:translate="">Tag</a></li>
+                    </ul>
+                    <div class="tab-contents">
+                        <div class="tab-content active" tal:attributes="id python: 'tab-content-type-' + c['id']" >
+                            <strong i18n:translate="">Content-type (multiselect)</strong><br />
+                            <select name="category_0_reftypes:list" 
+                                size="14"
+                                multiple="multiple"
+                                tal:attributes="name python: c['id'] + '_reftypes:list'" >
+                                    <option tal:repeat="rt bibtool/getReferenceTypes" 
+                                        tal:content="rt" 
+                                        tal:attributes="selected python: rt in c['reftypes']">
+                                        Bla
+                                    </option>
+                            </select>
+                        </div>
+
+                        <div class="tab-content" tal:attributes="id python: 'tab-tag-' + c['id']">
+                            <label tal:repeat="kw python: view.subjectKeywords" class="block">
+                                <input type="checkbox" name="category_0_tags:list" 
+                                    tal:attributes="
+                                        name python: c['id'] + '_tags:list';
+                                        value kw;
+                                        checked python: c['tags'] and kw in c['tags']" />
+                                    <span tal:content="kw"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                    
                 </td>
             </tr>
 
