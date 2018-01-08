@@ -1,5 +1,5 @@
 <li class="bibfolder-item">
-    <metal:block tal:condition="python: view.item.portal_type in ['ProceedingsReference', 'ArticleReference', 'ManualReference', 'UnpublishedReference', 'MastersthesisReference', 'WebpublishedReference', 'PhdthesisReference', 'PreprintReference', 'BookReference', 'BookletReference', 'TechreportReference', 'MiscReference', 'InproceedingsReference']">
+    <metal:block tal:condition="python: view.item.portal_type in ['ProceedingsReference', 'ArticleReference', 'ManualReference', 'UnpublishedReference', 'MastersthesisReference', 'WebpublishedReference', 'PhdthesisReference', 'PreprintReference', 'BookReference', 'BookletReference', 'TechreportReference', 'MiscReference']">
         <a tal:attributes="href view/item/getURL; target string:_blank; class string:bibfolder-item-link">
             <span class="authors" tal:replace="python: view.Authors">Authors</span> (<span tal:content="view/item/getPublication_year"></span>).
             <span class="title" tal:content="view/Title"/>
@@ -21,7 +21,7 @@
         </span>
     </metal:block>
 
-    <metal:block  tal:condition="python: view.item.portal_type in ['IncollectionReference', 'InbookReference', 'ConferenceReference']">
+    <metal:block  tal:condition="python: view.item.portal_type in ['IncollectionReference', 'InbookReference', 'ConferenceReference', 'InproceedingsReference']">
         <a tal:attributes="href view/item/getURL; target string:_blank; class string:bibfolder-item-link">
             <span class="authors" tal:replace="python: view.Authors">Authors</span> (<span tal:content="view/item/getPublication_year"></span>).
             <span class="title" tal:content="view/Title"/>
