@@ -350,31 +350,33 @@ class RecentPublicationsView(View):
         #b_size = self.context.b_size;
         #limit = self.context.limit;
 
-        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=b_size * 10, **query)
+        results = self.context.queryCatalog(batch=True, b_start=b_start, b_size=self.context.b_size*10, **query)
         results = self.randomizeBatch(results);
         items = items or [];
+
         for brain in results:
             if brain.UID in self.duplicates:
                 continue;
+            self.duplicates[brain.UID] = True
             items.append(brain)
             if (len(items) >= b_size):
                 self.items.extend(items);
                 return;
 
-            self.duplicates[brain.UID] = None
             try:
                 is_duplicate, matches = self.gutil.isDuplicate(self, brain.getObject(), 'global');
                 if (is_duplicate):
                     for match in matches:
-                        self.duplicates[match.UID()] = None
+                        self.duplicates[match.UID()] = True
             except:
                 prev_year = year
         #if results:
         #    b_start += b_size
-        self.items.extend(items);
         if len(self.items) < self.context.b_size and self.itr_count < self.max_itr_count:
             self.itr_count += 1;
             self.getResultsByYear(b_start, b_size, prev_year, items)
+        else:
+            self.items.extend(items);
 
         return items;
 

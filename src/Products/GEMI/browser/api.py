@@ -247,7 +247,8 @@ class ExportNewsAndEventsAsJSON(BrowserView):
         if (id not in self.members):
             portal_membership = getToolByName(self.context, 'portal_membership');
             member = portal_membership.getMemberById(id)
-            self.members[id] = member.getProperty("fullname")
+            if member:
+                self.members[id] = member.getProperty("fullname")
 
         return self.members.get(id, None);
 
