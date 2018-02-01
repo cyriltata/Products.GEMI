@@ -299,12 +299,10 @@ class ViewListFormatter(BrowserView):
 
     def formatVolume(self):
         v = '';
-        if (hasattr(self.item, 'volume')):
+        if (getattr(self.item, 'volume', None)):
             v += "<i>%s</i>" % self.item.getVolume()
-        if (hasattr(self.item, 'number')):
-            num = self.item.getNumber();
-            if num:
-                v += '('+num+')';
+        if (getattr(self.item, 'number', None)):
+            v += '('+self.item.getNumber()+')';
         v = v.strip();
         if v and self.getPages():
             v = v + ', ';
