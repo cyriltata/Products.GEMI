@@ -352,7 +352,7 @@ class ViewListFormatter(BrowserView):
         book = [];
         if (hasattr(self.item, 'chapter')):
             book.append(self.item.getChapter())
-        if (hasattr(self.item, 'pages')):
+        if (getattr(self.item, 'pages', None)):
             book.append('pp. ' + self.item.getPages())
         book = filter(None, book);
 
@@ -360,9 +360,9 @@ class ViewListFormatter(BrowserView):
 
         if book:
             s += '(' + ', '.join(book) + ').'
-        if (hasattr(self.item, 'publisher') and not self.item.getAddress()):
+        if (getattr(self.item, 'publisher', None) and not self.item.getAddress()):
             s += ' %s.' % self.item.getPublisher()
-        elif (hasattr(self.item, 'publisher') and self.item.getAddress()):
+        elif (getattr(self.item, 'publisher', None) and self.item.getAddress()):
             s += ' %s: %s.' % (self.item.getAddress(), self.item.getPublisher())
 
         return s;
