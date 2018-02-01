@@ -4,7 +4,7 @@
             <span class="authors" tal:replace="python: view.Authors">Authors</span> (<span tal:content="view/item/getPublication_year"></span>).
             <span class="title" tal:content="view/Title"/>
             <i class="journal" tal:condition="view/getJournal" tal:content="view/getJournal" />
-            <span class= "volume" tal:content="python: '%s' % view.formatVolume()" />
+            <span class= "volume" tal:content="structure python: '%s' % view.formatVolume()" />
             <span class="pages" tal:condition="python: hasattr(view.item,'pages')" tal:content="view/getPages" />
             <metal:block tal:condition="view/getFormattedIdentifiers">
                 <span tal:content="view/getFormattedIdentifiers">(doi:xxxx/xxx.xxxx, issn: xxx-xxx)</span>

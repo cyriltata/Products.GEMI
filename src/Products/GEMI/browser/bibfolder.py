@@ -300,7 +300,7 @@ class ViewListFormatter(BrowserView):
     def formatVolume(self):
         v = '';
         if (hasattr(self.item, 'volume')):
-            v += self.item.getVolume()
+            v += "<i>%s</i>" % self.item.getVolume()
         if (hasattr(self.item, 'number')):
             num = self.item.getNumber();
             if num:
@@ -336,11 +336,19 @@ class ViewListFormatter(BrowserView):
         if (not hasattr(self.item, 'identifiers')):
             return None
         try:
-            s = ' '.join([" %s: %s," % (identifier['label'], identifier['value']) for identifier in self.item.getIdentifiers()]).strip(',').strip();
+            s = ' '.join([self.getFormattedIdentifier(identifier) for identifier in self.item.getIdentifiers()]).strip(',').strip();
             if s:
                 return s + '.';
         except:
             return None;
+
+    def getFormattedIdentifier(self, identifier):
+        if (identifier['label'] == 'DOI'):
+            idf = identifier['value'] if ("doi.org" in identifier['value']) else "https://dx.doi.org/" + identifier['value']
+            return " %s," % idf
+        else:
+            return " %s: %s," % (identifier['label'], identifier['value'])
+        
 
     def getPages(self):
         if (hasattr(self.item, 'pages') and self.item.getPages()):
