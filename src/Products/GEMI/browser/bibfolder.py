@@ -349,7 +349,7 @@ class ViewListFormatter(BrowserView):
         
 
     def getPages(self):
-        if (hasattr(self.item, 'pages') and self.item.getPages()):
+        if (getattr(self.item, 'pages', None)):
             return self.htmlparser.unescape(self.item.getPages()) + '.'
         return None;
 
@@ -398,7 +398,7 @@ class ViewListFormatter(BrowserView):
 
     @property
     def Editors(self):
-        if hasattr(self.item, 'editor') and self.item.getEditor():
+        if getattr(self.item, 'editor', None):
             return 'In ' + self.item.getEditor() + ', '
         return None;
 
@@ -415,7 +415,7 @@ class ViewListFormatter(BrowserView):
 
     @property
     def Edition(self):
-        if (hasattr(self.item, 'edition') and self.item.getEdition()):
+        if (getattr(self.item, 'edition', None)):
             return ' (' + self.item.getEdition() + ').'
         return None;
 
