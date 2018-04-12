@@ -6,6 +6,7 @@
     <property name="view_methods" purge="False">
         <element value="navigation-like" i18n:translate="">Navigation-like View</element>
         <element value="listbycontenttype" i18n:translate="">Content Type View</element>
+        <element value="translated-object" i18n:translate="">Translated Object</element>
     </property>
     
     <action title="View Settings"

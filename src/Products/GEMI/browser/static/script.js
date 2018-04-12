@@ -29,31 +29,14 @@
         },
 
         embedContentView: function () {
-            if (!$('body').is('.template-view_with_slugs')) {
+            var $iframe = $('#content-core-iframe');
+            if (!$iframe.length) {
                 return;
             }
 
-            var $navigation = $('#content-core .listingBar');
-            $navigation.find('a').unbind('click').bind('click', function (e) {
-                e.preventDefault();
-                var $this = $(this);
-                var href = $this.attr('href');
-                var context = $this.parents('.products-gemi-embed').data('context')
-                var parent_id = $this.parents('.products-gemi-embed').attr('id');
-                if (!context || !href) {
-                    return false;
-                }
-
-                var parse_href = parseUrl(href);
-                var fetch_url = context + '/' + parse_href.search;
-
-                $.get(fetch_url, function (data) {
-                    scrollTo('#' + parent_id);
-                    var content_core = $(data).find('#content-core').html();
-                    $('#' + parent_id).html(content_core)
-                    app.initViews();
-                });
-                return false;
+            $iframe.bind('load', function() {
+                var contents = $iframe.contents().find('#content-core').html();
+                $('#content-core').html(contents);
             });
         },
  

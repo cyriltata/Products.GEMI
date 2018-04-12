@@ -14,23 +14,23 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.GEMI\n"
 
-#: GEMI/browser/configure.zcml:171
+#: GEMI/browser/configure.zcml:180
 msgid "A collection list view with filter"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:201
+#: GEMI/browser/configure.zcml:210
 msgid "A collection of most recent publications added with the publications extension"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:191
+#: GEMI/browser/configure.zcml:200
 msgid "A gemi specific bibfolder view"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:151
+#: GEMI/browser/configure.zcml:160
 msgid "A list of items like in a navigation"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:161
+#: GEMI/browser/configure.zcml:170
 msgid "A list of items showing only configured content types"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Bibliography Folder"
 msgstr "Bibliography Folder"
 
-#: GEMI/browser/bibfolder.py:275
+#: GEMI/browser/bibfolder.py:272
 #: GEMI/browser/collections.py:124
 msgid "Categories have been deleted!"
 msgstr "Categories have been deleted!"
@@ -66,7 +66,7 @@ msgstr "Collection Filter View Settings"
 msgid "Content Type"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:161
+#: GEMI/browser/configure.zcml:170
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Content Type View"
 msgstr "Content Type View"
@@ -153,7 +153,11 @@ msgstr ""
 msgid "List of years to be shown in filter (each in newline)"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:151
+#: GEMI/browser/templates/translated_object.pt:12
+msgid "Loading content..."
+msgstr ""
+
+#: GEMI/browser/configure.zcml:160
 #: GEMI/profiles/default/types/Folder.xml
 msgid "Navigation-like View"
 msgstr ""
@@ -178,7 +182,7 @@ msgstr ""
 msgid "Products.GEMI settings"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:171
+#: GEMI/browser/configure.zcml:180
 #: GEMI/profiles/default/types/BibliographyFolder.xml
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Publications view"
@@ -195,7 +199,7 @@ msgstr ""
 msgid "Query"
 msgstr ""
 
-#: GEMI/browser/configure.zcml:201
+#: GEMI/browser/configure.zcml:210
 #: GEMI/profiles/default/types/Collection.xml
 msgid "Recent Publications view"
 msgstr ""
@@ -223,6 +227,10 @@ msgstr "Settings for Content-type folder view"
 msgid "Show items exluded from navigation"
 msgstr "Show items exluded from navigation"
 
+#: GEMI/browser/configure.zcml:220
+msgid "Show up the translated object as-is if it exists, instead of showing the actual object"
+msgstr ""
+
 #: GEMI/browser/controlpanel.py:9
 msgid "Some global settings of the Products.GEMI extension"
 msgstr ""
@@ -235,6 +243,11 @@ msgstr ""
 #: GEMI/interfaces.py:21
 msgid "Title"
 msgstr "Title"
+
+#: GEMI/browser/configure.zcml:220
+#: GEMI/profiles/default/types/Folder.xml
+msgid "Translated Object"
+msgstr ""
 
 #: GEMI/configure.zcml:39
 msgid "Uninstall Products.GEMI"
@@ -251,7 +264,7 @@ msgstr ""
 msgid "WWW-Team"
 msgstr "WWW-Team"
 
-#: GEMI/browser/bibfolder.py:263
+#: GEMI/browser/bibfolder.py:260
 #: GEMI/browser/collections.py:65
 #: GEMI/browser/folders.py:245
 msgid "Your settings have been saved!"
@@ -281,6 +294,7 @@ msgstr ""
 #. Default: "Error"
 #: GEMI/browser/templates/collection_view.pt:11
 #: GEMI/browser/templates/collection_view_settings.pt:20
+#: GEMI/browser/templates/translated_object.pt:15
 msgid "error"
 msgstr ""
 
@@ -398,4 +412,19 @@ msgstr ""
 #. Default: "all"
 #: GEMI/browser/templates/bibfolder_view.pt:32
 msgid "text_years_all"
+msgstr ""
+
+#. Default: "A translated version of this object was not found."
+#: GEMI/browser/view.py:93
+msgid "translation_not_found"
+msgstr ""
+
+#. Default: "An error occured reading the translated object"
+#: GEMI/browser/view.py:89
+msgid "translation_read_error"
+msgstr ""
+
+#. Default: "The translated content has been assigned the same layout. This might lead to an unpleasant loop."
+#: GEMI/browser/view.py:78
+msgid "translation_selected_same_view"
 msgstr ""

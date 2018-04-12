@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="Products.GEMI">
+
+<body>
+    <div metal:fill-slot="content-core">
+
+        <iframe id="content-core-iframe" tal:condition="view/found_translation" tal:attributes="src view/content/absolute_url" style="display: none;"></iframe>
+        <span class="loading" i18n:translate="">Loading content...</span> 
+
+        <dl tal:condition="not:view/found_translation" class="portalMessage error">
+            <dt i18n:translate="error">Error</dt>
+            <dd tal:content="view/message">message</dd>
+        </dl>
+
+    </div>
+</body>
+
+</html>
+

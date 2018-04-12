@@ -128,6 +128,15 @@
         permission="zope2.View"
         class=".bibfolder.ViewListFormatter"
         />
+
+    <!-- View to display translated object -->
+    <browser:page
+        for="*"
+        name="translated-object"
+        class=".view.TranslatedObjectView"
+        permission="zope2.View"
+        layer="..interfaces.IProductsGemiLayer"
+    />
  
     <!-- View to export Event and News content-types in JSON -->
     <browser:page
@@ -200,5 +209,14 @@
         layer="..interfaces.IProductsGemiLayer"
     />
 
+    <!-- display menu item translated object view -->
+    <browser:menuItem
+        for="*"
+        menu="plone_displayviews"
+        title="Translated Object"
+        action="@@translated-object"
+        description="Show up the translated object as-is if it exists, instead of showing the actual object"
+        layer="..interfaces.IProductsGemiLayer"
+    />
 
 </configure>

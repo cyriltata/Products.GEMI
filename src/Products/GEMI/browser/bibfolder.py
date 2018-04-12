@@ -290,6 +290,8 @@ class ViewListFormatter(BrowserView):
         self.htmlparser = HTMLParser();
 
     def __call__(self, item=None):
+        if (item is None):
+            return None;
         self.item = item.getObject()
         return self.template()
 
