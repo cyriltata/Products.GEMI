@@ -5,6 +5,7 @@
 >
     <property name="view_methods" purge="False">
         <element value="bibfolder-view-gemi" i18n:translate="">Publications view</element>
+        <element value="translated-object" i18n:translate="">Translated Object</element>
     </property>
 
     <action title="Publications view Settings"
